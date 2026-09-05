@@ -1,15 +1,15 @@
 {
   "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-05T23:40:00+05:30",
+  "last_updated": "2026-09-06T01:13:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 30,
-  "current_phase": "Phase 2 — Publish & Semantic Model Management in Service",
+  "overall_progress_pct": 50,
+  "current_phase": "Phase 3 — Gateway & Refresh Deep Dive",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
-    "individual_trial": "Not Started (Begins Phase 2)",
+    "individual_trial": "Active (47 days remaining)",
     "fabric_f64_trial": "Not Started (Begins Phase 5 - 60 day clock)"
   },
   "phases": [
@@ -110,20 +110,95 @@
     {
       "id": "P2",
       "name": "Phase 2 — Publish & Semantic Model Management in Service",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 90,
+      "gate_date": "2026-09-06",
       "hours_estimated": "8-10h",
-      "evidence_tag": "phase-2-published"
+      "evidence_tag": "phase-2-published",
+      "tasks": [
+        {
+          "id": "T2.1",
+          "name": "Start Individual Power BI Pro / Fabric Trial",
+          "status": "Completed",
+          "evidence": "Verified Fabric & Power BI trial active with 47 days remaining on punitgiri@punitgiri921gmail.onmicrosoft.com."
+        },
+        {
+          "id": "T2.2",
+          "name": "Workspace Setup & First Publish",
+          "status": "Completed",
+          "evidence": "Created 'BL-Sales-DEV' workspace and published Brightline_Sales semantic model + report from Power BI Desktop. Verified via Service screenshot."
+        },
+        {
+          "id": "T2.3",
+          "name": "Build 3 Thin Reports (Live Connection)",
+          "status": "Completed",
+          "evidence": "Configured 3 Thin Reports (Report_Executive_Overview, Report_Regional_Sales, Report_Store_Performance) in PBIP/PBIR format bound via XMLA live connection string to Brightline_Sales semantic model in BL-Sales-DEV."
+        },
+        {
+          "id": "T2.4",
+          "name": "Model Settings & Endorsement",
+          "status": "Completed",
+          "evidence": "Configured semantic model description and verified 'Promoted' endorsement badge in BL-Sales-DEV workspace."
+        },
+        {
+          "id": "T2.5",
+          "name": "Read vs Build Permissions & Takeover Rehearsal",
+          "status": "Completed",
+          "evidence": "Rehearsed Direct Access permissions (Read vs Build) and verified dataset takeover credential invalidation mechanics. Passed Phase 2 Gate Exam with 90/100."
+        }
+      ],
+      "gate_topics": [
+        "Promoted vs Certified endorsement governance",
+        "Read vs Build permissions & Analyze in Excel",
+        "Dataset takeover credential invalidation"
+      ]
     },
     {
       "id": "P3",
       "name": "Phase 3 — Gateway & Refresh Deep Dive",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "8h",
-      "evidence_tag": "phase-3-gateway"
+      "evidence_tag": "phase-3-gateway",
+      "tasks": [
+        {
+          "id": "T3.1",
+          "name": "Install / Verify On-premises Data Gateway (Standard Mode)",
+          "status": "In Progress",
+          "evidence": null
+        },
+        {
+          "id": "T3.2",
+          "name": "Create PostgreSQL Gateway Connections (BL-PG-DEV / TEST / PROD)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T3.3",
+          "name": "Configure Mixed-Source Scheduled Refresh (Postgres Gateway + OneDrive OAuth2)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T3.4",
+          "name": "Resolve Formula.Firewall Privacy Level Conflicts",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T3.5",
+          "name": "Execute Gateway Sabotage Labs (L1, L2, L3, L14) & Phase 3 Gate Exam",
+          "status": "Pending",
+          "evidence": null
+        }
+      ],
+      "gate_topics": [
+        "Standard vs Personal Gateway architecture",
+        "Gateway clustering and high availability",
+        "Formula.Firewall privacy levels in hybrid mashups",
+        "Gateway troubleshooting log analysis"
+      ]
     },
     {
       "id": "P4",
@@ -272,6 +347,41 @@
       "details": "Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.",
       "phase": "P1",
       "date": "2026-09-05"
+    },
+    {
+      "id": "CL-11",
+      "concept": "Golden Semantic Model vs Thin Report Architecture",
+      "details": "Enterprise Power BI decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via Power BI Service Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-12",
+      "concept": "Thin Report Binding & Lineage via definition.pbir Connection Strings",
+      "details": "In PBIP/PBIR format, thin reports maintain zero local data and declare their upstream dataset dependency in definition.pbir using XMLA endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines or CI/CD promotions, this pointer is rebinding-aware.",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-13",
+      "concept": "Dataset Endorsement Governance (Promoted vs Certified)",
+      "details": "Promoted endorsement is self-service metadata applied by dataset owners to improve discoverability. Certified endorsement requires tenant-level security group authorization managed by Power BI / Fabric Administrators, guaranteeing the model meets enterprise data quality, security, and governance standards.",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-14",
+      "concept": "Read vs Build Permissions & Enterprise Thin Reports",
+      "details": "Read permission allows users to consume reports without accessing the underlying model. Build permission allows users to author new reports, use Analyze in Excel, and connect live via XMLA endpoints without exposing data source credentials.",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-15",
+      "concept": "Dataset Takeover & Credential Invalidation Mechanics (Lab L14)",
+      "details": "When a new owner takes over a dataset in Power BI Service, all stored data source connection credentials and gateway bindings are invalidated for security. The new owner must immediately re-enter database credentials and rebind gateway data sources before scheduled refresh can resume.",
+      "phase": "P2",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -373,6 +483,39 @@
       "category": "Workspace Architecture",
       "phase": "P1",
       "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-10",
+      "question": "What is the difference between Promoted and Certified semantic model endorsements?",
+      "answer_summary": "Correctly distinguished self-service owner promotion from tenant-controlled governance team certification.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-11",
+      "question": "What is the operational difference between Read and Build permissions on a shared semantic model?",
+      "answer_summary": "Identified visual viewing restriction vs building new reports and connecting live via Analyze in Excel/XMLA.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Technically Correct but Needs Improvement",
+      "category": "Security",
+      "phase": "P2",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-12",
+      "question": "Why does taking over a dataset break existing gateway and scheduled refresh bindings?",
+      "answer_summary": "Identified gateway credentials context; explained security invalidation of connection credentials on ownership change.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Troubleshooting",
+      "phase": "P2",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
@@ -405,6 +548,9 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding"},
     {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.3 Star Schema model & Dim_Date table built"},
     {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.4 Authored 22 DAX core measures across 4 display folders"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"}
   ]
 }

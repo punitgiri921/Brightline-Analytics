@@ -361,9 +361,9 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">30%</div>
+          <div class="stat-value" id="overall-pct">42%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 30%;"></div>
+            <div class="progress-fill" style="width: 42%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
@@ -374,7 +374,7 @@
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
-          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-amber);">Not Started</div>
+          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">47 Days Left</div>
           <span class="stat-subtitle">Fabric F64 clock starts at Phase 5</span>
         </div>
         <div class="stat-card">
@@ -523,21 +523,21 @@
           Goal: Activate Individual Trial, establish BL-Sales-DEV workspace, publish semantic model, author 3 thin reports via Live Connection, configure model settings/endorsement, and master Read vs Build permissions & dataset takeover.
         </p>
         <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t21" checked />
+            <label for="t21"><strong>Task 2.1: Start Individual Power BI Pro Trial</strong> — Activate 60-day individual license trial in Power BI Service for learner account. <span style="color: var(--accent-green); font-weight: 600;">(Done — 47 Days Active)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t22" checked />
+            <label for="t22"><strong>Task 2.2: Workspace Setup & First Publish</strong> — Create 'BL-Sales-DEV' workspace and publish Brightline_Sales semantic model. <span style="color: var(--accent-green); font-weight: 600;">(Done — BL-Sales-DEV Published)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t23" checked />
+            <label for="t23"><strong>Task 2.3: Build 3 Thin Reports (Live Connection)</strong> — Author Executive Overview, Regional Sales, and Store Performance reports connected live to the published model. <span style="color: var(--accent-green); font-weight: 600;">(Done — 3 PBIP Thin Reports)</span></label>
+          </li>
           <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t21" />
-            <label for="t21"><strong>Task 2.1: Start Individual Power BI Pro Trial</strong> — Activate 60-day individual license trial in Power BI Service for learner account. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
-          </li>
-          <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t22" />
-            <label for="t22"><strong>Task 2.2: Workspace Setup & First Publish</strong> — Create 'BL-Sales-DEV' workspace and publish Brightline_Sales semantic model.</label>
-          </li>
-          <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t23" />
-            <label for="t23"><strong>Task 2.3: Build 3 Thin Reports (Live Connection)</strong> — Author Executive Overview, Regional Sales, and Store Performance reports connected live to the published model.</label>
-          </li>
-          <li class="task-item">
             <input type="checkbox" class="task-checkbox" id="t24" />
-            <label for="t24"><strong>Task 2.4: Model Settings & Endorsement</strong> — Configure semantic model description, contact person, and promote/certify status.</label>
+            <label for="t24"><strong>Task 2.4: Model Settings & Endorsement</strong> — Configure semantic model description, contact person, and promote/certify status. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
           </li>
           <li class="task-item">
             <input type="checkbox" class="task-checkbox" id="t25" />
@@ -694,6 +694,20 @@
             <td>Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.</td>
             <td>P1</td>
             <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-11</strong></td>
+            <td>Golden Semantic Model vs Thin Report Architecture</td>
+            <td>Enterprise Power BI decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).</td>
+            <td>P2</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-12</strong></td>
+            <td>Thin Report Binding & Lineage via definition.pbir Connection Strings</td>
+            <td>In PBIP/PBIR format, thin reports declare their upstream dataset dependency in definition.pbir using XMLA endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines, this pointer is rebinding-aware.</td>
+            <td>P2</td>
+            <td>2026-09-06</td>
           </tr>
         </tbody>
       </table>
@@ -889,11 +903,23 @@
             <td>P1</td>
             <td>T1.5 BPA hardening + Phase 1 Gate Exam passed</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P2</td>
+            <td>T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P2</td>
+            <td>T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">5.0h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">6.0h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
