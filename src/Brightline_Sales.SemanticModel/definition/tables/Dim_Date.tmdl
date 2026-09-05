@@ -1,0 +1,129 @@
+table Dim_Date
+	lineageTag: 7cb6bf15-d103-441b-9982-acdd9b68979f
+	dataCategory: Time
+
+	column Date
+		isHidden
+		isKey
+		formatString: General Date
+		lineageTag: 3c157819-f630-46cb-9ae1-02f567e3ccd4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 6f29c691-9bdf-4385-bb8a-31f88e815771
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 27b43178-4e64-4778-abae-c2f32b78567f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearQuarter
+		lineageTag: 5f7c5988-2552-4e32-9454-92536a1e8a63
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearQuarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNum
+		formatString: 0
+		lineageTag: 7f154e9b-cb0c-4ec1-9ecc-38aa86f4b233
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MonthNum]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: 65f64ff1-7cfb-43a8-88ba-8aa7e6a8148d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthName]
+		sortByColumn: MonthNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		lineageTag: f7bf7904-d6e6-4ceb-9b8c-596f9a092dde
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+		sortByColumn: YearMonthSort
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonthSort
+		formatString: 0
+		lineageTag: 8009f282-f4f2-45e7-8ff0-46c7ce07d4bc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [YearMonthSort]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		formatString: 0
+		lineageTag: bf2a2591-2b8c-4d2d-a60a-ef9aef2527cb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [DayOfWeek]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayName
+		lineageTag: a174bc66-b364-4d50-a6eb-41f647954ed4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [DayName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWeekend
+		formatString: 0
+		lineageTag: 27dc75ee-54bf-4caf-a3df-e7fce343b2e5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [IsWeekend]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Date = calculated
+		mode: import
+		source = ```
+				
+				VAR MinYear = 2023
+				VAR MaxYear = 2026
+				VAR DateTable = 
+				    CALENDAR(DATE(MinYear, 1, 1), DATE(MaxYear, 12, 31))
+				RETURN
+				    ADDCOLUMNS(
+				        DateTable,
+				        "Year", YEAR([Date]),
+				        "Quarter", "Q" & FORMAT([Date], "Q"),
+				        "YearQuarter", YEAR([Date]) & "-Q" & FORMAT([Date], "Q"),
+				        "MonthNum", MONTH([Date]),
+				        "MonthName", FORMAT([Date], "mmm"),
+				        "YearMonth", FORMAT([Date], "yyyy-mm"),
+				        "YearMonthSort", YEAR([Date]) * 100 + MONTH([Date]),
+				        "DayOfWeek", WEEKDAY([Date], 2), -- 1=Monday, 7=Sunday
+				        "DayName", FORMAT([Date], "ddd"),
+				        "IsWeekend", IF(WEEKDAY([Date], 2) IN {6, 7}, 1, 0)
+				    )
+				
+				```
+
+	annotation PBI_Id = e4443b54a65440b68a09a12bf53ae396
+

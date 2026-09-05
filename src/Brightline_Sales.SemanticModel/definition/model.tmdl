@@ -9,9 +9,22 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["PG_Server","PG_Database","RangeStart","RangeEnd"]
+annotation PBI_QueryOrder = ["PG_Server","PG_Database","RangeStart","RangeEnd","Dim_Customers","Dim_Products","Dim_SalesReps","Fact_Sales","Dim_Stores","Fact_Targets","Security_UserPermissions","_Measure","_Meaure"]
 
 annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_Customers
+ref table Dim_Products
+ref table Dim_SalesReps
+ref table Fact_Sales
+ref table DateTableTemplate_943f6244-3548-46e8-ae50-cf9b69558034
+ref table LocalDateTable_73fc1455-79c3-4b0f-9857-568487cab2e5
+ref table Dim_Stores
+ref table LocalDateTable_68c8af0e-8c0c-4f6a-a5f5-317db4b0cb1c
+ref table Fact_Targets
+ref table Security_UserPermissions
+ref table Dim_Date
+ref table _Meaure
 
 ref cultureInfo en-IN
 

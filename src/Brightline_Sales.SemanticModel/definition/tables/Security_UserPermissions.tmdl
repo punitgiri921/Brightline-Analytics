@@ -1,0 +1,58 @@
+table Security_UserPermissions
+	lineageTag: 5d4128a1-9de4-4aca-9528-ff1dbfd8f586
+
+	column Email
+		dataType: string
+		lineageTag: 7809a8dd-d89f-49c9-998a-3c35bd0e68f1
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column User_Name
+		dataType: string
+		lineageTag: 1278b4c3-616b-4364-9889-6c6dffdbe10b
+		summarizeBy: none
+		sourceColumn: User_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 94598759-02a3-422f-8ccf-996b38b878e7
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_Region
+		dataType: string
+		lineageTag: d4a75ee3-113d-42ae-974b-3691c0077db0
+		summarizeBy: none
+		sourceColumn: Assigned_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Assigned_Territory
+		dataType: string
+		lineageTag: 4460c15e-53fa-47ea-a1eb-0e304656138d
+		summarizeBy: none
+		sourceColumn: Assigned_Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Security_UserPermissions = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("D:\01_Ex_Files_Intermediate_SQL_for_Data_Scientists\Goodly PowerBi\Coursera_deployement_pipeline\PBI FMCG Project\sharepoint-sources\UserSecurity.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "UserPermissions", Kind = "Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Email", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

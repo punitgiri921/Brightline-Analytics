@@ -1,0 +1,68 @@
+table Dim_Products
+	lineageTag: bb5de3d8-a9e1-4d33-88f0-6f6b5c104bb3
+
+	column product_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2d0bc39a-5758-4765-b4cc-ee60b7e76d05
+		summarizeBy: none
+		sourceColumn: product_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: a0101e2e-0c2b-43ba-8fff-6fc2fd75f2c0
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: 8f79456d-4a24-49c2-9041-efdd8c3ca524
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 0d7ed17b-8147-4544-b509-1e7bf77cdf43
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcategory
+		dataType: string
+		lineageTag: 8a9fc385-fb16-4c02-8e95-8d1322710b11
+		summarizeBy: none
+		sourceColumn: subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost
+		dataType: double
+		lineageTag: 2f619cb3-177b-4669-ba1e-aae4b7d2f599
+		summarizeBy: none
+		sourceColumn: unit_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Dim_Products = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database(PG_Server, PG_Database),
+				  #"Navigation 1" = Source{[Schema = "erp", Item = "products"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,50 @@
+table Dim_SalesReps
+	lineageTag: 903de6ca-e429-4373-bc56-511c07f24470
+
+	column rep_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 041f0b39-2a67-43d0-8a63-a7281463f388
+		summarizeBy: none
+		sourceColumn: rep_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 993c11dc-8e34-40b7-8f36-c80f60484d80
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: a7cc9af0-f1ed-442f-8c5f-6cb43cfff25c
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory
+		dataType: string
+		lineageTag: e4d9f8f6-c411-4d75-aff8-04085771d6a1
+		summarizeBy: none
+		sourceColumn: territory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_SalesReps = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database(PG_Server, PG_Database),
+				  #"Navigation 1" = Source{[Schema = "erp", Item = "sales_reps"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

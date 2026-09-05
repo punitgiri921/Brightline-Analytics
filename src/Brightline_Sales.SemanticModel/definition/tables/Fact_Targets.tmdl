@@ -1,0 +1,64 @@
+table Fact_Targets
+	lineageTag: b1050fe2-2e33-4aa7-a269-1f50ebf7c86a
+
+	column Target_Month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 52a58ff3-2c6b-48ad-8c4f-7e7013a76552
+		summarizeBy: none
+		sourceColumn: Target_Month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Region
+		dataType: string
+		lineageTag: b599cf9d-821c-481e-936a-a35d86f27c56
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 0b8d4676-c543-4c08-871c-36e6bf8d4f2d
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target_Revenue
+		dataType: double
+		lineageTag: 0ce8355b-0b4f-4593-8b32-655c4094495b
+		summarizeBy: sum
+		sourceColumn: Target_Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Target_Units
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bed4f54-1dda-4111-b51b-e8c15e20a015
+		summarizeBy: sum
+		sourceColumn: Target_Units
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Targets = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("D:\01_Ex_Files_Intermediate_SQL_for_Data_Scientists\Goodly PowerBi\Coursera_deployement_pipeline\PBI FMCG Project\sharepoint-sources\Targets.xlsx"), null, true),
+				  #"Navigation 1" = Source{[Item = "MonthlyTargets", Kind = "Sheet"]}[Data],
+				  #"Promoted headers" = Table.PromoteHeaders(#"Navigation 1", [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"Target_Month",type date }, {"Region", type text}, {"Category", type text}, {"Target_Revenue", type number}, {"Target_Units", Int64.Type}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,139 @@
+table Fact_Sales
+	lineageTag: 879f375c-5aa1-44ed-a63c-85928f47ef79
+
+	column txn_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a86f74a9-95ab-4ff2-8d00-47da137d6044
+		summarizeBy: sum
+		sourceColumn: txn_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 83297ea2-78fa-4be5-88cd-5e8ec331c302
+		summarizeBy: none
+		sourceColumn: txn_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b8eedffd-aee4-4ef0-9049-3e0525d0c168
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 45b17e89-22ad-4ca5-8649-273585bd3d00
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d97d5a43-785d-4363-87e1-7f6890357ee8
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column rep_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ad1e0a37-9e18-4d25-b8f1-f78befe80f00
+		summarizeBy: none
+		sourceColumn: rep_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column qty
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 398826dd-fb27-4535-b184-b47e1a8655e8
+		summarizeBy: sum
+		sourceColumn: qty
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		isHidden
+		lineageTag: f4b49b60-bbb8-479e-87e6-361b2ef7f43d
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_pct
+		dataType: double
+		isHidden
+		lineageTag: 4265abdd-06fd-440d-994b-eddd4e613806
+		summarizeBy: sum
+		sourceColumn: discount_pct
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unit_cost
+		dataType: double
+		isHidden
+		lineageTag: b471dc10-0b04-46cb-bfae-e2e3515ef124
+		summarizeBy: sum
+		sourceColumn: unit_cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column last_modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7ad07c23-6561-448c-8f91-c1a1445970f1
+		summarizeBy: none
+		sourceColumn: last_modified
+
+		variation Variation
+			isDefault
+			relationship: de2b3951-e337-402b-9e93-e2f730a57fe1
+			defaultHierarchy: LocalDateTable_73fc1455-79c3-4b0f-9857-568487cab2e5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Sales = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database(PG_Server, PG_Database),
+				  #"Navigation 1" = Source{[Schema = "erp", Item = "sales_transactions"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"Navigation 1",{{"txn_date", type datetime}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [txn_date] >= RangeStart and [txn_date] <= RangeEnd)
+				in
+				  #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_IsMQueryFoldable = True
+
+	annotation PBI_NavigationStepName = Navigation
+

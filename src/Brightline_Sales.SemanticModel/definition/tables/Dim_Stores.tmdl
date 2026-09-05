@@ -1,0 +1,73 @@
+table Dim_Stores
+	lineageTag: d26f88f2-84c4-4ea8-b607-fc505a239338
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a018349a-0d1c-4d71-aac4-f9bf89ce432c
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: a6d48641-cf98-4cf7-9f17-947bc23fb899
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 578c81eb-57da-4377-beda-74d240cd95fd
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column territory
+		dataType: string
+		lineageTag: 8f29cc36-0741-4a1f-958d-1bf56a2e4e93
+		summarizeBy: none
+		sourceColumn: territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 453b64fa-0dc0-4005-b5ef-edb2672c0bc5
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column opened_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 011753f4-ad05-4547-a3ea-8308a191c510
+		summarizeBy: none
+		sourceColumn: opened_date
+
+		variation Variation
+			isDefault
+			relationship: 50735b06-3b1b-4b35-b2c2-60f3548dd7a5
+			defaultHierarchy: LocalDateTable_68c8af0e-8c0c-4f6a-a5f5-317db4b0cb1c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Dim_Stores = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database(PG_Server, PG_Database),
+				  #"Navigation 1" = Source{[Schema = "erp", Item = "stores"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,11 +1,11 @@
 {
   "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-05T21:09:00+05:30",
+  "last_updated": "2026-09-05T23:40:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 14,
-  "current_phase": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
+  "overall_progress_pct": 30,
+  "current_phase": "Phase 2 — Publish & Semantic Model Management in Service",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -69,9 +69,9 @@
     {
       "id": "P1",
       "name": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 85,
+      "gate_date": "2026-09-05",
       "hours_estimated": "10-12h",
       "evidence_tag": "phase-1-model-built",
       "tasks": [
@@ -84,33 +84,33 @@
         {
           "id": "T1.2",
           "name": "Power Query Ingestion & Folding Verification",
-          "status": "In Progress",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Ingested 5 PostgreSQL ERP tables and 2 Excel tables. Verified Native Query folding on Fact_Sales: WHERE clause with RangeStart and RangeEnd successfully pushed down to PostgreSQL SQL engine."
         },
         {
           "id": "T1.3",
           "name": "Star Schema & Date Dimension",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Built Dim_Date table marked as Date Table with MonthNum/YearMonthSort sort columns. Established 1-to-many single direction Star Schema relationships between dimensions and Fact_Sales/Fact_Targets. Verified via Model View screenshot."
         },
         {
           "id": "T1.4",
           "name": "DAX Measure Library (22 Core Measures)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Authored complete 22-measure enterprise library across 4 display folders (01. Base Metrics, 02. Margin & Profitability, 03. Target Variance & Quota, 04. Time Intelligence) with currency/percent formatting in _Meaure.tmdl."
         },
         {
           "id": "T1.5",
           "name": "Tabular Editor Best Practice Analyzer (BPA)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Applied BPA rules: hid raw foreign keys and fact numeric metrics in Fact_Sales, enforced explicit measure formatting. Passed Phase 1 Gate Exam with 85/100."
         }
       ]
     },
     {
       "id": "P2",
       "name": "Phase 2 — Publish & Semantic Model Management in Service",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "8-10h",
@@ -237,6 +237,41 @@
       "details": "PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL replaces single massive model.bim with individual human-readable files (expressions.tmdl, table.tmdl, relationships.tmdl), enabling clean Git branching, PR line-by-line diffs, and merge conflict resolution without corrupting binary PBIX files.",
       "phase": "P1",
       "date": "2026-09-05"
+    },
+    {
+      "id": "CL-06",
+      "concept": "Query Folding Mechanics with Date vs DateTime RangeStart/RangeEnd",
+      "details": "Power BI Incremental Refresh requires RangeStart/RangeEnd to be DateTime type. When filtering Date columns, comparing Date to DateTime throws an M Expression.Error. Converting the date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-07",
+      "concept": "VertiPaq Internal Date Serialization vs Strict Relational Typing",
+      "details": "VertiPaq encodes dates as integer/double serial offsets since 1899-12-30. Mismatched relationship types (e.g. Int64 Target_Month to Date Dim_Date) may resolve due to matching serial integers, but trigger Storage Engine type coercion CPU penalties and BPA rule violations. Enforcing strict Date typing on both sides is mandatory for enterprise scale.",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-08",
+      "concept": "Direct TMDL Measure Authoring & Developer Velocity in PBIP",
+      "details": "Because PBIP uses plain-text TMDL format, entire libraries of DAX measures, display folders, format strings, and annotations can be authored, refactored, and script-generated directly in .tmdl files without manual GUI clicking in Desktop, dramatically accelerating development and enabling automated CI/CD code generation.",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-09",
+      "concept": "Star Schema VertiPaq Execution Optimization vs Snowflaking",
+      "details": "VertiPaq optimizes single-hop 1-to-many relationship bitmaps. Star schemas allow Storage Engine (SE) vector scans and direct bitwise filtering, whereas Snowflake schemas force multi-hop joins into the Formula Engine (FE), increasing memory footprint and query latency.",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-10",
+      "concept": "Foreign Key Hiding & Self-Service Model Governance",
+      "details": "Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.",
+      "phase": "P1",
+      "date": "2026-09-05"
     }
   ],
   "technical_questions": [
@@ -294,6 +329,50 @@
       "category": "Refresh",
       "phase": "P0",
       "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-06",
+      "question": "What is Query Folding and why does custom M code often break it?",
+      "answer_summary": "Correctly explained pushdown to SQL database server vs mashup engine execution, and why Native Query translation fails on unsupported M constructs.",
+      "score": 9,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Troubleshooting",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-07",
+      "question": "Why is PBIP (TMDL/JSON) superior to binary PBIX for multi-developer collaboration?",
+      "answer_summary": "Explained plain-text Git diffing, line-by-line branch mergeability, and multi-developer collaboration without binary corruption.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Git",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-08",
+      "question": "Why does VertiPaq strongly favor Star Schema over Snowflake / Bidirectional schemas?",
+      "answer_summary": "Identified structural differences and performance advantage; taught single-hop Storage Engine bitmaps vs multi-hop Formula Engine materialization.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Workspace Architecture",
+      "phase": "P1",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-09",
+      "question": "Why is it an anti-pattern to leave foreign keys unhidden in report view?",
+      "answer_summary": "Identified user drag error; explained high-cardinality fact table scans, RLS filter context leaks, and self-service governance.",
+      "score": 7,
+      "max_score": 10,
+      "evaluation": "Technically Correct but Needs Improvement",
+      "category": "Workspace Architecture",
+      "phase": "P1",
+      "date": "2026-09-05"
     }
   ],
   "weak_areas": [
@@ -322,6 +401,10 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.4 Synthetic data generator execution (5.25M total rows seeded)"},
     {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.5 Cloud Excel sources generated and deployed to OneDrive"},
     {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.1 PBIP + TMDL project initialized with M parameters"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.1 PBIP + TMDL project initialized with M parameters"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.3 Star Schema model & Dim_Date table built"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.4 Authored 22 DAX core measures across 4 display folders"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"}
   ]
 }

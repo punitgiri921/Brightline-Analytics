@@ -1,0 +1,42 @@
+table Dim_Customers
+	lineageTag: bc1e9db2-e04c-4e99-b6d4-fa4e05a9331b
+
+	column customer_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e3877cc0-45d9-4130-b00c-e6648a015a97
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: dec3da1a-4631-43b3-9c75-0a6d11f472ba
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 29fa2750-92b1-44bc-b5ae-949e88d44898
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Customers = m
+		mode: import
+		source =
+				let
+				  Source = PostgreSQL.Database(PG_Server, PG_Database),
+				  #"Navigation 1" = Source{[Schema = "erp", Item = "customers"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

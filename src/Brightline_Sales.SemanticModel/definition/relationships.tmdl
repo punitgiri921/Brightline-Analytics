@@ -1,0 +1,42 @@
+relationship de2b3951-e337-402b-9e93-e2f730a57fe1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Sales.last_modified
+	toColumn: LocalDateTable_73fc1455-79c3-4b0f-9857-568487cab2e5.Date
+
+relationship 50735b06-3b1b-4b35-b2c2-60f3548dd7a5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Stores.opened_date
+	toColumn: LocalDateTable_68c8af0e-8c0c-4f6a-a5f5-317db4b0cb1c.Date
+
+relationship 6da4c1ca-c8f7-40b6-aa87-190f46e07b89
+	fromColumn: Fact_Sales.customer_id
+	toColumn: Dim_Customers.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 1046bec2-1a39-4e5e-84f9-47d009930e7d
+	fromColumn: Fact_Sales.product_id
+	toColumn: Dim_Products.product_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 1d0e0a76-5538-4cb2-b9ba-04c6163176a2
+	fromColumn: Fact_Sales.rep_id
+	toColumn: Dim_SalesReps.rep_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 0dcfd9c9-3479-401c-8326-ddff2046ff88
+	fromColumn: Fact_Sales.store_id
+	toColumn: Dim_Stores.store_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 798a73e3-7236-54ae-4822-e9fd5d03a7c4
+	fromColumn: Fact_Sales.txn_date
+	toColumn: Dim_Date.Date
+
+relationship c39edd78-40e5-cc97-b429-0b2a122845b4
+	fromColumn: Fact_Targets.Target_Month
+	toColumn: Dim_Date.Date
+

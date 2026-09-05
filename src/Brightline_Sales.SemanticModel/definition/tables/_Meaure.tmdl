@@ -1,0 +1,130 @@
+table _Meaure
+	lineageTag: 1c69749f-f70e-4d1f-a2e1-1e54a347ea30
+
+	/// 01. BASE METRICS
+	measure 'Total Units Sold' = SUM(Fact_Sales[qty])
+		formatString: #,0
+		displayFolder: 01. Base Metrics
+		lineageTag: 9f868e48-e539-4720-9b01-10da6b35186f
+
+	measure 'Gross Revenue' = SUMX(Fact_Sales, Fact_Sales[qty] * Fact_Sales[unit_price])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 01. Base Metrics
+		lineageTag: 87b89dec-688d-40ae-acbb-bbdaaceebd9b
+
+	measure 'Total Discount Amount' = SUMX(Fact_Sales, Fact_Sales[qty] * Fact_Sales[unit_price] * Fact_Sales[discount_pct])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 01. Base Metrics
+		lineageTag: aadaf85e-6e8f-4913-9d8c-ebe096eda0d6
+
+	measure 'Net Revenue' = [Gross Revenue] - [Total Discount Amount]
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 01. Base Metrics
+		lineageTag: 45286d01-4b46-4bcb-8a81-44f8dab7c0ae
+
+	measure 'Total Orders' = DISTINCTCOUNT(Fact_Sales[txn_id])
+		formatString: #,0
+		displayFolder: 01. Base Metrics
+		lineageTag: 13b45279-4f49-4c9a-951b-1323be53af2c
+
+	/// 02. MARGIN & PROFITABILITY
+	measure 'Total COGS' = SUMX(Fact_Sales, Fact_Sales[qty] * Fact_Sales[unit_cost])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 02. Margin & Profitability
+		lineageTag: b82c4710-3882-416b-9c71-f925b306a411
+
+	measure 'Gross Margin' = [Net Revenue] - [Total COGS]
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 02. Margin & Profitability
+		lineageTag: c93d5821-4993-427c-ad82-0a36c417b522
+
+	measure 'Gross Margin %' = DIVIDE([Gross Margin], [Net Revenue], 0)
+		formatString: 0.0%
+		displayFolder: 02. Margin & Profitability
+		lineageTag: d04e6932-5aa4-438d-be93-1b47d528c633
+
+	measure 'Average Order Value' = DIVIDE([Net Revenue], [Total Orders], 0)
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 02. Margin & Profitability
+		lineageTag: e15f7a43-6bb5-449e-cf04-2c58e639d744
+
+	/// 03. TARGET VARIANCE & QUOTA
+	measure 'Target Revenue' = SUM(Fact_Targets[Target_Revenue])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 03. Target Variance & Quota
+		lineageTag: f26a8b54-7cc6-45af-d015-3d69f74ae855
+
+	measure 'Target Units' = SUM(Fact_Targets[Target_Units])
+		formatString: #,0
+		displayFolder: 03. Target Variance & Quota
+		lineageTag: a37b9c65-8dd7-46ba-e126-4e70a85bf966
+
+	measure 'Revenue Variance' = [Net Revenue] - [Target Revenue]
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 03. Target Variance & Quota
+		lineageTag: b48cad76-9ee8-47cb-f237-5f81b96ca077
+
+	measure 'Revenue Target Achievement %' = DIVIDE([Net Revenue], [Target Revenue], 0)
+		formatString: 0.0%
+		displayFolder: 03. Target Variance & Quota
+		lineageTag: c59dbe87-aff9-48dc-0348-6a92ca7db188
+
+	measure 'Units Target Achievement %' = DIVIDE([Total Units Sold], [Target Units], 0)
+		formatString: 0.0%
+		displayFolder: 03. Target Variance & Quota
+		lineageTag: d60ecf98-b00a-49ed-1459-7ba3db8ec299
+
+	/// 04. TIME INTELLIGENCE
+	measure 'Net Revenue YTD' = TOTALYTD([Net Revenue], Dim_Date[Date])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: e71fda09-c11b-4afe-256a-8cb4ec9fd3aa
+
+	measure 'Net Revenue PY' = CALCULATE([Net Revenue], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: f82aeb1a-d22c-4b0f-367b-9dc5fd0ae4bb
+
+	measure 'Net Revenue YoY Growth' = [Net Revenue] - [Net Revenue PY]
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: a93bfc2b-e33d-4c1a-478c-0ed6ae1bf5cc
+
+	measure 'Net Revenue YoY Growth %' = DIVIDE([Net Revenue YoY Growth], [Net Revenue PY], 0)
+		formatString: 0.0%
+		displayFolder: 04. Time Intelligence
+		lineageTag: ba4c0d3c-f44e-4d2b-589d-1fe7bf2ca6dd
+
+	measure 'Gross Margin YTD' = TOTALYTD([Gross Margin], Dim_Date[Date])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: cb5d1e4d-055f-4e3c-69ae-20f8c03db7ee
+
+	measure 'Gross Margin PY' = CALCULATE([Gross Margin], SAMEPERIODLASTYEAR(Dim_Date[Date]))
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: dc6e2f5e-166a-4f4d-7abf-3109d14ec8ff
+
+	measure 'Gross Margin YoY Growth %' = DIVIDE([Gross Margin] - [Gross Margin PY], [Gross Margin PY], 0)
+		formatString: 0.0%
+		displayFolder: 04. Time Intelligence
+		lineageTag: ed7f3a6f-277b-405e-8bca-421ae25fd900
+
+	measure 'Target Revenue YTD' = TOTALYTD([Target Revenue], Dim_Date[Date])
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 04. Time Intelligence
+		lineageTag: fe8a4b70-388c-416f-9cdb-532bf36ae011
+
+	partition _Meaure = m
+		mode: import
+		source =
+				let
+				  Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Column1"})
+				in
+				  #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

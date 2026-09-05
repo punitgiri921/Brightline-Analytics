@@ -340,7 +340,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 1: Semantic Model Build</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 2: Publish & Service</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -361,16 +361,16 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">15%</div>
+          <div class="stat-value" id="overall-pct">30%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 15%;"></div>
+            <div class="progress-fill" style="width: 30%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P1: Semantic Model Build</div>
-          <span class="stat-subtitle">Desktop, M Parameters, PBIP, TMDL</span>
+          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P2: Publish & Service</div>
+          <span class="stat-subtitle">Workspaces, Thin Reports, Permissions</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
@@ -476,13 +476,13 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
-            <span class="phase-title" style="margin-left: 0.5rem;">Phase 1 — Semantic Model Build in Desktop</span>
+            <span class="badge badge-green">COMPLETED</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (10–12h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 85 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Build production-grade Semantic Model in Power BI Desktop (PBIP format) with M Parameters for environment switching, query folding discipline, Star Schema modeling, 22 documented DAX measures, and BPA compliance.
@@ -492,21 +492,56 @@
             <input type="checkbox" class="task-checkbox" id="t11" checked />
             <label for="t11"><strong>Task 1.1: Power BI Desktop Project (.PBIP) Setup</strong> — Enable PBIP preview feature, initialize project structure, configure M Parameters (Server, Database, RangeStart, RangeEnd). <span style="color: var(--accent-green); font-weight: 600;">(Done — PBIP & TMDL)</span></label>
           </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t12" checked />
+            <label for="t12"><strong>Task 1.2: Power Query Ingestion & Folding Verification</strong> — Ingest 5 ERP tables + 2 Excel tables, verify Native Query folding on date filters. <span style="color: var(--accent-green); font-weight: 600;">(Done — Native Query Verified)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t13" checked />
+            <label for="t13"><strong>Task 1.3: Star Schema & Date Dimension</strong> — Establish 1-to-many single directional relationships, author dynamic M/DAX Date table. <span style="color: var(--accent-green); font-weight: 600;">(Done — Star Schema Built)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t14" checked />
+            <label for="t14"><strong>Task 1.4: DAX Measure Library (22 Core Measures)</strong> — Author Base, Time Intelligence, Target Variance, and Margin metrics in organized display folders. <span style="color: var(--accent-green); font-weight: 600;">(Done — 22 Measures in 4 Folders)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t15" checked />
+            <label for="t15"><strong>Task 1.5: Tabular Editor Best Practice Analyzer (BPA)</strong> — Run Tabular Editor BPA rules, fix formatting/unhidden key violations, export clean TMDL. <span style="color: var(--accent-green); font-weight: 600;">(Done — BPA Compliant)</span></label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="phase-card active-phase">
+        <div class="phase-header">
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 2 — Publish & Semantic Model Management in Service</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Activate Individual Trial, establish BL-Sales-DEV workspace, publish semantic model, author 3 thin reports via Live Connection, configure model settings/endorsement, and master Read vs Build permissions & dataset takeover.
+        </p>
+        <ul class="task-list">
           <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t12" />
-            <label for="t12"><strong>Task 1.2: Power Query Ingestion & Folding Verification</strong> — Ingest 5 ERP tables + 2 Excel tables, verify Native Query folding on date filters. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+            <input type="checkbox" class="task-checkbox" id="t21" />
+            <label for="t21"><strong>Task 2.1: Start Individual Power BI Pro Trial</strong> — Activate 60-day individual license trial in Power BI Service for learner account. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t13" />
-            <label for="t13"><strong>Task 1.3: Star Schema & Date Dimension</strong> — Establish 1-to-many single directional relationships, author dynamic M/DAX Date table.</label>
+            <input type="checkbox" class="task-checkbox" id="t22" />
+            <label for="t22"><strong>Task 2.2: Workspace Setup & First Publish</strong> — Create 'BL-Sales-DEV' workspace and publish Brightline_Sales semantic model.</label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t14" />
-            <label for="t14"><strong>Task 1.4: DAX Measure Library (22 Core Measures)</strong> — Author Base, Time Intelligence, Target Variance, and Margin metrics in organized display folders.</label>
+            <input type="checkbox" class="task-checkbox" id="t23" />
+            <label for="t23"><strong>Task 2.3: Build 3 Thin Reports (Live Connection)</strong> — Author Executive Overview, Regional Sales, and Store Performance reports connected live to the published model.</label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t15" />
-            <label for="t15"><strong>Task 1.5: Tabular Editor Best Practice Analyzer (BPA)</strong> — Run Tabular Editor BPA rules, fix formatting/unhidden key violations, export clean TMDL.</label>
+            <input type="checkbox" class="task-checkbox" id="t24" />
+            <label for="t24"><strong>Task 2.4: Model Settings & Endorsement</strong> — Configure semantic model description, contact person, and promote/certify status.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t25" />
+            <label for="t25"><strong>Task 2.5: Read vs Build Permissions & Takeover Rehearsal</strong> — Manage direct access permissions, test Analyze in Excel, and simulate dataset takeover (Labs L4, L11, L14).</label>
           </li>
         </ul>
       </div>
@@ -625,6 +660,41 @@
             <td>P1</td>
             <td>2026-09-05</td>
           </tr>
+          <tr>
+            <td><strong>CL-06</strong></td>
+            <td>Query Folding Mechanics with Date vs DateTime RangeStart/RangeEnd</td>
+            <td>Power BI Incremental Refresh requires RangeStart/RangeEnd to be DateTime type. Converting Date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-07</strong></td>
+            <td>VertiPaq Internal Date Serialization vs Strict Relational Typing</td>
+            <td>VertiPaq encodes dates as integer serial offsets. Mismatched relationship types (Int64 to Date) may resolve due to matching serials, but trigger Storage Engine type coercion CPU penalties and BPA rule violations. Enforcing strict Date typing is mandatory.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-08</strong></td>
+            <td>Direct TMDL Measure Authoring & Developer Velocity in PBIP</td>
+            <td>Because PBIP uses plain-text TMDL format, entire libraries of DAX measures, display folders, format strings, and annotations can be scripted and version-controlled directly in .tmdl files without manual GUI clicking, enabling CI/CD automation.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-09</strong></td>
+            <td>Star Schema VertiPaq Execution Optimization vs Snowflaking</td>
+            <td>VertiPaq optimizes single-hop 1-to-many relationship bitmaps. Star schemas allow Storage Engine (SE) vector scans and direct bitwise filtering, whereas Snowflake schemas force multi-hop joins into the Formula Engine (FE), increasing memory footprint and query latency.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-10</strong></td>
+            <td>Foreign Key Hiding & Self-Service Model Governance</td>
+            <td>Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
         </tbody>
       </table>
 
@@ -679,6 +749,38 @@
             <td><span class="status-tag status-completed">Correct</span></td>
             <td><strong>8 / 10</strong></td>
             <td>Refresh</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-06</strong></td>
+            <td>What is Query Folding and why does custom M code often break it?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>9 / 10</strong></td>
+            <td>Troubleshooting</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-07</strong></td>
+            <td>Why is PBIP (TMDL/JSON) superior to binary PBIX for collaboration?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Git</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-08</strong></td>
+            <td>Why does VertiPaq strongly favor Star Schema over Snowflake?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Workspace Architecture</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-09</strong></td>
+            <td>Why is it an anti-pattern to leave foreign keys unhidden in report view?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Needs Improvement</span></td>
+            <td><strong>7 / 10</strong></td>
+            <td>Workspace Architecture</td>
             <td>2026-09-05</td>
           </tr>
         </tbody>
@@ -763,11 +865,35 @@
             <td>P1</td>
             <td>T1.1 PBIP + TMDL project initialized with M parameters</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P1</td>
+            <td>T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P1</td>
+            <td>T1.3 Star Schema model & Dim_Date table built</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P1</td>
+            <td>T1.4 Authored 22 DAX core measures across 4 display folders</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P1</td>
+            <td>T1.5 BPA hardening + Phase 1 Gate Exam passed</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">3.0h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">5.0h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>

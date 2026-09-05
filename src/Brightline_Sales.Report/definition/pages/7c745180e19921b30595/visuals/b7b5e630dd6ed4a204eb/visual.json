@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b7b5e630dd6ed4a204eb",
+  "position": {
+    "x": 901.54675957721236,
+    "y": 261.40739375868941,
+    "z": 0,
+    "height": 430.19012043752826,
+    "width": 399.31523141091139
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Date"
+                    }
+                  },
+                  "Property": "MonthNum"
+                }
+              },
+              "queryRef": "Sum(Dim_Date.MonthNum)",
+              "nativeQueryRef": "MonthNum"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Fact_Targets"
+                        }
+                      },
+                      "Property": "Target_Revenue"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Fact_Targets.Target_Revenue)",
+              "nativeQueryRef": "Sum of Target_Revenue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "185c3a40e08f49468ef9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim_Date"
+              }
+            },
+            "Property": "MonthNum"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "9206063baa648f73ba0b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Fact_Targets"
+                  }
+                },
+                "Property": "Target_Revenue"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
