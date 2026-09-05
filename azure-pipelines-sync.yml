@@ -14,17 +14,15 @@ steps:
   persistCredentials: true
   fetchDepth: 0
 
-- script: |
-    echo "Configuring Git credentials..."
-    git config --global user.email "punitgiri74@gmail.com"
+- bash: |
+    set -e
+    echo "Setting Git identity..."
+    git config --global user.email "punitgiri921@gmail.com"
     git config --global user.name "Brightline Azure DevOps Sync"
 
-    echo "Adding GitHub Remote..."
-    git remote remove github 2>/dev/null || true
-    git remote add github https://$(GH_TOKEN)@github.com/punitgiri921/Brightline-Analytics.git
-
-    echo "Pushing all branches and tags to GitHub..."
-    git push github main --force --tags
+    echo "Pushing commits and tags to GitHub..."
+    git push "https://x-access-token:${GH_TOKEN}@github.com/punitgiri921/Brightline-Analytics.git" HEAD:main --force --tags
+    echo "SUCCESS: Mirror push to GitHub completed!"
   displayName: 'Sync Azure DevOps to GitHub (Mirror)'
   env:
     GH_TOKEN: $(GH_TOKEN)
