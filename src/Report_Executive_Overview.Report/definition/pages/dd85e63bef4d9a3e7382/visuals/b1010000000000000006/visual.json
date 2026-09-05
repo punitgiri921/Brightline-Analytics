@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim_Date.Quarter",
-              "nativeQueryRef": "Quarter"
+              "nativeQueryRef": "Quarter",
+              "active": true
             }
           ]
         },

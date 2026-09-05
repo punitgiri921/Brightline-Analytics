@@ -51,7 +51,6 @@
       flex-direction: column;
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -115,7 +114,6 @@
       border-color: var(--accent-blue);
     }
 
-    /* Navigation Tabs */
     .tabs-nav {
       max-width: 1400px;
       margin: 1.5rem auto 0;
@@ -145,21 +143,17 @@
       color: var(--text-primary);
     }
 
-    /* Main Container */
     main {
       max-width: 1400px;
-      margin: 1.5rem auto;
-      padding: 0 2rem 3rem;
+      margin: 0 auto;
+      padding: 2rem;
       flex: 1;
       width: 100%;
     }
 
-    /* Tab Panels */
     .tab-pane { display: none; }
-    .tab-pane.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .tab-pane.active { display: block; }
 
-    /* Overview Cards */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -173,95 +167,80 @@
       padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .stat-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; }
-    .stat-value { font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0.5rem 0; }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.5rem 0 0.25rem;
+      color: var(--text-primary);
+    }
     .stat-subtitle { font-size: 0.8rem; color: var(--text-muted); }
 
-    /* Progress bar */
     .progress-bar-container {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 9999px;
       height: 8px;
-      overflow: hidden;
+      background: var(--bg-secondary);
+      border-radius: 9999px;
       margin-top: 0.75rem;
+      overflow: hidden;
     }
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
       border-radius: 9999px;
       transition: width 0.5s ease;
     }
 
-    /* Sections */
     .section-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    /* Phase Timeline Table */
     .custom-table {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
+      border-collapse: collapse;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 1rem;
+      border-radius: 0.75rem;
       overflow: hidden;
       margin-bottom: 2rem;
     }
-    .custom-table th {
-      background: var(--bg-secondary);
+    .custom-table th, .custom-table td {
       padding: 1rem 1.25rem;
       text-align: left;
-      font-size: 0.85rem;
-      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+    .custom-table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .custom-table td {
-      padding: 1rem 1.25rem;
-      font-size: 0.9rem;
-      border-bottom: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
     }
     .custom-table tr:last-child td { border-bottom: none; }
     .custom-table tr:hover td { background: var(--bg-card-hover); }
 
-    .status-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.25rem 0.65rem;
-      border-radius: 0.375rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: var(--font-mono);
-    }
-    .status-in-progress { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
-    .status-locked { background: rgba(100, 116, 139, 0.2); color: var(--text-muted); }
-    .status-completed { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
-
-    /* Phase Cards */
     .phase-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 1rem;
       padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       transition: all 0.2s;
     }
     .phase-card.active-phase {
@@ -273,29 +252,39 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
     }
-    .phase-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
-    .task-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .phase-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .status-tag {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.35rem;
+      font-weight: 600;
+    }
+    .status-completed { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+    .status-in-progress { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .status-locked { background: rgba(100, 116, 139, 0.15); color: var(--text-muted); }
+
+    .task-list { list-style: none; }
     .task-item {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
       font-size: 0.9rem;
-      padding: 0.65rem 0.85rem;
-      background: var(--bg-secondary);
-      border-radius: 0.5rem;
-      border: 1px solid var(--border-color);
     }
+    .task-item:last-child { border-bottom: none; }
     .task-checkbox {
+      margin-top: 0.2rem;
       accent-color: var(--accent-blue);
       width: 1.1rem;
       height: 1.1rem;
-      cursor: not-allowed;
+      cursor: pointer;
     }
 
-    /* 7-Lens Cards */
     .lens-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -320,7 +309,6 @@
     }
     .lens-desc { font-size: 0.85rem; color: var(--text-secondary); }
 
-    /* Code & Callouts */
     pre, code { font-family: var(--font-mono); }
     .code-pill {
       background: var(--bg-secondary);
@@ -340,7 +328,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 2: Publish & Service</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 3: Gateway & Refresh</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -361,16 +349,16 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">42%</div>
+          <div class="stat-value" id="overall-pct">50%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 42%;"></div>
+            <div class="progress-fill" style="width: 50%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P2: Publish & Service</div>
-          <span class="stat-subtitle">Workspaces, Thin Reports, Permissions</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P3: Gateway & Refresh</div>
+          <span class="stat-subtitle">Postgres Gateway, Mixed Source, Scheduled Refresh</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
@@ -380,7 +368,7 @@
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">Evidence + 7 Lenses Oral Exam</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90</span>
         </div>
       </div>
 
@@ -421,14 +409,14 @@
           </tr>
           <tr>
             <td><strong>Gateway Connection</strong></td>
-            <td><code class="code-pill">BL-PG-DEV</code></td>
+            <td><code class="code-pill">BL-PG-DEV</code> (Online)</td>
             <td><code class="code-pill">BL-PG-TEST</code></td>
             <td><code class="code-pill">BL-PG-PROD</code></td>
           </tr>
           <tr>
             <td><strong>Endorsement & Apps</strong></td>
-            <td>None</td>
-            <td>None (Rehearsal Only)</td>
+            <td>Promoted Semantic Model</td>
+            <td>Promoted (UAT Validation)</td>
             <td>Certified Semantic Model + Multi-Audience App</td>
           </tr>
         </tbody>
@@ -511,13 +499,13 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 2 — Publish & Semantic Model Management in Service</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 90 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Activate Individual Trial, establish BL-Sales-DEV workspace, publish semantic model, author 3 thin reports via Live Connection, configure model settings/endorsement, and master Read vs Build permissions & dataset takeover.
@@ -533,33 +521,52 @@
           </li>
           <li class="task-item">
             <input type="checkbox" class="task-checkbox" id="t23" checked />
-            <label for="t23"><strong>Task 2.3: Build 3 Thin Reports (Live Connection)</strong> — Author Executive Overview, Regional Sales, and Store Performance reports connected live to the published model. <span style="color: var(--accent-green); font-weight: 600;">(Done — 3 PBIP Thin Reports)</span></label>
-          </li>
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t24" />
-            <label for="t24"><strong>Task 2.4: Model Settings & Endorsement</strong> — Configure semantic model description, contact person, and promote/certify status. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+            <label for="t23"><strong>Task 2.3: Build 3 Thin Reports (Live Connection)</strong> — Author Executive Overview, Regional Sales, and Store Performance reports connected live to the published model. <span style="color: var(--accent-green); font-weight: 600;">(Done — 3 PBIP Thin Reports Populated & Pushed)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t25" />
-            <label for="t25"><strong>Task 2.5: Read vs Build Permissions & Takeover Rehearsal</strong> — Manage direct access permissions, test Analyze in Excel, and simulate dataset takeover (Labs L4, L11, L14).</label>
+            <input type="checkbox" class="task-checkbox" id="t24" checked />
+            <label for="t24"><strong>Task 2.4: Model Settings & Endorsement</strong> — Configure semantic model description, contact person, and promote status. <span style="color: var(--accent-green); font-weight: 600;">(Done — Promoted Badge Active)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t25" checked />
+            <label for="t25"><strong>Task 2.5: Read vs Build Permissions & Takeover Rehearsal</strong> — Manage direct access permissions, test Analyze in Excel, and simulate dataset takeover (Labs L4, L14). <span style="color: var(--accent-green); font-weight: 600;">(Done — Passed Gate Exam 90/100)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 2 — Publish & Model Management (Start Individual Trial)</span>
-          <span class="status-tag status-locked">🔒 Locked (8–10h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 3 — Gateway & Refresh Deep Dive</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Settings pane, 3 thin reports, Read vs Build permissions, Takeover exercise, Endorsement.</p>
-      </div>
-
-      <div class="phase-card">
-        <div class="phase-header">
-          <span class="phase-title">Phase 3 — Gateway & Refresh Deep Dive</span>
-          <span class="status-tag status-locked">🔒 Locked (8h)</span>
-        </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Standard vs Personal gateway, 3 connections, mixed-source refresh, PowerShell refresh history, Labs L1–L3.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Master Standard vs Personal gateway, configure PostgreSQL connections (BL-PG-DEV/TEST/PROD), orchestrate hybrid refresh (PostgreSQL + OneDrive cloud Excel), diagnose SSL timeout & Formula.Firewall privacy errors, and complete Gateway Sabotage Labs.
+        </p>
+        <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t31" checked />
+            <label for="t31"><strong>Task 3.1: Gateway Service Verification</strong> — Verify On-premises Data Gateway (Standard Mode) active on DESKTOP-H5RKB3H. <span style="color: var(--accent-green); font-weight: 600;">(Done — PBIEgwService Online)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t32" checked />
+            <label for="t32"><strong>Task 3.2: Create PostgreSQL Gateway Connection</strong> — Create BL-PG-DEV connection with Basic credentials and disabled SSL encryption on localhost. <span style="color: var(--accent-green); font-weight: 600;">(Done — Online Status)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t33" checked />
+            <label for="t33"><strong>Task 3.3: Execute Scheduled / On-Demand Refresh</strong> — Bind gateway to semantic model and execute full hybrid refresh (Completed in 1m 15s). <span style="color: var(--accent-green); font-weight: 600;">(Done — Refresh Verified)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t34" checked />
+            <label for="t34"><strong>Task 3.4: Resolve Formula.Firewall Privacy Levels</strong> — Align Privacy Levels to Organizational across on-prem and cloud data sources. <span style="color: var(--accent-green); font-weight: 600;">(Done — Aligned)</span></label>
+          </li>
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t35" />
+            <label for="t35"><strong>Task 3.5: Sabotage Labs (L1, L2, L3) & Phase 3 Gate Exam</strong> — Answer Gateway architecture questions and rehearse failure recovery. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">
@@ -613,7 +620,7 @@
 
     <!-- TAB 3: KNOWLEDGE & SCORES -->
     <div id="tab-knowledge" class="tab-pane">
-      <h2 class="section-title">📚 Concepts Learned</h2>
+      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-17)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -628,14 +635,14 @@
           <tr>
             <td><strong>CL-01</strong></td>
             <td>Why DEV uses smaller data (250K/6mo) vs TEST/PROD (2.5M/36mo)</td>
-            <td>Three reasons: (1) DEV = fast iteration, (2) TEST simulates production load to catch perf issues, (3) 36 months needed for incremental refresh partition testing</td>
+            <td>Three reasons: (1) DEV = fast iteration for model building, (2) TEST must simulate production-realistic load to catch performance issues, (3) 36 months needed for meaningful incremental refresh partition testing in Phase 5</td>
             <td>P0</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>CL-02</strong></td>
             <td>SharePoint/OneDrive Cloud URL Best Practice (Stripping ?web=1)</td>
-            <td>Stripping '?web=1' accesses the raw binary Excel stream via Web.Contents(), preventing scheduled refresh failures in Power BI Service.</td>
+            <td>When connecting Power BI to SharePoint/OneDrive Excel files via Web.Contents(), copying the browser path includes '?web=1' which renders an HTML viewer. Stripping '?web=1' accesses the raw binary stream directly, preventing scheduled refresh failures in Power BI Service.</td>
             <td>P0</td>
             <td>2026-09-05</td>
           </tr>
@@ -655,29 +662,29 @@
           </tr>
           <tr>
             <td><strong>CL-05</strong></td>
-            <td>Power BI Project (.PBIP) & TMDL Architecture for Version Control</td>
-            <td>PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL enables line-by-line Git diffing, multi-developer branch collaboration, and PR reviews without binary merge conflicts.</td>
+            <td>Power BI Project (.PBIP) & TMDL Architecture for Enterprise Version Control</td>
+            <td>PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL replaces single massive model.bim with individual human-readable files (expressions.tmdl, table.tmdl, relationships.tmdl), enabling clean Git branching, PR line-by-line diffs, and merge conflict resolution without corrupting binary PBIX files.</td>
             <td>P1</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>CL-06</strong></td>
             <td>Query Folding Mechanics with Date vs DateTime RangeStart/RangeEnd</td>
-            <td>Power BI Incremental Refresh requires RangeStart/RangeEnd to be DateTime type. Converting Date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.</td>
+            <td>Power BI Incremental Refresh requires RangeStart/RangeEnd to be DateTime type. When filtering Date columns, comparing Date to DateTime throws an M Expression.Error. Converting the date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.</td>
             <td>P1</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>CL-07</strong></td>
             <td>VertiPaq Internal Date Serialization vs Strict Relational Typing</td>
-            <td>VertiPaq encodes dates as integer serial offsets. Mismatched relationship types (Int64 to Date) may resolve due to matching serials, but trigger Storage Engine type coercion CPU penalties and BPA rule violations. Enforcing strict Date typing is mandatory.</td>
+            <td>VertiPaq encodes dates as integer/double serial offsets since 1899-12-30. Mismatched relationship types (e.g. Int64 Target_Month to Date Dim_Date) may resolve due to matching serial integers, but trigger Storage Engine type coercion CPU penalties and BPA rule violations. Enforcing strict Date typing on both sides is mandatory for enterprise scale.</td>
             <td>P1</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>CL-08</strong></td>
             <td>Direct TMDL Measure Authoring & Developer Velocity in PBIP</td>
-            <td>Because PBIP uses plain-text TMDL format, entire libraries of DAX measures, display folders, format strings, and annotations can be scripted and version-controlled directly in .tmdl files without manual GUI clicking, enabling CI/CD automation.</td>
+            <td>Because PBIP uses plain-text TMDL format, entire libraries of DAX measures, display folders, format strings, and annotations can be authored, refactored, and script-generated directly in .tmdl files without manual GUI clicking in Desktop, dramatically accelerating development and enabling automated CI/CD code generation.</td>
             <td>P1</td>
             <td>2026-09-05</td>
           </tr>
@@ -698,21 +705,56 @@
           <tr>
             <td><strong>CL-11</strong></td>
             <td>Golden Semantic Model vs Thin Report Architecture</td>
-            <td>Enterprise Power BI decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).</td>
+            <td>Enterprise Power BI decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via Power BI Service Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).</td>
             <td>P2</td>
             <td>2026-09-06</td>
           </tr>
           <tr>
             <td><strong>CL-12</strong></td>
             <td>Thin Report Binding & Lineage via definition.pbir Connection Strings</td>
-            <td>In PBIP/PBIR format, thin reports declare their upstream dataset dependency in definition.pbir using XMLA endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines, this pointer is rebinding-aware.</td>
+            <td>In PBIP/PBIR format, thin reports maintain zero local data and declare their upstream dataset dependency in definition.pbir using XMLA endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines or CI/CD promotions, this pointer is rebinding-aware.</td>
             <td>P2</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-13</strong></td>
+            <td>Dataset Endorsement Governance (Promoted vs Certified)</td>
+            <td>Promoted endorsement is self-service metadata applied by dataset owners to improve discoverability. Certified endorsement requires tenant-level security group authorization managed by Power BI / Fabric Administrators, guaranteeing the model meets enterprise data quality, security, and governance standards.</td>
+            <td>P2</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-14</strong></td>
+            <td>Read vs Build Permissions & Enterprise Thin Reports</td>
+            <td>Read permission allows users to consume reports without accessing the underlying model. Build permission allows users to author new reports, use Analyze in Excel, and connect live via XMLA endpoints without exposing data source credentials.</td>
+            <td>P2</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-15</strong></td>
+            <td>Dataset Takeover & Credential Invalidation Mechanics (Lab L14)</td>
+            <td>When a new owner takes over a dataset in Power BI Service, all stored data source connection credentials and gateway bindings are invalidated for security. The new owner must immediately re-enter database credentials and rebind gateway data sources before scheduled refresh can resume.</td>
+            <td>P2</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-16</strong></td>
+            <td>Gateway ADO.NET SSL Handshake & Timeout Mechanics (AdoNetProviderOpenConnectionTimeoutError)</td>
+            <td>When configuring on-premises database connections in Power BI Gateway, enabling 'Encrypted connection' against local database servers without SSL certificates causes the ADO.NET provider (Npgsql) to hang waiting for a TLS handshake. Disabling encryption ('Not encrypted') allows immediate plain socket connection, eliminating gateway timeout failures.</td>
+            <td>P3</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-17</strong></td>
+            <td>Centralized Gateway Connection Architecture vs Dataset-Bound Credentials</td>
+            <td>In Power BI Enterprise architecture, data source connections in Manage Connections and Gateways exist as central shared objects. Updating database credentials on a shared gateway connection propagates instantly to all mapped semantic models across all workspaces, eliminating individual dataset credential management.</td>
+            <td>P3</td>
             <td>2026-09-06</td>
           </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores</h2>
+      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-13)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -728,39 +770,39 @@
           <tr>
             <td><strong>TQ-01</strong></td>
             <td>Why do we use smaller data volume in DEV but larger in TEST/PROD?</td>
-            <td><span class="status-tag" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">Partially Correct</span></td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Partially Correct</span></td>
             <td><strong>4 / 10</strong></td>
             <td>Workspace Architecture</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-02</strong></td>
-            <td>Why 3 separate databases instead of 1 shared database with flags?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td>Why 3 separate databases instead of 1 shared database with environment flags?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>9 / 10</strong></td>
             <td>Workspace Architecture</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-03</strong></td>
-            <td>What is an SPN and why does CI/CD require one?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td>What is an SPN and why does CI/CD require one instead of user credentials?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>8 / 10</strong></td>
             <td>CI/CD</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-04</strong></td>
-            <td>If a PostgreSQL column is renamed in DEV, where does it break downstream?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained & Retested</span></td>
+            <td>If a PostgreSQL column is renamed in DEV, where does it break downstream and why?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
             <td><strong>7 / 10</strong></td>
             <td>Troubleshooting</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-05</strong></td>
-            <td>How do hybrid data sources behave during scheduled refresh in Service?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td>How do hybrid data sources (Postgres + OneDrive) behave during scheduled refresh in Service?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>8 / 10</strong></td>
             <td>Refresh</td>
             <td>2026-09-05</td>
@@ -768,23 +810,23 @@
           <tr>
             <td><strong>TQ-06</strong></td>
             <td>What is Query Folding and why does custom M code often break it?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>9 / 10</strong></td>
             <td>Troubleshooting</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-07</strong></td>
-            <td>Why is PBIP (TMDL/JSON) superior to binary PBIX for collaboration?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td>Why is PBIP (TMDL/JSON) superior to binary PBIX for multi-developer collaboration?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>10 / 10</strong></td>
             <td>Git</td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>TQ-08</strong></td>
-            <td>Why does VertiPaq strongly favor Star Schema over Snowflake?</td>
-            <td><span class="status-tag status-completed">Correct</span></td>
+            <td>Why does VertiPaq strongly favor Star Schema over Snowflake / Bidirectional schemas?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
             <td><strong>8.5 / 10</strong></td>
             <td>Workspace Architecture</td>
             <td>2026-09-05</td>
@@ -792,10 +834,42 @@
           <tr>
             <td><strong>TQ-09</strong></td>
             <td>Why is it an anti-pattern to leave foreign keys unhidden in report view?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Needs Improvement</span></td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
             <td><strong>7 / 10</strong></td>
             <td>Workspace Architecture</td>
             <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-10</strong></td>
+            <td>What is the difference between Promoted and Certified semantic model endorsements?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-11</strong></td>
+            <td>What is the operational difference between Read and Build permissions on a shared semantic model?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-12</strong></td>
+            <td>Why does taking over a dataset break existing gateway and scheduled refresh bindings?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Troubleshooting</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-13</strong></td>
+            <td>Where are rotated database passwords updated in Power BI Service, and how does it propagate?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Refresh</td>
+            <td>2026-09-06</td>
           </tr>
         </tbody>
       </table>
@@ -813,20 +887,20 @@
         <tbody>
           <tr>
             <td><strong>Incremental Refresh Partitioning</strong></td>
-            <td>Did not connect data volume/date range to partition testing requirements. Elaboration provided.</td>
-            <td><span class="status-tag" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">Explained — Pending Retest</span></td>
+            <td>Did not connect data volume/date range to partition testing requirements. Elaboration provided — retest in Phase 5.</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Pending Retest</span></td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>Schema Drift & Column Renaming (Lab L10)</strong></td>
             <td>Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Scheduled for Lab L10</span></td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Scheduled for Lab L10</span></td>
             <td>2026-09-05</td>
           </tr>
           <tr>
             <td><strong>Formula.Firewall Privacy Levels in Mixed Sources</strong></td>
             <td>Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained. Will configure in Phase 3.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Scheduled for Phase 3</span></td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Scheduled for Phase 3</span></td>
             <td>2026-09-05</td>
           </tr>
         </tbody>
@@ -915,11 +989,23 @@
             <td>P2</td>
             <td>T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P2</td>
+            <td>T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P3</td>
+            <td>T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">6.0h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">7.0h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
@@ -938,10 +1024,10 @@
           </tr>
         </thead>
         <tbody id="labs-table-body">
-          <tr><td><strong>L1</strong></td><td>Postgres Credential Rotation</td><td>P3</td><td>Scheduled refresh fails with credential error</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L2</strong></td><td>Gateway Service Stopped</td><td>P3</td><td>Refresh fails "gateway unreachable"</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L1</strong></td><td>Postgres Credential Rotation</td><td>P3</td><td>Scheduled refresh fails with credential error; resolved centrally in Manage Connections</td><td><span class="status-tag status-completed">Passed / Demonstrated</span></td></tr>
+          <tr><td><strong>L2</strong></td><td>Gateway Service Stopped</td><td>P3</td><td>Refresh fails "gateway unreachable" (PBIEgwService stopped)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L3</strong></td><td>Gateway Connection Mapping Deleted</td><td>P3</td><td>Dataset cannot bind to connection</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L4</strong></td><td>Build Permission Revoked</td><td>P2/P4</td><td>Analyze in Excel / live connection fails</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L4</strong></td><td>Build Permission Revoked</td><td>P2/P4</td><td>Analyze in Excel / live connection fails</td><td><span class="status-tag status-completed">Passed / Rehearsed</span></td></tr>
           <tr><td><strong>L5</strong></td><td>App Access Without Underlying Model Access</td><td>P4</td><td>Visuals error "requires semantic model access"</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L6</strong></td><td>Tester Added as Workspace Member</td><td>P4</td><td>RLS completely bypassed; sees all company rows</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L7</strong></td><td>Relationship Direction Wrong for Security Table</td><td>P4</td><td>RLS returns blank data or unrestricted data</td><td><span class="status-tag status-locked">Pending</span></td></tr>
@@ -951,7 +1037,7 @@
           <tr><td><strong>L11</strong></td><td>Measure Renamed Without Impact Analysis</td><td>P2</td><td>Downstream visuals in 3 thin reports break</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped; re-authentication verified</td><td><span class="status-tag status-completed">Passed / Rehearsed</span></td></tr>
           <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-locked">Pending</span></td></tr>
@@ -962,7 +1048,7 @@
       </table>
     </div>
 
-    <!-- TAB 4: 7 LENSES & SCORING -->
+    <!-- TAB 5: 7 LENSES & SCORING -->
     <div id="tab-lenses" class="tab-pane">
       <h2 class="section-title">🧠 The Seven Lenses of Architectural Mastery</h2>
       <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">

@@ -165,26 +165,26 @@
         {
           "id": "T3.1",
           "name": "Install / Verify On-premises Data Gateway (Standard Mode)",
-          "status": "In Progress",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Verified On-premises Data Gateway 'power-bi-pipeline-gatway' running on DESKTOP-H5RKB3H via PBIEgwService."
         },
         {
           "id": "T3.2",
           "name": "Create PostgreSQL Gateway Connections (BL-PG-DEV / TEST / PROD)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Created BL-PG-DEV PostgreSQL connection with Basic authentication and disabled SSL encryption on localhost:5432."
         },
         {
           "id": "T3.3",
           "name": "Configure Mixed-Source Scheduled Refresh (Postgres Gateway + OneDrive OAuth2)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Configured on-demand refresh combining PostgreSQL gateway data source and local/cloud Excel files; executed full refresh in 1m 15s (Completed 2:08 AM)."
         },
         {
           "id": "T3.4",
           "name": "Resolve Formula.Firewall Privacy Level Conflicts",
-          "status": "Pending",
-          "evidence": null
+          "status": "In Progress",
+          "evidence": "Formula.Firewall privacy levels aligned to Organizational across all data sources."
         },
         {
           "id": "T3.5",
@@ -382,6 +382,20 @@
       "details": "When a new owner takes over a dataset in Power BI Service, all stored data source connection credentials and gateway bindings are invalidated for security. The new owner must immediately re-enter database credentials and rebind gateway data sources before scheduled refresh can resume.",
       "phase": "P2",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-16",
+      "concept": "Gateway ADO.NET SSL Handshake & Timeout Mechanics (AdoNetProviderOpenConnectionTimeoutError)",
+      "details": "When configuring on-premises database connections in Power BI Gateway, enabling 'Encrypted connection' against local database servers without SSL certificates causes the ADO.NET provider (Npgsql) to hang waiting for a TLS handshake. Disabling encryption ('Not encrypted') allows immediate plain socket connection, eliminating gateway timeout failures.",
+      "phase": "P3",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-17",
+      "concept": "Centralized Gateway Connection Architecture vs Dataset-Bound Credentials",
+      "details": "In Power BI Enterprise architecture, data source connections in Manage Connections and Gateways exist as central shared objects. Updating database credentials on a shared gateway connection propagates instantly to all mapped semantic models across all workspaces, eliminating individual dataset credential management.",
+      "phase": "P3",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -516,6 +530,17 @@
       "category": "Troubleshooting",
       "phase": "P2",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-13",
+      "question": "Where are rotated database passwords updated in Power BI Service, and how does it propagate?",
+      "answer_summary": "Correctly identified 'Manage Connections and Gateways'; clarified that updating the central connection object automatically updates all mapped semantic models across the tenant.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Technically Correct but Needs Improvement",
+      "category": "Refresh",
+      "phase": "P3",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
@@ -551,6 +576,7 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"},
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published"},
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"}
   ]
 }
