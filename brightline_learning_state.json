@@ -1,0 +1,177 @@
+{
+  "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
+  "version": "1.0",
+  "last_updated": "2026-09-05",
+  "learner": "Punit",
+  "coach": "Antigravity",
+  "overall_progress_pct": 0,
+  "current_phase": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
+  "phase_gate_pass_threshold": 80,
+  "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
+  "trial_clock_status": {
+    "individual_trial": "Not Started (Begins Phase 2)",
+    "fabric_f64_trial": "Not Started (Begins Phase 5 - 60 day clock)"
+  },
+  "phases": [
+    {
+      "id": "P0",
+      "name": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
+      "status": "In Progress",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8-10h",
+      "evidence_tag": "phase-0-foundations",
+      "tasks": [
+        {
+          "id": "T0.1",
+          "name": "Tenant discovery: Entra ID role, User creation check, App Registration permissions",
+          "status": "Completed",
+          "evidence": "Entra ID tenant admin rights confirmed. Registered SPN 'Brightline-Fabric-Deployer' and verified +New user capability."
+        },
+        {
+          "id": "T0.2",
+          "name": "Azure DevOps project 'Brightline-Analytics' setup and repo skeleton commit",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T0.3",
+          "name": "PostgreSQL databases setup (brightline_dev, brightline_test, brightline_prod) and schema DDL",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T0.4",
+          "name": "Seeded synthetic data generation (Python) & SQL validation queries reconciliation",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T0.5",
+          "name": "SharePoint Online setup (Targets.xlsx and UserSecurity.xlsx)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T0.6",
+          "name": "Architecture documentation (docs/architecture.md) authored by learner",
+          "status": "Pending",
+          "evidence": null
+        }
+      ],
+      "gate_topics": [
+        "Why 3 databases instead of 1",
+        "Why DEV data volume/period differs from TEST/PROD",
+        "What an SPN is and why CI/CD requires one",
+        "Consequences of tenant discovery findings for architecture"
+      ]
+    },
+    {
+      "id": "P1",
+      "name": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "10-12h",
+      "evidence_tag": "phase-1-model-built"
+    },
+    {
+      "id": "P2",
+      "name": "Phase 2 — Publish & Semantic Model Management in Service",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8-10h",
+      "evidence_tag": "phase-2-published"
+    },
+    {
+      "id": "P3",
+      "name": "Phase 3 — Gateway & Refresh Deep Dive",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8h",
+      "evidence_tag": "phase-3-gateway"
+    },
+    {
+      "id": "P4",
+      "name": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "10h",
+      "evidence_tag": "phase-4-security"
+    },
+    {
+      "id": "P5",
+      "name": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8h",
+      "evidence_tag": "phase-5-incremental"
+    },
+    {
+      "id": "P6",
+      "name": "Phase 6 — Deployment Pipelines & Rules",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8h",
+      "evidence_tag": "phase-6-pipelines"
+    },
+    {
+      "id": "P7",
+      "name": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "8-10h",
+      "evidence_tag": "phase-7-git"
+    },
+    {
+      "id": "P8",
+      "name": "Phase 8 — Azure DevOps CI/CD Automation",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "10-12h",
+      "evidence_tag": "phase-8-cicd"
+    },
+    {
+      "id": "P9",
+      "name": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
+      "status": "Locked",
+      "score": null,
+      "gate_date": null,
+      "hours_estimated": "10h",
+      "evidence_tag": "phase-9-capstone"
+    }
+  ],
+  "sabotage_labs": [
+    {"id": "L1", "title": "Postgres Credential Rotation", "phase": "P3", "status": "Pending"},
+    {"id": "L2", "title": "Gateway Service Stopped", "phase": "P3", "status": "Pending"},
+    {"id": "L3", "title": "Gateway Connection Mapping Deleted", "phase": "P3", "status": "Pending"},
+    {"id": "L4", "title": "Build Permission Revoked", "phase": "P2/P4", "status": "Pending"},
+    {"id": "L5", "title": "App Access Without Model Access", "phase": "P4", "status": "Pending"},
+    {"id": "L6", "title": "Workspace Role vs RLS Bypass", "phase": "P4", "status": "Pending"},
+    {"id": "L7", "title": "Security Table Relationship Direction Flip", "phase": "P4", "status": "Pending"},
+    {"id": "L8", "title": "USERNAME() vs USERPRINCIPALNAME() Desktop vs Service", "phase": "P4", "status": "Pending"},
+    {"id": "L9", "title": "Query Folding Break Before Incremental Filter", "phase": "P5", "status": "Pending"},
+    {"id": "L10", "title": "Source Column Renamed in PostgreSQL", "phase": "P3/P5", "status": "Pending"},
+    {"id": "L11", "title": "Measure Rename Without Impact Analysis", "phase": "P2", "status": "Pending"},
+    {"id": "L12", "title": "Missing Deployment Rule on TEST Model", "phase": "P6", "status": "Pending"},
+    {"id": "L13", "title": "App Not Updated After PROD Deploy", "phase": "P6", "status": "Pending"},
+    {"id": "L14", "title": "Dataset Takeover Breaks Gateway Binding", "phase": "P2/P3", "status": "Pending"},
+    {"id": "L15", "title": "Performance Bottleneck (DAX Studio SE/FE)", "phase": "P9", "status": "Pending"},
+    {"id": "L16", "title": "SharePoint Source File Renamed", "phase": "P3", "status": "Pending"},
+    {"id": "L17", "title": "Direct Hand-Editing in TEST (Drift)", "phase": "P6", "status": "Pending"},
+    {"id": "L18", "title": "TMDL Git Merge Conflict Resolution", "phase": "P7", "status": "Pending"},
+    {"id": "L19", "title": "BPA Rule Violation Fails CI Pipeline", "phase": "P8", "status": "Pending"},
+    {"id": "L20", "title": "Full PBIX Republish Wipes Partitions", "phase": "P5", "status": "Pending"}
+  ],
+  "weak_areas": [],
+  "hours_log": [
+    {"week": "Week 1", "hours": 0.5, "phases": "P0"}
+  ]
+}

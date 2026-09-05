@@ -1,0 +1,27 @@
+# Power BI Binaries and Temp Files
+*.pbix
+**/.pbi/localSettings.json
+**/cache.abf
+
+# Python virtual environment & cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Azure Pipelines agent work directories
+_work/
+_diag/
+
+# Secrets, Keys, Credentials & Local configs
+*secret*
+*key*
+*.env
+*credential*
+*.txt.secret
+secrets/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/

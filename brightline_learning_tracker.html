@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brightline Analytics — Power BI / Fabric Deployment Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-secondary: #111827;
+      --bg-card: #1e293b;
+      --bg-card-hover: #26354a;
+      --border-color: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-green: #22c55e;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+      --glow-blue: rgba(56, 189, 248, 0.15);
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border-color: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --glow-blue: rgba(99, 102, 241, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background-color: rgba(11, 15, 25, 0.85);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+    }
+    [data-theme="light"] header {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-primary { background: var(--glow-blue); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+    .badge-green { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green); }
+
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-blue);
+    }
+
+    /* Navigation Tabs */
+    .tabs-nav {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      color: var(--accent-blue);
+      border-bottom-color: var(--accent-blue);
+    }
+    .tab-btn:hover:not(.active) {
+      color: var(--text-primary);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1400px;
+      margin: 1.5rem auto;
+      padding: 0 2rem 3rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Tab Panels */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Overview Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-indigo));
+    }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0.5rem 0; }
+    .stat-subtitle { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Progress bar */
+    .progress-bar-container {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 9999px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 0.75rem;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #22c55e);
+      border-radius: 9999px;
+      transition: width 0.5s ease;
+    }
+
+    /* Sections */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Phase Timeline Table */
+    .custom-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .custom-table th {
+      background: var(--bg-secondary);
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .custom-table td {
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .custom-table tr:last-child td { border-bottom: none; }
+    .custom-table tr:hover td { background: var(--bg-card-hover); }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .status-in-progress { background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); }
+    .status-locked { background: rgba(100, 116, 139, 0.2); color: var(--text-muted); }
+    .status-completed { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+
+    /* Phase Cards */
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.2s;
+    }
+    .phase-card.active-phase {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 20px var(--glow-blue);
+    }
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .phase-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+    .task-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg-secondary);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-color);
+    }
+    .task-checkbox {
+      accent-color: var(--accent-blue);
+      width: 1.1rem;
+      height: 1.1rem;
+      cursor: not-allowed;
+    }
+
+    /* 7-Lens Cards */
+    .lens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .lens-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+    .lens-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .lens-desc { font-size: 0.85rem; color: var(--text-secondary); }
+
+    /* Code & Callouts */
+    pre, code { font-family: var(--font-mono); }
+    .code-pill {
+      background: var(--bg-secondary);
+      color: var(--accent-blue);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="brand-title">
+        <span>⚡</span> Brightline Analytics Deployment Tracker
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-primary" id="header-phase-badge">Phase 0: Foundations</span>
+        <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('overview')">📊 Overview & Architecture</button>
+    <button class="tab-btn" onclick="switchTab('phases')">🚀 Phases (P0 – P9)</button>
+    <button class="tab-btn" onclick="switchTab('labs')">🧪 Sabotage Labs (L1 – L20)</button>
+    <button class="tab-btn" onclick="switchTab('lenses')">🧠 7 Lenses & Scoring</button>
+  </div>
+
+  <main>
+    <!-- TAB 1: OVERVIEW -->
+    <div id="tab-overview" class="tab-pane active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Overall Completion</span>
+          <div class="stat-value" id="overall-pct">4%</div>
+          <div class="progress-bar-container">
+            <div class="progress-fill" style="width: 4%;"></div>
+          </div>
+          <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Current Active Phase</span>
+          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P0: Foundations</div>
+          <span class="stat-subtitle">Tenant Discovery & Local Infrastructure</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Trial Clock Status</span>
+          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-amber);">Not Started</div>
+          <span class="stat-subtitle">Fabric F64 clock starts at Phase 5</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Phase Gate Discipline</span>
+          <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
+          <span class="stat-subtitle">Evidence + 7 Lenses Oral Exam</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">🏢 Brightline Distribution Enterprise Topology</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Setting / Artifact</th>
+            <th>DEV (Development)</th>
+            <th>TEST (UAT Validation)</th>
+            <th>PROD (Production)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Workspace Name</strong></td>
+            <td><code class="code-pill">BL-Sales-DEV</code></td>
+            <td><code class="code-pill">BL-Sales-TEST</code></td>
+            <td><code class="code-pill">BL-Sales-PROD</code></td>
+          </tr>
+          <tr>
+            <td><strong>Content Source</strong></td>
+            <td>Git (<code class="code-pill">main</code> branch via Fabric Git)</td>
+            <td>Deployment Pipeline (DEV → TEST)</td>
+            <td>Deployment Pipeline (TEST → PROD)</td>
+          </tr>
+          <tr>
+            <td><strong>PostgreSQL Database</strong></td>
+            <td><code class="code-pill">brightline_dev</code> (250k rows, 6 mo)</td>
+            <td><code class="code-pill">brightline_test</code> (2.5M rows, 36 mo)</td>
+            <td><code class="code-pill">brightline_prod</code> (2.5M rows, 36 mo)</td>
+          </tr>
+          <tr>
+            <td><strong>Deployment Rule</strong></td>
+            <td>Default Parameter</td>
+            <td>Swap DB → <code class="code-pill">brightline_test</code></td>
+            <td>Swap DB → <code class="code-pill">brightline_prod</code></td>
+          </tr>
+          <tr>
+            <td><strong>Gateway Connection</strong></td>
+            <td><code class="code-pill">BL-PG-DEV</code></td>
+            <td><code class="code-pill">BL-PG-TEST</code></td>
+            <td><code class="code-pill">BL-PG-PROD</code></td>
+          </tr>
+          <tr>
+            <td><strong>Endorsement & Apps</strong></td>
+            <td>None</td>
+            <td>None (Rehearsal Only)</td>
+            <td>Certified Semantic Model + Multi-Audience App</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 2: PHASES -->
+    <div id="tab-phases" class="tab-pane">
+      <div class="phase-card active-phase">
+        <div class="phase-header">
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 0 — Foundations: Tenant Discovery, Environments, Data</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Determine tenant capabilities (Plan A vs Plan B), establish local PostgreSQL databases, generate reproducible ERP data, configure SharePoint seed workbooks, and author architecture baseline.
+        </p>
+        <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t01" checked />
+            <label for="t01"><strong>Task 0.1: Tenant Discovery</strong> — Verify Entra ID admin role, user creation, and App Registration rights. <span style="color: var(--accent-green); font-weight: 600;">(Plan A Confirmed)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t02" />
+            <label for="t02"><strong>Task 0.2: Azure DevOps Repo</strong> — Setup Brightline-Analytics project, repo, and commit skeleton with .gitignore.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t03" />
+            <label for="t03"><strong>Task 0.3: PostgreSQL Environment</strong> — Create brightline_dev, brightline_test, brightline_prod databases + schema DDL.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t04" />
+            <label for="t04"><strong>Task 0.4: Seeded Data Generator</strong> — Run generate_data.py to populate 250k (DEV) and 2.5M (PROD/TEST) rows; reconcile validation queries.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t05" />
+            <label for="t05"><strong>Task 0.5: SharePoint Cloud Sources</strong> — Setup SharePoint library with Targets.xlsx and UserSecurity.xlsx.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t06" />
+            <label for="t06"><strong>Task 0.6: Architecture Blueprint</strong> — Author docs/architecture.md and complete the initial Phase 0 gate exam.</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 1 — Semantic Model Build in Desktop</span>
+          <span class="status-tag status-locked">🔒 Locked (10–12h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Parameters, Query Folding discipline, ~22 documented measures, Tabular Editor BPA, PBIP commit.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 2 — Publish & Model Management (Start Individual Trial)</span>
+          <span class="status-tag status-locked">🔒 Locked (8–10h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Settings pane, 3 thin reports, Read vs Build permissions, Takeover exercise, Endorsement.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 3 — Gateway & Refresh Deep Dive</span>
+          <span class="status-tag status-locked">🔒 Locked (8h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Standard vs Personal gateway, 3 connections, mixed-source refresh, PowerShell refresh history, Labs L1–L3.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps</span>
+          <span class="status-tag status-locked">🔒 Locked (10h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Static vs Dynamic RLS (DAX vs Bi-directional relationship), OLS on cost, multi-audience App, Labs L4–L8.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)</span>
+          <span class="status-tag status-locked">🔒 Locked (8h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">RangeStart/RangeEnd folding, Detect data changes, XMLA partition inspection, Labs L9, L20.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 6 — Deployment Pipelines & Stage Rules</span>
+          <span class="status-tag status-locked">🔒 Locked (8h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">DEV→TEST→PROD pipeline, parameter rules, drift detection, Labs L12, L13, L17.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration</span>
+          <span class="status-tag status-locked">🔒 Locked (8–10h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">TMDL hand-editing, Git-connected DEV workspace, PR branch policies, merge conflict Lab L18.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 8 — Azure DevOps CI/CD Automation</span>
+          <span class="status-tag status-locked">🔒 Locked (10–12h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Self-hosted agent, YAML CI (Tabular Editor BPA), YAML CD (Fabric REST Deploy API), Lab L19.</p>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-title">Phase 9 — Monitoring, Performance, The Gauntlet & Capstone</span>
+          <span class="status-tag status-locked">🔒 Locked (10h)</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">Performance Analyzer + DAX Studio server timings, 8–10 symptom-only Gauntlet labs, final capstone presentation.</p>
+      </div>
+    </div>
+
+    <!-- TAB 3: SABOTAGE LABS -->
+    <div id="tab-labs" class="tab-pane">
+      <h2 class="section-title">🧪 Sabotage & Troubleshooting Catalog (20 Labs)</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Lab ID</th>
+            <th>Title & Action</th>
+            <th>Phase</th>
+            <th>User-Visible Symptom</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="labs-table-body">
+          <tr><td><strong>L1</strong></td><td>Postgres Credential Rotation</td><td>P3</td><td>Scheduled refresh fails with credential error</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L2</strong></td><td>Gateway Service Stopped</td><td>P3</td><td>Refresh fails "gateway unreachable"</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L3</strong></td><td>Gateway Connection Mapping Deleted</td><td>P3</td><td>Dataset cannot bind to connection</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L4</strong></td><td>Build Permission Revoked</td><td>P2/P4</td><td>Analyze in Excel / live connection fails</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L5</strong></td><td>App Access Without Underlying Model Access</td><td>P4</td><td>Visuals error "requires semantic model access"</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L6</strong></td><td>Tester Added as Workspace Member</td><td>P4</td><td>RLS completely bypassed; sees all company rows</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L7</strong></td><td>Relationship Direction Wrong for Security Table</td><td>P4</td><td>RLS returns blank data or unrestricted data</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L8</strong></td><td>USERNAME() vs USERPRINCIPALNAME() Confusion</td><td>P4</td><td>Desktop shows DOMAIN\User while Service expects UPN</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L9</strong></td><td>Non-Folding Step Before Incremental Filter</td><td>P5</td><td>Incremental refresh fails or takes full table duration</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L10</strong></td><td>Postgres Column Renamed</td><td>P3/P5</td><td>Refresh fails with schema mismatch</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L11</strong></td><td>Measure Renamed Without Impact Analysis</td><td>P2</td><td>Downstream visuals in 3 thin reports break</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 4: 7 LENSES & SCORING -->
+    <div id="tab-lenses" class="tab-pane">
+      <h2 class="section-title">🧠 The Seven Lenses of Architectural Mastery</h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        At every phase gate, you will be evaluated across all seven lenses before unlocking the next stage.
+      </p>
+      <div class="lens-grid">
+        <div class="lens-card">
+          <div class="lens-title">1. WHAT</div>
+          <div class="lens-desc">Clear, precise technical definition of the concept or component without jargon fluff.</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">2. WHY</div>
+          <div class="lens-desc">Architectural rationale, enterprise business driver, and the anti-patterns it prevents.</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">3. HOW</div>
+          <div class="lens-desc">Exact mechanical execution, engine behavior, formulas, and step-by-step lifecycle.</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">4. DEPENDENCIES</div>
+          <div class="lens-desc">Upstream/downstream prerequisites (gateway, drivers, capacities, OAuth tokens, parameters).</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">5. PERMISSIONS</div>
+          <div class="lens-desc">Exact security roles (Admin, Member, Contributor, Viewer, Build, SPN, Gateway Admin).</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">6. LIMITATIONS</div>
+          <div class="lens-desc">Boundary conditions, license restrictions, unsupported data types, and scale limits.</div>
+        </div>
+        <div class="lens-card">
+          <div class="lens-title">7. TROUBLESHOOTING</div>
+          <div class="lens-desc">Failure symptoms, diagnostic logs, root cause analysis, and surgical recovery steps.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const target = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('brightline_theme', target);
+    }
+
+    const savedTheme = localStorage.getItem('brightline_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>
