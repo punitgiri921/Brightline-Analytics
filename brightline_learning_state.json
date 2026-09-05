@@ -4,8 +4,8 @@
   "last_updated": "2026-09-06T01:13:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 50,
-  "current_phase": "Phase 3 — Gateway & Refresh Deep Dive",
+  "overall_progress_pct": 60,
+  "current_phase": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -156,9 +156,9 @@
     {
       "id": "P3",
       "name": "Phase 3 — Gateway & Refresh Deep Dive",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 90,
+      "gate_date": "2026-09-06",
       "hours_estimated": "8h",
       "evidence_tag": "phase-3-gateway",
       "tasks": [
@@ -183,14 +183,14 @@
         {
           "id": "T3.4",
           "name": "Resolve Formula.Firewall Privacy Level Conflicts",
-          "status": "In Progress",
-          "evidence": "Formula.Firewall privacy levels aligned to Organizational across all data sources."
+          "status": "Completed",
+          "evidence": "Formula.Firewall privacy levels aligned to Organizational across on-prem and cloud data sources."
         },
         {
           "id": "T3.5",
           "name": "Execute Gateway Sabotage Labs (L1, L2, L3, L14) & Phase 3 Gate Exam",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Executed Sabotage Labs L1, L2, L3, L14 rehearsals and passed Phase 3 Gate Exam with 90/100."
         }
       ],
       "gate_topics": [
@@ -203,11 +203,49 @@
     {
       "id": "P4",
       "name": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "10h",
-      "evidence_tag": "phase-4-security"
+      "evidence_tag": "phase-4-security",
+      "tasks": [
+        {
+          "id": "T4.1",
+          "name": "Define Security Table Architecture & Relationships",
+          "status": "In Progress",
+          "evidence": null
+        },
+        {
+          "id": "T4.2",
+          "name": "Author Dynamic RLS Roles (Regional Manager, Sales Rep, Exec)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T4.3",
+          "name": "Configure Object-Level Security (OLS) on Cost Columns & COGS Measures",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T4.4",
+          "name": "Test 'View As' Security Personas in Desktop & Service",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T4.5",
+          "name": "Build & Publish Multi-Audience Power BI App for BL-Sales-DEV",
+          "status": "Pending",
+          "evidence": null
+        }
+      ],
+      "gate_topics": [
+        "Dynamic RLS USERPRINCIPALNAME() mechanics",
+        "Security table relationship direction and filter propagation",
+        "Object-Level Security (OLS) vs RLS restrictions",
+        "App audiences vs Workspace role bypass (Lab L6)"
+      ]
     },
     {
       "id": "P5",
@@ -396,6 +434,20 @@
       "details": "In Power BI Enterprise architecture, data source connections in Manage Connections and Gateways exist as central shared objects. Updating database credentials on a shared gateway connection propagates instantly to all mapped semantic models across all workspaces, eliminating individual dataset credential management.",
       "phase": "P3",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-18",
+      "concept": "VertiPaq Cache Resilience & Stale Data Behavior on Refresh Failure",
+      "details": "In Import mode, semantic model data resides in the VertiPaq in-memory engine. If a scheduled refresh fails due to gateway offline or credential errors, the existing memory cache is preserved intact. Report consumers continue viewing the last successful snapshot (stale data) rather than blank visuals.",
+      "phase": "P3",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-19",
+      "concept": "Formula.Firewall Data Leak Prevention & Privacy Boundary Isolation",
+      "details": "Power Query privacy levels (Public, Organizational, Private) prevent confidential data from leaking across untrusted data sources during mashup merging and query folding. Aligning internal data sources to 'Organizational' allows safe cross-source joins in Power BI Service.",
+      "phase": "P3",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -541,6 +593,39 @@
       "category": "Refresh",
       "phase": "P3",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-14",
+      "question": "What is the difference between Standard Mode and Personal Mode gateways in enterprise architecture?",
+      "answer_summary": "Correctly differentiated multi-user enterprise sharing, clustering, and DirectQuery support vs single-user Personal mode.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Refresh",
+      "phase": "P3",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-15",
+      "question": "What happens to report visuals in Import mode if a scheduled refresh fails due to gateway downtime?",
+      "answer_summary": "Correctly identified that consumers see last successful snapshot (stale data) rather than blank visuals.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Troubleshooting",
+      "phase": "P3",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-16",
+      "question": "Why does Power Query enforce Privacy Levels (Formula.Firewall) during mixed-source joins?",
+      "answer_summary": "Correctly explained preventing confidential data leakage across untrusted external data boundaries.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P3",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
@@ -558,8 +643,8 @@
     },
     {
       "area": "Formula.Firewall Privacy Levels in Mixed Sources",
-      "detail": "Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained. Will configure in Phase 3.",
-      "status": "Explained — Scheduled for Phase 3",
+      "detail": "Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained and mastered in Phase 3.",
+      "status": "Mastered / Resolved in Phase 3",
       "identified_date": "2026-09-05"
     }
   ],
@@ -577,6 +662,7 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published"},
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"},
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"}
   ]
 }

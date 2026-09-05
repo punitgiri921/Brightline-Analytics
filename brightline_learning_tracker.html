@@ -751,6 +751,20 @@
             <td>P3</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>CL-18</strong></td>
+            <td>VertiPaq Cache Resilience & Stale Data Behavior on Refresh Failure</td>
+            <td>In Import mode, semantic model data resides in the VertiPaq in-memory engine. If a scheduled refresh fails due to gateway offline or credential errors, the existing memory cache is preserved intact. Report consumers continue viewing the last successful snapshot (stale data) rather than blank visuals.</td>
+            <td>P3</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-19</strong></td>
+            <td>Formula.Firewall Data Leak Prevention & Privacy Boundary Isolation</td>
+            <td>Power Query privacy levels (Public, Organizational, Private) prevent confidential data from leaking across untrusted data sources during mashup merging and query folding. Aligning internal data sources to 'Organizational' allows safe cross-source joins in Power BI Service.</td>
+            <td>P3</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
@@ -871,6 +885,30 @@
             <td>Refresh</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>TQ-14</strong></td>
+            <td>What is the difference between Standard Mode and Personal Mode gateways in enterprise architecture?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Refresh</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-15</strong></td>
+            <td>What happens to report visuals in Import mode if a scheduled refresh fails due to gateway downtime?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Troubleshooting</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-16</strong></td>
+            <td>Why does Power Query enforce Privacy Levels (Formula.Firewall) during mixed-source joins?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
@@ -899,8 +937,8 @@
           </tr>
           <tr>
             <td><strong>Formula.Firewall Privacy Levels in Mixed Sources</strong></td>
-            <td>Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained. Will configure in Phase 3.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Scheduled for Phase 3</span></td>
+            <td>Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained and mastered in Phase 3.</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Mastered / Resolved in Phase 3</span></td>
             <td>2026-09-05</td>
           </tr>
         </tbody>
@@ -1001,11 +1039,17 @@
             <td>P3</td>
             <td>T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P3</td>
+            <td>T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">7.0h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">7.5h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
