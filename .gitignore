@@ -20,6 +20,9 @@ _diag/
 *credential*
 *.txt.secret
 secrets/
+Secrets and Key.txt
+data-generator/generate_data.py
+generate_data.py
 
 # OS & Editor files
 .DS_Store

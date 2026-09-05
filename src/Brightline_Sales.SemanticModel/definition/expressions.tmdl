@@ -1,0 +1,31 @@
+expression PG_Server = "localhost" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b573c639-0793-4ad7-83d1-ac899ea6bdff
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// Target DB environment
+expression PG_Database = "brightline_dev" meta [IsParameterQuery=true, List={"brightline_dev", "brightline_test", "brightline_prod"}, DefaultValue="brightline_dev", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b25f3706-ae7a-4e47-be10-c7626a50de59
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+/// Incremental window start
+expression RangeStart = #datetime(2026, 4, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: f87294b2-8e13-462f-b0bc-418043c4b4ba
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+/// Incremental window end
+expression RangeEnd = #datetime(2026, 9, 30, 23, 59, 59) meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: b50abc4e-31c0-424e-93b3-d7e9da59b914
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Brightline_Sales"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d19b9414-bca2-4596-9f3a-92aa7f84f698"
+  }
+}

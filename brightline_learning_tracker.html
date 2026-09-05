@@ -340,7 +340,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 0: Foundations</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 1: Semantic Model Build</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -350,6 +350,7 @@
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="switchTab('overview')">📊 Overview & Architecture</button>
     <button class="tab-btn" onclick="switchTab('phases')">🚀 Phases (P0 – P9)</button>
+    <button class="tab-btn" onclick="switchTab('knowledge')">📚 Knowledge & Scores</button>
     <button class="tab-btn" onclick="switchTab('labs')">🧪 Sabotage Labs (L1 – L20)</button>
     <button class="tab-btn" onclick="switchTab('lenses')">🧠 7 Lenses & Scoring</button>
   </div>
@@ -360,16 +361,16 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">4%</div>
+          <div class="stat-value" id="overall-pct">15%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 4%;"></div>
+            <div class="progress-fill" style="width: 15%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P0: Foundations</div>
-          <span class="stat-subtitle">Tenant Discovery & Local Infrastructure</span>
+          <div class="stat-value" style="font-size: 1.4rem; color: var(--accent-blue);">P1: Semantic Model Build</div>
+          <span class="stat-subtitle">Desktop, M Parameters, PBIP, TMDL</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
@@ -436,13 +437,13 @@
 
     <!-- TAB 2: PHASES -->
     <div id="tab-phases" class="tab-pane">
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 0 — Foundations: Tenant Discovery, Environments, Data</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 82 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Determine tenant capabilities (Plan A vs Plan B), establish local PostgreSQL databases, generate reproducible ERP data, configure SharePoint seed workbooks, and author architecture baseline.
@@ -453,34 +454,61 @@
             <label for="t01"><strong>Task 0.1: Tenant Discovery</strong> — Verify Entra ID admin role, user creation, and App Registration rights. <span style="color: var(--accent-green); font-weight: 600;">(Plan A Confirmed)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t02" />
-            <label for="t02"><strong>Task 0.2: Azure DevOps Repo</strong> — Setup Brightline-Analytics project, repo, and commit skeleton with .gitignore.</label>
+            <input type="checkbox" class="task-checkbox" id="t02" checked />
+            <label for="t02"><strong>Task 0.2: Azure DevOps Repo</strong> — Setup Brightline-Analytics project, repo, and commit skeleton with .gitignore. <span style="color: var(--accent-green); font-weight: 600;">(Done)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t03" />
-            <label for="t03"><strong>Task 0.3: PostgreSQL Environment</strong> — Create brightline_dev, brightline_test, brightline_prod databases + schema DDL.</label>
+            <input type="checkbox" class="task-checkbox" id="t03" checked />
+            <label for="t03"><strong>Task 0.3: PostgreSQL Environment</strong> — Create brightline_dev, brightline_test, brightline_prod databases + schema DDL. <span style="color: var(--accent-green); font-weight: 600;">(Done — 5 tables × 3 DBs)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t04" />
-            <label for="t04"><strong>Task 0.4: Seeded Data Generator</strong> — Run generate_data.py to populate 250k (DEV) and 2.5M (PROD/TEST) rows; reconcile validation queries.</label>
+            <input type="checkbox" class="task-checkbox" id="t04" checked />
+            <label for="t04"><strong>Task 0.4: Seeded Data Generator</strong> — Run generate_data.py to populate 250k (DEV) and 2.5M (PROD/TEST) rows; reconcile validation queries. <span style="color: var(--accent-green); font-weight: 600;">(Done — 5.25M rows total)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t05" />
-            <label for="t05"><strong>Task 0.5: SharePoint Cloud Sources</strong> — Setup SharePoint library with Targets.xlsx and UserSecurity.xlsx.</label>
+            <input type="checkbox" class="task-checkbox" id="t05" checked />
+            <label for="t05"><strong>Task 0.5: SharePoint Cloud Sources</strong> — Setup SharePoint library with Targets.xlsx and UserSecurity.xlsx. <span style="color: var(--accent-green); font-weight: 600;">(Done — Deployed to OneDrive)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t06" />
-            <label for="t06"><strong>Task 0.6: Architecture Blueprint</strong> — Author docs/architecture.md and complete the initial Phase 0 gate exam.</label>
+            <input type="checkbox" class="task-checkbox" id="t06" checked />
+            <label for="t06"><strong>Task 0.6: Architecture Blueprint</strong> — Author docs/architecture.md and complete the initial Phase 0 gate exam. <span style="color: var(--accent-green); font-weight: 600;">(Done — Blueprint Published)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 1 — Semantic Model Build in Desktop</span>
-          <span class="status-tag status-locked">🔒 Locked (10–12h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 1 — Semantic Model Build in Desktop</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (10–12h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Parameters, Query Folding discipline, ~22 documented measures, Tabular Editor BPA, PBIP commit.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Build production-grade Semantic Model in Power BI Desktop (PBIP format) with M Parameters for environment switching, query folding discipline, Star Schema modeling, 22 documented DAX measures, and BPA compliance.
+        </p>
+        <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t11" checked />
+            <label for="t11"><strong>Task 1.1: Power BI Desktop Project (.PBIP) Setup</strong> — Enable PBIP preview feature, initialize project structure, configure M Parameters (Server, Database, RangeStart, RangeEnd). <span style="color: var(--accent-green); font-weight: 600;">(Done — PBIP & TMDL)</span></label>
+          </li>
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t12" />
+            <label for="t12"><strong>Task 1.2: Power Query Ingestion & Folding Verification</strong> — Ingest 5 ERP tables + 2 Excel tables, verify Native Query folding on date filters. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t13" />
+            <label for="t13"><strong>Task 1.3: Star Schema & Date Dimension</strong> — Establish 1-to-many single directional relationships, author dynamic M/DAX Date table.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t14" />
+            <label for="t14"><strong>Task 1.4: DAX Measure Library (22 Core Measures)</strong> — Author Base, Time Intelligence, Target Variance, and Margin metrics in organized display folders.</label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t15" />
+            <label for="t15"><strong>Task 1.5: Tabular Editor Best Practice Analyzer (BPA)</strong> — Run Tabular Editor BPA rules, fix formatting/unhidden key violations, export clean TMDL.</label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">
@@ -548,7 +576,203 @@
       </div>
     </div>
 
-    <!-- TAB 3: SABOTAGE LABS -->
+    <!-- TAB 3: KNOWLEDGE & SCORES -->
+    <div id="tab-knowledge" class="tab-pane">
+      <h2 class="section-title">📚 Concepts Learned</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Concept</th>
+            <th>Details</th>
+            <th>Phase</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CL-01</strong></td>
+            <td>Why DEV uses smaller data (250K/6mo) vs TEST/PROD (2.5M/36mo)</td>
+            <td>Three reasons: (1) DEV = fast iteration, (2) TEST simulates production load to catch perf issues, (3) 36 months needed for incremental refresh partition testing</td>
+            <td>P0</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-02</strong></td>
+            <td>SharePoint/OneDrive Cloud URL Best Practice (Stripping ?web=1)</td>
+            <td>Stripping '?web=1' accesses the raw binary Excel stream via Web.Contents(), preventing scheduled refresh failures in Power BI Service.</td>
+            <td>P0</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-03</strong></td>
+            <td>Schema Drift & Column Renaming Downstream Impact (Lab L10)</td>
+            <td>Renaming a column in the database breaks Power Query mashup evaluation at the Select/Rename Columns step with 'Column not found'. This fails scheduled refresh and cascades into broken DAX measures and blank visuals.</td>
+            <td>P0</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-04</strong></td>
+            <td>Hybrid Refresh Orchestration & Formula.Firewall Privacy Levels</td>
+            <td>In mixed-source models, Power BI Service coordinates On-premises Gateway (for PostgreSQL) and direct cloud OAuth2 (for OneDrive). The mashup engine combines streams in the cloud. Privacy levels must be aligned to prevent Formula.Firewall data boundary errors.</td>
+            <td>P0</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>CL-05</strong></td>
+            <td>Power BI Project (.PBIP) & TMDL Architecture for Version Control</td>
+            <td>PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL enables line-by-line Git diffing, multi-developer branch collaboration, and PR reviews without binary merge conflicts.</td>
+            <td>P1</td>
+            <td>2026-09-05</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Evaluation</th>
+            <th>Score</th>
+            <th>Category</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TQ-01</strong></td>
+            <td>Why do we use smaller data volume in DEV but larger in TEST/PROD?</td>
+            <td><span class="status-tag" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">Partially Correct</span></td>
+            <td><strong>4 / 10</strong></td>
+            <td>Workspace Architecture</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-02</strong></td>
+            <td>Why 3 separate databases instead of 1 shared database with flags?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>9 / 10</strong></td>
+            <td>Workspace Architecture</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-03</strong></td>
+            <td>What is an SPN and why does CI/CD require one?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>8 / 10</strong></td>
+            <td>CI/CD</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-04</strong></td>
+            <td>If a PostgreSQL column is renamed in DEV, where does it break downstream?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained & Retested</span></td>
+            <td><strong>7 / 10</strong></td>
+            <td>Troubleshooting</td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-05</strong></td>
+            <td>How do hybrid data sources behave during scheduled refresh in Service?</td>
+            <td><span class="status-tag status-completed">Correct</span></td>
+            <td><strong>8 / 10</strong></td>
+            <td>Refresh</td>
+            <td>2026-09-05</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 2rem;">⚠️ Knowledge Gaps</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Detail</th>
+            <th>Status</th>
+            <th>Identified</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Incremental Refresh Partitioning</strong></td>
+            <td>Did not connect data volume/date range to partition testing requirements. Elaboration provided.</td>
+            <td><span class="status-tag" style="background: rgba(245,158,11,0.15); color: var(--accent-amber);">Explained — Pending Retest</span></td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>Schema Drift & Column Renaming (Lab L10)</strong></td>
+            <td>Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Scheduled for Lab L10</span></td>
+            <td>2026-09-05</td>
+          </tr>
+          <tr>
+            <td><strong>Formula.Firewall Privacy Levels in Mixed Sources</strong></td>
+            <td>Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained. Will configure in Phase 3.</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Scheduled for Phase 3</span></td>
+            <td>2026-09-05</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title" style="margin-top: 2rem;">⏱️ Hours Log</h2>
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Hours</th>
+            <th>Phases</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P0</td>
+            <td>Initial setup session</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P0</td>
+            <td>T0.3 PostgreSQL databases + schema DDL</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P0</td>
+            <td>T0.4 Synthetic data generator execution (5.25M total rows seeded)</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P0</td>
+            <td>T0.5 Cloud Excel sources generated and deployed to OneDrive</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P0</td>
+            <td>T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P1</td>
+            <td>T1.1 PBIP + TMDL project initialized with M parameters</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
+        <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">3.0h</span>
+        <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
+      </div>
+    </div>
+
+    <!-- TAB 4: SABOTAGE LABS -->
     <div id="tab-labs" class="tab-pane">
       <h2 class="section-title">🧪 Sabotage & Troubleshooting Catalog (20 Labs)</h2>
       <table class="custom-table">

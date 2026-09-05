@@ -1,11 +1,11 @@
 {
   "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-05",
+  "last_updated": "2026-09-05T21:09:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 0,
-  "current_phase": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
+  "overall_progress_pct": 14,
+  "current_phase": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -16,9 +16,9 @@
     {
       "id": "P0",
       "name": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 82,
+      "gate_date": "2026-09-05",
       "hours_estimated": "8-10h",
       "evidence_tag": "phase-0-foundations",
       "tasks": [
@@ -31,32 +31,32 @@
         {
           "id": "T0.2",
           "name": "Azure DevOps project 'Brightline-Analytics' setup and repo skeleton commit",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Azure DevOps project 'Brightline-Analytics' created and main branch pushed with initial skeleton."
         },
         {
           "id": "T0.3",
           "name": "PostgreSQL databases setup (brightline_dev, brightline_test, brightline_prod) and schema DDL",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "3 databases created on PostgreSQL 16. erp schema with 5 tables (products, stores, customers, sales_reps, sales_transactions) + 4 indexes deployed in all 3 databases. Verified via pgAdmin screenshot."
         },
         {
           "id": "T0.4",
           "name": "Seeded synthetic data generation (Python) & SQL validation queries reconciliation",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Executed generate_data.py across dev (250k rows, 6mo), test (2.5M rows, 36mo), and prod (2.5M rows, 36mo). All dimensions seeded (44 products, 78 stores, 17 reps, 210 customers)."
         },
         {
           "id": "T0.5",
           "name": "SharePoint Online setup (Targets.xlsx and UserSecurity.xlsx)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Generated Targets.xlsx (720 rows) and UserSecurity.xlsx. Uploaded to OneDrive cloud storage in folder 'Brightline-Data'. Screenshot verified."
         },
         {
           "id": "T0.6",
           "name": "Architecture documentation (docs/architecture.md) authored by learner",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Authored complete docs/architecture.md blueprint covering 3-tier topology, hybrid sources, SPN auth, and promotion flow. Passed Phase 0 Gate Exam with 82/100."
         }
       ],
       "gate_topics": [
@@ -69,11 +69,43 @@
     {
       "id": "P1",
       "name": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "10-12h",
-      "evidence_tag": "phase-1-model-built"
+      "evidence_tag": "phase-1-model-built",
+      "tasks": [
+        {
+          "id": "T1.1",
+          "name": "Power BI Desktop Project (.PBIP) Setup & M Parameters",
+          "status": "Completed",
+          "evidence": "Saved Brightline_Sales.pbip with TMDL semantic model definition. Configured PG_Server, PG_Database (suggested values list), RangeStart, and RangeEnd parameters."
+        },
+        {
+          "id": "T1.2",
+          "name": "Power Query Ingestion & Folding Verification",
+          "status": "In Progress",
+          "evidence": null
+        },
+        {
+          "id": "T1.3",
+          "name": "Star Schema & Date Dimension",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T1.4",
+          "name": "DAX Measure Library (22 Core Measures)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T1.5",
+          "name": "Tabular Editor Best Practice Analyzer (BPA)",
+          "status": "Pending",
+          "evidence": null
+        }
+      ]
     },
     {
       "id": "P2",
@@ -170,8 +202,126 @@
     {"id": "L19", "title": "BPA Rule Violation Fails CI Pipeline", "phase": "P8", "status": "Pending"},
     {"id": "L20", "title": "Full PBIX Republish Wipes Partitions", "phase": "P5", "status": "Pending"}
   ],
-  "weak_areas": [],
+  "concepts_learned": [
+    {
+      "id": "CL-01",
+      "concept": "Why DEV uses smaller data (250K/6mo) vs TEST/PROD (2.5M/36mo)",
+      "details": "Three reasons: (1) DEV = fast iteration for model building, (2) TEST must simulate production-realistic load to catch performance issues, (3) 36 months needed for meaningful incremental refresh partition testing in Phase 5",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-02",
+      "concept": "SharePoint/OneDrive Cloud URL Best Practice (Stripping ?web=1)",
+      "details": "When connecting Power BI to SharePoint/OneDrive Excel files via Web.Contents(), copying the browser path includes '?web=1' which renders an HTML viewer. Stripping '?web=1' accesses the raw binary stream directly, preventing scheduled refresh failures in Power BI Service.",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-03",
+      "concept": "Schema Drift & Column Renaming Downstream Impact (Lab L10)",
+      "details": "Renaming a column in the database breaks Power Query mashup evaluation at the Select/Rename Columns step with 'Column not found'. This fails scheduled refresh and cascades into broken DAX measures and blank visuals.",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-04",
+      "concept": "Hybrid Refresh Orchestration & Formula.Firewall Privacy Levels",
+      "details": "In mixed-source models, Power BI Service coordinates On-premises Gateway (for PostgreSQL) and direct cloud OAuth2 (for OneDrive). The mashup engine combines streams in the cloud. Privacy levels must be aligned to prevent Formula.Firewall data boundary errors.",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "CL-05",
+      "concept": "Power BI Project (.PBIP) & TMDL Architecture for Enterprise Version Control",
+      "details": "PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL replaces single massive model.bim with individual human-readable files (expressions.tmdl, table.tmdl, relationships.tmdl), enabling clean Git branching, PR line-by-line diffs, and merge conflict resolution without corrupting binary PBIX files.",
+      "phase": "P1",
+      "date": "2026-09-05"
+    }
+  ],
+  "technical_questions": [
+    {
+      "id": "TQ-01",
+      "question": "Why do we use smaller data volume in DEV but larger in TEST/PROD?",
+      "answer_summary": "Fast iteration identified; performance at scale and incremental refresh partitioning explained.",
+      "score": 4,
+      "max_score": 10,
+      "evaluation": "Partially Correct",
+      "category": "Workspace Architecture",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-02",
+      "question": "Why 3 separate databases instead of 1 shared database with environment flags?",
+      "answer_summary": "Correctly identified development isolation, realistic testing, and preventing accidental overwrites across teams.",
+      "score": 9,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Workspace Architecture",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-03",
+      "question": "What is an SPN and why does CI/CD require one instead of user credentials?",
+      "answer_summary": "Identified eliminating personal dependency; explained MFA bypass, token rotation, and pipeline automation.",
+      "score": 8,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "CI/CD",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-04",
+      "question": "If a PostgreSQL column is renamed in DEV, where does it break downstream and why?",
+      "answer_summary": "Identified gap; taught Mashup Engine column binding failure, scheduled refresh crash, and DAX measure breakage (Lab L10 preview).",
+      "score": 7,
+      "max_score": 10,
+      "evaluation": "Technically Correct but Needs Improvement",
+      "category": "Troubleshooting",
+      "phase": "P0",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "TQ-05",
+      "question": "How do hybrid data sources (Postgres + OneDrive) behave during scheduled refresh in Service?",
+      "answer_summary": "Recognized Postgres=data and OneDrive=security/targets; explained Gateway orchestration + direct cloud refresh + Formula.Firewall privacy levels.",
+      "score": 8,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Refresh",
+      "phase": "P0",
+      "date": "2026-09-05"
+    }
+  ],
+  "weak_areas": [
+    {
+      "area": "Incremental Refresh Partitioning",
+      "detail": "Did not connect data volume/date range to partition testing requirements. Elaboration provided — retest in Phase 5.",
+      "status": "Explained — Pending Retest",
+      "identified_date": "2026-09-05"
+    },
+    {
+      "area": "Schema Drift & Column Renaming (Lab L10)",
+      "detail": "Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.",
+      "status": "Explained — Scheduled for Lab L10",
+      "identified_date": "2026-09-05"
+    },
+    {
+      "area": "Formula.Firewall Privacy Levels in Mixed Sources",
+      "detail": "Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained. Will configure in Phase 3.",
+      "status": "Explained — Scheduled for Phase 3",
+      "identified_date": "2026-09-05"
+    }
+  ],
   "hours_log": [
-    {"week": "Week 1", "hours": 0.5, "phases": "P0"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "Initial setup session"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.3 PostgreSQL databases + schema DDL"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.4 Synthetic data generator execution (5.25M total rows seeded)"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.5 Cloud Excel sources generated and deployed to OneDrive"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.1 PBIP + TMDL project initialized with M parameters"}
   ]
 }
