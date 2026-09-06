@@ -142,6 +142,13 @@ table _Meaure
 		displayFolder: 02. Margin & Profitability
 		lineageTag: 2601faaa-84a6-437b-ac03-02970b1e6b06
 
+	measure 'Average Discount %' = 
+			DIVIDE([Total Sales Revenue] - [Total Net Sales], [Total Sales Revenue], 0)
+		formatString: 0.0%
+		displayFolder: 02. Margin & Profitability
+		lineageTag: e8a2c104-589d-472a-9e12-70b8c642a8b9
+
+
 	partition _Meaure = m
 		mode: import
 		source =
