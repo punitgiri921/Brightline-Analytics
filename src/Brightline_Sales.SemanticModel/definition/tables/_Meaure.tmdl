@@ -126,6 +126,21 @@ table _Meaure
 		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
 		displayFolder: 04. Time Intelligence
 		lineageTag: fe8a4b70-388c-416f-9cdb-532bf36ae011
+	
+	measure 'Total Returns Qty' = 
+			CALCULATE(
+				SUM(Fact_Sales[quantity]),
+				Fact_Sales[is_returned] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: 01. Base Metrics
+		lineageTag: f47d9e82-16b0-479c-8359-10816f252b4b	
+
+	measure 'Return Rate %' = 
+			DIVIDE([Total Returns Qty], [Total Sales Units], 0)
+		formatString: 0.00%
+		displayFolder: 02. Margin & Profitability
+		lineageTag: 2601faaa-84a6-437b-ac03-02970b1e6b06
 
 	partition _Meaure = m
 		mode: import
