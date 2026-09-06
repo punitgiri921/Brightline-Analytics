@@ -50,10 +50,10 @@ steps:
       Write-Host "   Model Directory : $(MODEL_DIR)"
       Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
 
-      # Execute Tabular Editor with:
-      # -B: Best Practice Analyzer check
-      # -V: Verbose / Validate syntax
-      $process = Start-Process -FilePath $teExe -ArgumentList "`"$(MODEL_DIR)`" -B `"${BPA_RULES_PATH}`" -V" -NoNewWindow -PassThru -Wait
+      # Execute Tabular Editor 2 CLI with array argument list:
+      # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
+      # -V: Verbose / Validate syntax & output rule violations
+      $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
 
       if ($process.ExitCode -ne 0) {
           Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
