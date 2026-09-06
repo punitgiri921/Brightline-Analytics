@@ -28,10 +28,16 @@ jobs:
         run: |
           $modelPath = "./src/Brightline_Sales.SemanticModel/definition"
           $bpaPath = "./bpa-rules/BPARules.json"
+          $reportPath = "./bpa-report.txt"
           
           Write-Host "Running BPA analysis on: $modelPath"
-          $process = Start-Process -FilePath "TabularEditor/TabularEditor.exe" -ArgumentList "`"$modelPath`" -B `"$bpaPath`" -V" -NoNewWindow -PassThru -Wait
+          $process = Start-Process -FilePath "TabularEditor/TabularEditor.exe" -ArgumentList "`"$modelPath`" -A `"$bpaPath`" -B `"$reportPath`" -W -V" -NoNewWindow -PassThru -Wait
           
+          if (Test-Path $reportPath) {
+            Write-Host "BPA Violations Report:"
+            Get-Content $reportPath | ForEach-Object { Write-Host $_ }
+          }
+
           if ($process.ExitCode -ne 0) {
             Write-Error "❌ Model validation failed due to Best Practice Analyzer violations!"
             exit 1
