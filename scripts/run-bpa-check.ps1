@@ -27,14 +27,14 @@ Write-Host "Scanning TMDL Model : $modelDir" -ForegroundColor Gray
 Write-Host "Applying BPA Rules  : $bpaRules" -ForegroundColor Gray
 Write-Host ""
 
-& $teExe "$modelDir" -A "$bpaRules" -V
+$proc = Start-Process -FilePath $teExe -ArgumentList @($modelDir, "-A", $bpaRules, "-V") -NoNewWindow -PassThru -Wait
 
-if ($LASTEXITCODE -ne 0) {
-    Write-Host ""
-    Write-Host "❌ BPA Validation Failed with exit code $LASTEXITCODE! Violations detected." -ForegroundColor Red
+Write-Host "`nTabular Editor Exit Code: $($proc.ExitCode)"
+
+if ($proc.ExitCode -ne 0) {
+    Write-Host "❌ BPA Validation Failed with exit code $($proc.ExitCode)! Violations detected." -ForegroundColor Red
     exit 1
 } else {
-    Write-Host ""
     Write-Host "✅ SUCCESS: All Best Practice Analyzer rules passed 100%!" -ForegroundColor Green
     exit 0
 }

@@ -50,12 +50,12 @@ steps:
       Write-Host "   Model Directory : $(MODEL_DIR)"
       Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
 
-      # Execute Tabular Editor 2 CLI with direct invocation:
+      # Execute Tabular Editor 2 CLI with array argument list:
       # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
       # -V: Verbose / Validate syntax & output rule violations
-      & $teExe "$(MODEL_DIR)" -A "${BPA_RULES_PATH}" -V
+      $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
 
-      if ($LASTEXITCODE -ne 0) {
+      if ($process.ExitCode -ne 0) {
           Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
           Write-Error "CI Gate Failed. Please review the BPA violations above and fix your DAX/TMDL code before merging."
           exit 1

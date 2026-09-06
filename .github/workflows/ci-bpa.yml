@@ -30,9 +30,9 @@ jobs:
           $bpaPath = "./bpa-rules/BPARules.json"
           
           Write-Host "Running BPA analysis on: $modelPath"
-          & "TabularEditor/TabularEditor.exe" "$modelPath" -A "$bpaPath" -V
+          $process = Start-Process -FilePath "TabularEditor/TabularEditor.exe" -ArgumentList @($modelPath, "-A", $bpaPath, "-V") -NoNewWindow -PassThru -Wait
 
-          if ($LASTEXITCODE -ne 0) {
+          if ($process.ExitCode -ne 0) {
             Write-Error "❌ Model validation failed due to Best Practice Analyzer violations!"
             exit 1
           } else {
