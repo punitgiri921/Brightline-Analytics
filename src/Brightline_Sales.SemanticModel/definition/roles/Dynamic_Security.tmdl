@@ -1,0 +1,39 @@
+role Dynamic_Security
+	modelPermission: read
+
+	tablePermission Fact_Targets = ```
+			VAR _UserEmail = USERPRINCIPALNAME()
+			VAR _AssignedRegion = 
+			    LOOKUPVALUE(Security_UserPermissions[Assigned_Region], Security_UserPermissions[Email], _UserEmail)
+			RETURN
+			    IF (
+			        _AssignedRegion = "ALL",
+			        TRUE(),
+			        Fact_Targets[Region] = _AssignedRegion
+			    )
+			```
+
+	tablePermission Dim_Stores = ```
+			VAR _UserEmail = USERPRINCIPALNAME()
+			VAR _AssignedRegion = 
+			    LOOKUPVALUE(Security_UserPermissions[Assigned_Region], Security_UserPermissions[Email], _UserEmail)
+			VAR _AssignedTerritory = 
+			    LOOKUPVALUE(Security_UserPermissions[Assigned_Territory], Security_UserPermissions[Email], _UserEmail)
+			RETURN
+			IF (
+			    _AssignedRegion = "ALL",
+			    TRUE(),
+			    IF (
+			        _AssignedTerritory = "ALL",
+			        Dim_Stores[region] = _AssignedRegion,
+			        Dim_Stores[territory] = _AssignedTerritory
+			    )
+			)
+			```
+
+	tablePermission Dim_Products
+
+		columnPermission unit_cost = none
+
+	annotation PBI_Id = 57c9f3cb83fd446aaa7ee1d3df6ccb28
+

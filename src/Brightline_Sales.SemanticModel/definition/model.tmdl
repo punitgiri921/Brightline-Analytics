@@ -11,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["PG_Server","PG_Database","RangeStart","RangeEnd","Dim_Customers","Dim_Products","Dim_SalesReps","Fact_Sales","Dim_Stores","Fact_Targets","Security_UserPermissions","_Measure","_Meaure"]
 
-annotation PBI_ProTooling = ["DevMode"]
+annotation PBI_ProTooling = ["DevMode","TMDLView_Desktop"]
 
 ref table Dim_Customers
 ref table Dim_Products
@@ -25,6 +25,8 @@ ref table Fact_Targets
 ref table Security_UserPermissions
 ref table Dim_Date
 ref table _Meaure
+
+ref role Dynamic_Security
 
 ref cultureInfo en-IN
 

@@ -1,6 +1,9 @@
 table Fact_Targets
 	lineageTag: b1050fe2-2e33-4aa7-a269-1f50ebf7c86a
 
+	measure 'VAR _UserEmail'
+		lineageTag: 768a6836-298f-4c81-acb9-2b0cb734bb77
+
 	column Target_Month
 		dataType: dateTime
 		formatString: Long Date

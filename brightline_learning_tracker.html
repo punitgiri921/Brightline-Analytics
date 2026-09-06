@@ -349,26 +349,26 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">50%</div>
+          <div class="stat-value" id="overall-pct">70%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 50%;"></div>
+            <div class="progress-fill" style="width: 70%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P3: Gateway & Refresh</div>
-          <span class="stat-subtitle">Postgres Gateway, Mixed Source, Scheduled Refresh</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P5: Incremental & XMLA</div>
+          <span class="stat-subtitle">Fabric F64 Capacity, RangeStart/RangeEnd, Partitions</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
-          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">47 Days Left</div>
+          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">F64 Activation Ready</div>
           <span class="stat-subtitle">Fabric F64 clock starts at Phase 5</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92</span>
         </div>
       </div>
 
@@ -534,13 +534,13 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 3 — Gateway & Refresh Deep Dive</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 90 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Master Standard vs Personal gateway, configure PostgreSQL connections (BL-PG-DEV/TEST/PROD), orchestrate hybrid refresh (PostgreSQL + OneDrive cloud Excel), diagnose SSL timeout & Formula.Firewall privacy errors, and complete Gateway Sabotage Labs.
@@ -562,27 +562,81 @@
             <input type="checkbox" class="task-checkbox" id="t34" checked />
             <label for="t34"><strong>Task 3.4: Resolve Formula.Firewall Privacy Levels</strong> — Align Privacy Levels to Organizational across on-prem and cloud data sources. <span style="color: var(--accent-green); font-weight: 600;">(Done — Aligned)</span></label>
           </li>
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t35" />
-            <label for="t35"><strong>Task 3.5: Sabotage Labs (L1, L2, L3) & Phase 3 Gate Exam</strong> — Answer Gateway architecture questions and rehearse failure recovery. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t35" checked />
+            <label for="t35"><strong>Task 3.5: Sabotage Labs (L1, L2, L3, L14) & Phase 3 Gate Exam</strong> — Answer Gateway architecture questions and rehearse failure recovery. <span style="color: var(--accent-green); font-weight: 600;">(Done — Passed 90/100)</span></label>
           </li>
         </ul>
       </div>
 
       <div class="phase-card">
         <div class="phase-header">
-          <span class="phase-title">Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps</span>
-          <span class="status-tag status-locked">🔒 Locked (10h)</span>
+          <div>
+            <span class="badge badge-green">COMPLETED</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps</span>
+          </div>
+          <span class="status-tag status-completed">✔ Gate Score: 92 / 100</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Static vs Dynamic RLS (DAX vs Bi-directional relationship), OLS on cost, multi-audience App, Labs L4–L8.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Author dynamic hierarchical Row-Level Security with single-direction Star Schema integrity, enforce Object-Level Security on sensitive cost metadata, verify multi-persona access in Desktop and Service, and publish multi-audience Power BI App.
+        </p>
+        <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t41" checked />
+            <label for="t41"><strong>Task 4.1: Security Table Architecture</strong> — Configure Security_UserPermissions as disconnected lookup table; evaluate single-direction vs bidirectional trade-offs. <span style="color: var(--accent-green); font-weight: 600;">(Done — Disconnected Architecture)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t42" checked />
+            <label for="t42"><strong>Task 4.2: Author Dynamic RLS Roles</strong> — Implement Dynamic_Security role on Dim_Stores & Fact_Targets using USERPRINCIPALNAME() and LOOKUPVALUE(). <span style="color: var(--accent-green); font-weight: 600;">(Done — Role Authored & Validated)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t43" checked />
+            <label for="t43"><strong>Task 4.3: Configure Object-Level Security (OLS)</strong> — Enforce columnPermission = none on Dim_Products[unit_cost] and evaluate broken visual failure modes. <span style="color: var(--accent-green); font-weight: 600;">(Done — OLS Enforced on unit_cost)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t44" checked />
+            <label for="t44"><strong>Task 4.4: Test 'View As' Security Personas</strong> — Verify Regional Director (North), Territory Manager (Karnataka), and Executive (Full Access) personas in Desktop. <span style="color: var(--accent-green); font-weight: 600;">(Done — All Personas Verified)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t45" checked />
+            <label for="t45"><strong>Task 4.5: Multi-Audience Power BI App</strong> — Publish secured model to BL-Sales-DEV, map security role members in Service, and build multi-audience App. <span style="color: var(--accent-green); font-weight: 600;">(Done — Multi-Audience App Live)</span></label>
+          </li>
+        </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)</span>
-          <span class="status-tag status-locked">🔒 Locked (8h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">RangeStart/RangeEnd folding, Detect data changes, XMLA partition inspection, Labs L9, L20.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Activate 60-day Microsoft Fabric F64 capacity trial, bind workspace to Premium capacity, configure native Incremental Refresh policy on Fact_Sales (RangeStart/RangeEnd), and inspect physical VertiPaq partitions via XMLA endpoint.
+        </p>
+        <ul class="task-list">
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t51" />
+            <label for="t51"><strong>Task 5.1: Microsoft Fabric F64 Trial Activation</strong> — Start 60-day Fabric capacity trial and assign BL-Sales-DEV workspace to Fabric capacity (Diamond icon 💎). <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t52" />
+            <label for="t52"><strong>Task 5.2: Incremental Refresh Policy Configuration</strong> — Define 3-year historical archive + 1-month incremental refresh window with Detect Data Changes on last_modified. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t53" />
+            <label for="t53"><strong>Task 5.3: Initial Partition Seeding Refresh</strong> — Trigger first Service refresh to generate physical VertiPaq historical partitions without query timeout. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t54" />
+            <label for="t54"><strong>Task 5.4: XMLA Endpoint Partition Inspection</strong> — Connect DAX Studio / Tabular Editor via XMLA endpoint and document physical table partition slices. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t55" />
+            <label for="t55"><strong>Task 5.5: Incremental Sabotage Labs (L9, L20) & Phase 5 Gate Exam</strong> — Rehearse non-folding filter failures and PBIX full overwrite partition wipes. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">

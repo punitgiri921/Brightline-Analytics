@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-  "name": "b7b5e630dd6ed4a204eb",
+  "name": "88faebc76c4602a7170a",
   "position": {
-    "x": 348.9661657670535,
+    "x": 1074.6309078256945,
     "y": 92.4413684151135,
-    "z": 0,
-    "height": 430.19012043752826,
-    "width": 399.31523141091139
+    "z": 2,
+    "height": 325.85582366327509,
+    "width": 480.69511575859025
   },
   "visual": {
     "visualType": "tableEx",
@@ -19,14 +19,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Dim_Date"
+                      "Entity": "Fact_Targets"
                     }
                   },
-                  "Property": "MonthNum"
+                  "Property": "Region"
                 }
               },
-              "queryRef": "Sum(Dim_Date.MonthNum)",
-              "nativeQueryRef": "MonthNum"
+              "queryRef": "Fact_Targets.Region",
+              "nativeQueryRef": "Region"
             },
             {
               "field": {
@@ -56,21 +56,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "185c3a40e08f49468ef9",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Dim_Date"
-              }
-            },
-            "Property": "MonthNum"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "9206063baa648f73ba0b",
+        "name": "5fe878d07c6141a257bd",
         "field": {
           "Aggregation": {
             "Expression": {
@@ -87,6 +73,20 @@
           }
         },
         "type": "Advanced"
+      },
+      {
+        "name": "286aad1d78183810e92d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Targets"
+              }
+            },
+            "Property": "Region"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }

@@ -4,8 +4,8 @@
   "last_updated": "2026-09-06T01:13:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 60,
-  "current_phase": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
+  "overall_progress_pct": 70,
+  "current_phase": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -203,41 +203,41 @@
     {
       "id": "P4",
       "name": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 92,
+      "gate_date": "2026-09-06",
       "hours_estimated": "10h",
       "evidence_tag": "phase-4-security",
       "tasks": [
         {
           "id": "T4.1",
           "name": "Define Security Table Architecture & Relationships",
-          "status": "In Progress",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Configured Security_UserPermissions as a disconnected lookup table to maintain strict single-direction Star Schema propagation and prevent bidirectional ambiguity."
         },
         {
           "id": "T4.2",
           "name": "Author Dynamic RLS Roles (Regional Manager, Sales Rep, Exec)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Authored Dynamic_Security role in Power BI Desktop with hierarchical DAX filters on Dim_Stores (Region & Territory) and Fact_Targets (Region) using USERPRINCIPALNAME() and LOOKUPVALUE()."
         },
         {
           "id": "T4.3",
           "name": "Configure Object-Level Security (OLS) on Cost Columns & COGS Measures",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Enforced OLS in Dynamic_Security role via TMDL (columnPermission unit_cost = none on Dim_Products) to conceal proprietary cost metadata from unauthorized sales personas."
         },
         {
           "id": "T4.4",
           "name": "Test 'View As' Security Personas in Desktop & Service",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Verified persona filtering using 'View As': director.north@brightline.com (sees only North region), tm.karnataka@brightline.com (sees only South Karnataka stores), and punit@brightline.com (full visibility across all 4 regions)."
         },
         {
           "id": "T4.5",
           "name": "Build & Publish Multi-Audience Power BI App for BL-Sales-DEV",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Built and published 'Brightline Sales Analytics' Multi-Audience Power BI App in BL-Sales-DEV with separated Executive Board and Field Operations audiences, verified via Incognito testing."
         }
       ],
       "gate_topics": [
@@ -448,6 +448,27 @@
       "details": "Power Query privacy levels (Public, Organizational, Private) prevent confidential data from leaking across untrusted data sources during mashup merging and query folding. Aligning internal data sources to 'Organizational' allows safe cross-source joins in Power BI Service.",
       "phase": "P3",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-20",
+      "concept": "Dynamic Row-Level Security with Disconnected Security Tables",
+      "details": "Dynamic RLS uses USERPRINCIPALNAME() and LOOKUPVALUE() on a disconnected security table to evaluate row-level filter predicates at query runtime. This avoids bidirectional relationship ambiguity, preserves single-direction star schema architecture, and prevents cross-filtering side effects across unrelated dimensions.",
+      "phase": "P4",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-21",
+      "concept": "Hierarchical Fallback Evaluation in Dynamic RLS Filters",
+      "details": "Enterprise RLS filters implement nested IF/OR structures (e.g. ALL -> Region -> Territory) allowing executive users unconstrained access, regional directors aggregate regional scope, and field territory managers strictly localized visibility in a single unified security role.",
+      "phase": "P4",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-22",
+      "concept": "Object-Level Security (OLS) Restrictive Engine Mechanics vs RLS Union Logic",
+      "details": "While RLS permissions are cumulative (evaluating the union of permitted rows using OR logic across multiple roles), OLS permissions are strictly restrictive. If any assigned role sets an object's permission to 'none', the table/column is completely concealed from metadata and queries, preventing accidental data leaks across combined roles.",
+      "phase": "P4",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -625,6 +646,28 @@
       "evaluation": "Correct",
       "category": "Security",
       "phase": "P3",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-17",
+      "question": "Why use disconnected lookup tables with DAX rather than bi-directional relationships for Dynamic RLS?",
+      "answer_summary": "Correctly identified that bidirectional relationships cause filter ambiguity, unintended propagation across unrelated dimensions, and VertiPaq engine traversal overhead.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P4",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-18",
+      "question": "If a user belongs to both a role with OLS restricting unit_cost and another role that allows read access, what does the Power BI engine do?",
+      "answer_summary": "Correctly identified that OLS is restrictive (most restrictive wins / None hides the object), preventing accidental data exposure across combined roles.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P4",
       "date": "2026-09-06"
     }
   ],
