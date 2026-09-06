@@ -3,7 +3,7 @@ table _Meaure
 
 	/// 01. BASE METRICS
 	measure 'Total Units Sold' = COALESCE(SUM(Fact_Sales[qty]), 0)
-		formatString: #,##0
+		formatString: #,##0 "Units"
 		displayFolder: 01. Base Metrics
 		lineageTag: 9f868e48-e539-4720-9b01-10da6b35186f
 
