@@ -23,26 +23,18 @@ if (!(Test-Path $teExe)) {
     Remove-Item $zip -Force
 }
 
-$bpaReport = Join-Path $projectRoot "bpa-report.txt"
-if (Test-Path $bpaReport) { Remove-Item $bpaReport -Force }
-
 Write-Host "Scanning TMDL Model : $modelDir" -ForegroundColor Gray
 Write-Host "Applying BPA Rules  : $bpaRules" -ForegroundColor Gray
-Write-Host "Output Report Path  : $bpaReport" -ForegroundColor Gray
 Write-Host ""
 
-$proc = Start-Process -FilePath $teExe -ArgumentList "`"$modelDir`" -A `"$bpaRules`" -B `"$bpaReport`" -W -V" -NoNewWindow -PassThru -Wait
-
-if (Test-Path $bpaReport) {
-    Write-Host "`n--- BPA Report Summary ---" -ForegroundColor Yellow
-    Get-Content $bpaReport | ForEach-Object { Write-Host $_ }
-    Write-Host "--------------------------`n"
-}
+$proc = Start-Process -FilePath $teExe -ArgumentList "`"$modelDir`" -A `"$bpaRules`" -V" -NoNewWindow -PassThru -Wait
 
 if ($proc.ExitCode -ne 0) {
+    Write-Host ""
     Write-Host "❌ BPA Validation Failed with exit code $($proc.ExitCode)! Violations detected." -ForegroundColor Red
     exit 1
 } else {
+    Write-Host ""
     Write-Host "✅ SUCCESS: All Best Practice Analyzer rules passed 100%!" -ForegroundColor Green
     exit 0
 }

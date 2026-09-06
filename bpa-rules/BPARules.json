@@ -4,7 +4,7 @@
     "Name": "[Formatting] Provide format string for measures",
     "Category": "Formatting",
     "Description": "Measures should have their format string property assigned so that numbers are displayed consistently and clearly across reports.",
-    "Severity": 2,
+    "Severity": 3,
     "Scope": "Measure",
     "Expression": "not IsHidden and (FormatString = \"\" or FormatString = null)",
     "CompatibilityLevel": 1200
@@ -14,7 +14,7 @@
     "Name": "[DAX Expressions] Use the DIVIDE function for division",
     "Category": "DAX Expressions",
     "Description": "Use the DIVIDE function instead of the '/' arithmetic operator to ensure safe divide-by-zero handling and optimal DAX execution.",
-    "Severity": 2,
+    "Severity": 3,
     "Scope": "Measure",
     "Expression": "Expression.Contains(\"/\") and not Expression.Contains(\"//\") and not Expression.Contains(\"/*\")",
     "CompatibilityLevel": 1200

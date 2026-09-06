@@ -46,28 +46,14 @@ steps:
       }
       Write-Host "Tabular Editor CLI ready at: $teExe"
 
-      $reportPath = "$(Agent.TempDirectory)/bpa_report.txt"
-      if (Test-Path $reportPath) { Remove-Item $reportPath -Force }
-
       Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
       Write-Host "   Model Directory : $(MODEL_DIR)"
       Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
-      Write-Host "   Report Path     : $reportPath"
 
-      # Execute Tabular Editor with:
-      # -A: Custom BPA Rules JSON definition
-      # -B: Best Practice Analyzer output report path
-      # -W: Fail build (non-zero exit code) on BPA violations
-      # -V: Verbose / Validate syntax
-      $process = Start-Process -FilePath $teExe -ArgumentList "`"$(MODEL_DIR)`" -A `"${BPA_RULES_PATH}`" -B `"$reportPath`" -W -V" -NoNewWindow -PassThru -Wait
-
-      if (Test-Path $reportPath) {
-          Write-Host "`n------------------------------------------------------------"
-          Write-Host " 📋 TABULAR EDITOR BEST PRACTICE ANALYZER REPORT"
-          Write-Host "------------------------------------------------------------"
-          Get-Content $reportPath | ForEach-Object { Write-Host $_ }
-          Write-Host "------------------------------------------------------------`n"
-      }
+      # Execute Tabular Editor 2 CLI with:
+      # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
+      # -V: Verbose / Validate syntax & output rule violations
+      $process = Start-Process -FilePath $teExe -ArgumentList "`"$(MODEL_DIR)`" -A `"${BPA_RULES_PATH}`" -V" -NoNewWindow -PassThru -Wait
 
       if ($process.ExitCode -ne 0) {
           Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
