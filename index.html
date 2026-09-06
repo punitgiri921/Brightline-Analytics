@@ -318,6 +318,9 @@
       font-size: 0.85rem;
       border: 1px solid var(--border-color);
     }
+      .font-mono { font-family: var(--font-mono); }
+    .text-cyan { color: var(--accent-cyan); }
+    .text-muted { color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -754,455 +757,872 @@
       </div>
     </div>
 
-    <!-- TAB 3: KNOWLEDGE & SCORES -->
+            <!-- TAB 3: KNOWLEDGE & SCORES -->
     <div id="tab-knowledge" class="tab-pane">
-      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-17)</h2>
+      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-30)</h2>
       <table class="custom-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Concept</th>
-            <th>Details</th>
+            <th>Concept Name</th>
+            <th>Architectural Definition & Implementation Details</th>
             <th>Phase</th>
-            <th>Date</th>
+            <th>Logged</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>CL-01</strong></td>
-            <td>Why DEV uses smaller data (250K/6mo) vs TEST/PROD (2.5M/36mo)</td>
-            <td>Three reasons: (1) DEV = fast iteration for model building, (2) TEST must simulate production-realistic load to catch performance issues, (3) 36 months needed for meaningful incremental refresh partition testing in Phase 5</td>
-            <td>P0</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-01</strong></td>
+            <td><strong>Why <code class="code-pill">DEV</code> uses smaller data (250K/6mo) vs <code class="code-pill">TEST</code>/<code class="code-pill">PROD</code> (2.5M/36mo)</strong></td>
+            <td style="line-height: 1.6;">Three reasons: (1) <code class="code-pill">DEV</code> = fast iteration for model building, (2) <code class="code-pill">TEST</code> must simulate production-realistic load to catch performance issues, (3) 36 months needed for meaningful incremental refresh partition testing in Phase 5</td>
+            <td><span class="badge badge-primary">P0</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-02</strong></td>
-            <td>SharePoint/OneDrive Cloud URL Best Practice (Stripping ?web=1)</td>
-            <td>When connecting Power BI to SharePoint/OneDrive Excel files via Web.Contents(), copying the browser path includes '?web=1' which renders an HTML viewer. Stripping '?web=1' accesses the raw binary stream directly, preventing scheduled refresh failures in Power BI Service.</td>
-            <td>P0</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-02</strong></td>
+            <td><strong>SharePoint/OneDrive Cloud URL Best Practice (Stripping ?web=1)</strong></td>
+            <td style="line-height: 1.6;">When connecting <code class="code-pill">Power BI</code> to SharePoint/OneDrive Excel files via Web.Contents(), copying the browser path includes '?web=1' which renders an HTML viewer. Stripping '?web=1' accesses the raw binary stream directly, preventing scheduled refresh failures in <code class="code-pill"><code class="code-pill">Power BI</code> Service</code>.</td>
+            <td><span class="badge badge-primary">P0</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-03</strong></td>
-            <td>Schema Drift & Column Renaming Downstream Impact (Lab L10)</td>
-            <td>Renaming a column in the database breaks Power Query mashup evaluation at the Select/Rename Columns step with 'Column not found'. This fails scheduled refresh and cascades into broken DAX measures and blank visuals.</td>
-            <td>P0</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-03</strong></td>
+            <td><strong>Schema Drift & Column Renaming Downstream Impact (Lab L10)</strong></td>
+            <td style="line-height: 1.6;">Renaming a column in the database breaks Power Query mashup evaluation at the Select/Rename Columns step with 'Column not found'. This fails scheduled refresh and cascades into broken <code class="code-pill">DAX</code> measures and blank visuals.</td>
+            <td><span class="badge badge-primary">P0</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-04</strong></td>
-            <td>Hybrid Refresh Orchestration & Formula.Firewall Privacy Levels</td>
-            <td>In mixed-source models, Power BI Service coordinates On-premises Gateway (for PostgreSQL) and direct cloud OAuth2 (for OneDrive). The mashup engine combines streams in the cloud. Privacy levels must be aligned to prevent Formula.Firewall data boundary errors.</td>
-            <td>P0</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-04</strong></td>
+            <td><strong>Hybrid Refresh Orchestration & <code class="code-pill">Formula.Firewall</code> Privacy Levels</strong></td>
+            <td style="line-height: 1.6;">In mixed-source models, <code class="code-pill"><code class="code-pill">Power BI</code> Service</code> coordinates <code class="code-pill">On-premises <code class="code-pill">Gateway</code></code> (for <code class="code-pill">PostgreSQL</code>) and direct cloud <code class="code-pill">OAuth2</code> (for OneDrive). The mashup engine combines streams in the cloud. Privacy levels must be aligned to prevent <code class="code-pill">Formula.Firewall</code> data boundary errors.</td>
+            <td><span class="badge badge-primary">P0</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-05</strong></td>
-            <td>Power BI Project (.PBIP) & TMDL Architecture for Enterprise Version Control</td>
-            <td>PBIP splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. TMDL replaces single massive model.bim with individual human-readable files (expressions.tmdl, table.tmdl, relationships.tmdl), enabling clean Git branching, PR line-by-line diffs, and merge conflict resolution without corrupting binary PBIX files.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-05</strong></td>
+            <td><strong><code class="code-pill">Power BI</code> Project (.<code class="code-pill">PBIP</code>) & <code class="code-pill">TMDL</code> Architecture for Enterprise Version Control</strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">PBIP</code> splits reports (.pbir / json) and semantic models (.tmdl) into plain text files. <code class="code-pill">TMDL</code> replaces single massive model.bim with individual human-readable files (expressions.tmdl, table.tmdl, relationships.tmdl), enabling clean Git branching, PR line-by-line diffs, and merge conflict resolution without corrupting binary <code class="code-pill">PBIX</code> files.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-06</strong></td>
-            <td>Query Folding Mechanics with Date vs DateTime RangeStart/RangeEnd</td>
-            <td>Power BI Incremental Refresh requires RangeStart/RangeEnd to be DateTime type. When filtering Date columns, comparing Date to DateTime throws an M Expression.Error. Converting the date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-06</strong></td>
+            <td><strong>Query Folding Mechanics with Date vs DateTime <code class="code-pill">RangeStart</code>/<code class="code-pill">RangeEnd</code></strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">Power BI</code> Incremental Refresh requires <code class="code-pill">RangeStart</code>/<code class="code-pill">RangeEnd</code> to be DateTime type. When filtering Date columns, comparing Date to DateTime throws an M Expression.Error. Converting the date column to DateTime before filtering preserves full Query Folding, pushing the WHERE clause down to the database SQL engine.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-07</strong></td>
-            <td>VertiPaq Internal Date Serialization vs Strict Relational Typing</td>
-            <td>VertiPaq encodes dates as integer/double serial offsets since 1899-12-30. Mismatched relationship types (e.g. Int64 Target_Month to Date Dim_Date) may resolve due to matching serial integers, but trigger Storage Engine type coercion CPU penalties and BPA rule violations. Enforcing strict Date typing on both sides is mandatory for enterprise scale.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-07</strong></td>
+            <td><strong><code class="code-pill">VertiPaq</code> Internal Date Serialization vs Strict Relational Typing</strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">VertiPaq</code> encodes dates as integer/double serial offsets since 1899-12-30. Mismatched relationship types (e.g. Int64 Target_Month to Date Dim_Date) may resolve due to matching serial integers, but trigger <code class="code-pill">Storage Engine (SE)</code> type coercion CPU penalties and <code class="code-pill">BPA</code> rule violations. Enforcing strict Date typing on both sides is mandatory for enterprise scale.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-08</strong></td>
-            <td>Direct TMDL Measure Authoring & Developer Velocity in PBIP</td>
-            <td>Because PBIP uses plain-text TMDL format, entire libraries of DAX measures, display folders, format strings, and annotations can be authored, refactored, and script-generated directly in .tmdl files without manual GUI clicking in Desktop, dramatically accelerating development and enabling automated CI/CD code generation.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-08</strong></td>
+            <td><strong>Direct <code class="code-pill">TMDL</code> Measure Authoring & Developer Velocity in <code class="code-pill">PBIP</code></strong></td>
+            <td style="line-height: 1.6;">Because <code class="code-pill">PBIP</code> uses plain-text <code class="code-pill">TMDL</code> format, entire libraries of <code class="code-pill">DAX</code> measures, display folders, format strings, and annotations can be authored, refactored, and script-generated directly in .tmdl files without manual GUI clicking in Desktop, dramatically accelerating development and enabling automated <code class="code-pill">CI/CD</code> code generation.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-09</strong></td>
-            <td>Star Schema VertiPaq Execution Optimization vs Snowflaking</td>
-            <td>VertiPaq optimizes single-hop 1-to-many relationship bitmaps. Star schemas allow Storage Engine (SE) vector scans and direct bitwise filtering, whereas Snowflake schemas force multi-hop joins into the Formula Engine (FE), increasing memory footprint and query latency.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-09</strong></td>
+            <td><strong><code class="code-pill">Star Schema</code> <code class="code-pill">VertiPaq</code> Execution Optimization vs Snowflaking</strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">VertiPaq</code> optimizes single-hop 1-to-many relationship bitmaps. Star schemas allow <code class="code-pill">Storage Engine (SE)</code> (SE) vector scans and direct bitwise filtering, whereas Snowflake schemas force multi-hop joins into the <code class="code-pill">Formula Engine (FE)</code> (FE), increasing memory footprint and query latency.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-10</strong></td>
-            <td>Foreign Key Hiding & Self-Service Model Governance</td>
-            <td>Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.</td>
-            <td>P1</td>
-            <td>2026-09-05</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-10</strong></td>
+            <td><strong>Foreign Key Hiding & Self-Service Model Governance</strong></td>
+            <td style="line-height: 1.6;">Hiding foreign keys and raw fact metrics prevents report creators from accidental high-cardinality fact table slicing, eliminates implicit aggregation errors, and guarantees slicing occurs cleanly through Dimension attributes.</td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>CL-11</strong></td>
-            <td>Golden Semantic Model vs Thin Report Architecture</td>
-            <td>Enterprise Power BI decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via Power BI Service Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).</td>
-            <td>P2</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-11</strong></td>
+            <td><strong>Golden Semantic Model vs Thin Report Architecture</strong></td>
+            <td style="line-height: 1.6;">Enterprise <code class="code-pill">Power BI</code> decouples the central data model ('Golden Dataset') from visualization layers ('Thin Reports'). Thin reports connect via <code class="code-pill"><code class="code-pill">Power BI</code> Service</code> Live Connection without importing data, preventing model duplication, reducing capacity memory consumption, and enforcing a Single Source of Truth (SSOT).</td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-12</strong></td>
-            <td>Thin Report Binding & Lineage via definition.pbir Connection Strings</td>
-            <td>In PBIP/PBIR format, thin reports maintain zero local data and declare their upstream dataset dependency in definition.pbir using XMLA endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines or CI/CD promotions, this pointer is rebinding-aware.</td>
-            <td>P2</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-12</strong></td>
+            <td><strong>Thin Report Binding & Lineage via definition.pbir Connection Strings</strong></td>
+            <td style="line-height: 1.6;">In <code class="code-pill">PBIP</code>/<code class="code-pill">PBIR</code> format, thin reports maintain zero local data and declare their upstream dataset dependency in definition.pbir using <code class="code-pill">XMLA</code> endpoint connection strings (powerbi://api.powerbi.com/v1.0/myorg/<workspace>;initial catalog=<dataset>). During deployment pipelines or <code class="code-pill">CI/CD</code> promotions, this pointer is rebinding-aware.</td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-13</strong></td>
-            <td>Dataset Endorsement Governance (Promoted vs Certified)</td>
-            <td>Promoted endorsement is self-service metadata applied by dataset owners to improve discoverability. Certified endorsement requires tenant-level security group authorization managed by Power BI / Fabric Administrators, guaranteeing the model meets enterprise data quality, security, and governance standards.</td>
-            <td>P2</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-13</strong></td>
+            <td><strong>Dataset Endorsement Governance (Promoted vs Certified)</strong></td>
+            <td style="line-height: 1.6;">Promoted endorsement is self-service metadata applied by dataset owners to improve discoverability. Certified endorsement requires tenant-level security group authorization managed by <code class="code-pill">Power BI</code> / <code class="code-pill">Fabric</code> Administrators, guaranteeing the model meets enterprise data quality, security, and governance standards.</td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-14</strong></td>
-            <td>Read vs Build Permissions & Enterprise Thin Reports</td>
-            <td>Read permission allows users to consume reports without accessing the underlying model. Build permission allows users to author new reports, use Analyze in Excel, and connect live via XMLA endpoints without exposing data source credentials.</td>
-            <td>P2</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-14</strong></td>
+            <td><strong>Read vs Build Permissions & Enterprise Thin Reports</strong></td>
+            <td style="line-height: 1.6;">Read permission allows users to consume reports without accessing the underlying model. Build permission allows users to author new reports, use Analyze in Excel, and connect live via <code class="code-pill">XMLA</code> endpoints without exposing data source credentials.</td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-15</strong></td>
-            <td>Dataset Takeover & Credential Invalidation Mechanics (Lab L14)</td>
-            <td>When a new owner takes over a dataset in Power BI Service, all stored data source connection credentials and gateway bindings are invalidated for security. The new owner must immediately re-enter database credentials and rebind gateway data sources before scheduled refresh can resume.</td>
-            <td>P2</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-15</strong></td>
+            <td><strong>Dataset Takeover & Credential Invalidation Mechanics (Lab L14)</strong></td>
+            <td style="line-height: 1.6;">When a new owner takes over a dataset in <code class="code-pill"><code class="code-pill">Power BI</code> Service</code>, all stored data source connection credentials and gateway bindings are invalidated for security. The new owner must immediately re-enter database credentials and rebind gateway data sources before scheduled refresh can resume.</td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-16</strong></td>
-            <td>Gateway ADO.NET SSL Handshake & Timeout Mechanics (AdoNetProviderOpenConnectionTimeoutError)</td>
-            <td>When configuring on-premises database connections in Power BI Gateway, enabling 'Encrypted connection' against local database servers without SSL certificates causes the ADO.NET provider (Npgsql) to hang waiting for a TLS handshake. Disabling encryption ('Not encrypted') allows immediate plain socket connection, eliminating gateway timeout failures.</td>
-            <td>P3</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-16</strong></td>
+            <td><strong><code class="code-pill">Gateway</code> ADO.NET SSL Handshake & Timeout Mechanics (AdoNetProviderOpenConnectionTimeoutError)</strong></td>
+            <td style="line-height: 1.6;">When configuring on-premises database connections in <code class="code-pill">Power BI</code> <code class="code-pill">Gateway</code>, enabling 'Encrypted connection' against local database servers without SSL certificates causes the ADO.NET provider (Npgsql) to hang waiting for a TLS handshake. Disabling encryption ('Not encrypted') allows immediate plain socket connection, eliminating gateway timeout failures.</td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-17</strong></td>
-            <td>Centralized Gateway Connection Architecture vs Dataset-Bound Credentials</td>
-            <td>In Power BI Enterprise architecture, data source connections in Manage Connections and Gateways exist as central shared objects. Updating database credentials on a shared gateway connection propagates instantly to all mapped semantic models across all workspaces, eliminating individual dataset credential management.</td>
-            <td>P3</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-17</strong></td>
+            <td><strong>Centralized <code class="code-pill">Gateway</code> Connection Architecture vs Dataset-Bound Credentials</strong></td>
+            <td style="line-height: 1.6;">In <code class="code-pill">Power BI</code> Enterprise architecture, data source connections in Manage Connections and Gateways exist as central shared objects. Updating database credentials on a shared gateway connection propagates instantly to all mapped semantic models across all workspaces, eliminating individual dataset credential management.</td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-18</strong></td>
-            <td>VertiPaq Cache Resilience & Stale Data Behavior on Refresh Failure</td>
-            <td>In Import mode, semantic model data resides in the VertiPaq in-memory engine. If a scheduled refresh fails due to gateway offline or credential errors, the existing memory cache is preserved intact. Report consumers continue viewing the last successful snapshot (stale data) rather than blank visuals.</td>
-            <td>P3</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-18</strong></td>
+            <td><strong><code class="code-pill">VertiPaq</code> Cache Resilience & Stale Data Behavior on Refresh Failure</strong></td>
+            <td style="line-height: 1.6;">In <code class="code-pill">Import Mode</code>, semantic model data resides in the <code class="code-pill">VertiPaq</code> in-memory engine. If a scheduled refresh fails due to gateway offline or credential errors, the existing memory cache is preserved intact. Report consumers continue viewing the last successful snapshot (stale data) rather than blank visuals.</td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-19</strong></td>
-            <td>Formula.Firewall Data Leak Prevention & Privacy Boundary Isolation</td>
-            <td>Power Query privacy levels (Public, Organizational, Private) prevent confidential data from leaking across untrusted data sources during mashup merging and query folding. Aligning internal data sources to 'Organizational' allows safe cross-source joins in Power BI Service.</td>
-            <td>P3</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-19</strong></td>
+            <td><strong><code class="code-pill">Formula.Firewall</code> Data Leak Prevention & Privacy Boundary Isolation</strong></td>
+            <td style="line-height: 1.6;">Power Query privacy levels (Public, Organizational, Private) prevent confidential data from leaking across untrusted data sources during mashup merging and query folding. Aligning internal data sources to 'Organizational' allows safe cross-source joins in <code class="code-pill"><code class="code-pill">Power BI</code> Service</code>.</td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-20</strong></td>
-            <td>Dynamic Row-Level Security with Disconnected Security Tables</td>
-            <td>Dynamic RLS uses USERPRINCIPALNAME() and LOOKUPVALUE() on a disconnected security table to evaluate row-level filter predicates at query runtime. This avoids bidirectional relationship ambiguity, preserves single-direction star schema architecture, and prevents cross-filtering side effects across unrelated dimensions.</td>
-            <td>P4</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-20</strong></td>
+            <td><strong>Dynamic Row-Level Security with Disconnected Security Tables</strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">Dynamic <code class="code-pill">RLS</code></code> uses USERPRINCIPALNAME() and LOOKUPVALUE() on a disconnected security table to evaluate row-level filter predicates at query runtime. This avoids bidirectional relationship ambiguity, preserves single-direction star schema architecture, and prevents cross-filtering side effects across unrelated dimensions.</td>
+            <td><span class="badge badge-primary">P4</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-21</strong></td>
-            <td>Hierarchical Fallback Evaluation in Dynamic RLS Filters</td>
-            <td>Enterprise RLS filters implement nested IF/OR structures (e.g. ALL -> Region -> Territory) allowing executive users unconstrained access, regional directors aggregate regional scope, and field territory managers strictly localized visibility in a single unified security role.</td>
-            <td>P4</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-21</strong></td>
+            <td><strong>Hierarchical Fallback Evaluation in <code class="code-pill">Dynamic <code class="code-pill">RLS</code></code> Filters</strong></td>
+            <td style="line-height: 1.6;">Enterprise <code class="code-pill">RLS</code> filters implement nested IF/OR structures (e.g. ALL -> Region -> Territory) allowing executive users unconstrained access, regional directors aggregate regional scope, and field territory managers strictly localized visibility in a single unified security role.</td>
+            <td><span class="badge badge-primary">P4</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-22</strong></td>
-            <td>Object-Level Security (OLS) Restrictive Engine Mechanics vs RLS Union Logic</td>
-            <td>While RLS permissions are cumulative (evaluating the union of permitted rows using OR logic across multiple roles), OLS permissions are strictly restrictive. If any assigned role sets an object's permission to 'none', the table/column is completely concealed from metadata and queries, preventing accidental data leaks across combined roles.</td>
-            <td>P4</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-22</strong></td>
+            <td><strong>Object-Level Security (<code class="code-pill">OLS</code>) Restrictive Engine Mechanics vs <code class="code-pill">RLS</code> Union Logic</strong></td>
+            <td style="line-height: 1.6;">While <code class="code-pill">RLS</code> permissions are cumulative (evaluating the union of permitted rows using OR logic across multiple roles), <code class="code-pill">OLS</code> permissions are strictly restrictive. If any assigned role sets an object's permission to 'none', the table/column is completely concealed from metadata and queries, preventing accidental data leaks across combined roles.</td>
+            <td><span class="badge badge-primary">P4</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-23</strong></td>
-            <td>Hierarchical VertiPaq Partition Compression (Year, Quarter, Month Slices)</td>
-            <td>When applying Incremental Refresh policies, the VertiPaq storage engine automatically compacts older historical partitions into Quarter and Year slices while maintaining granular Monthly slices for the active window. This minimizes partition metadata overhead, optimizes columnar dictionary encoding, and restricts scheduled refresh query execution exclusively to the latest active partition.</td>
-            <td>P5</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-23</strong></td>
+            <td><strong>Hierarchical <code class="code-pill">VertiPaq</code> Partition Compression (Year, Quarter, Month Slices)</strong></td>
+            <td style="line-height: 1.6;">When applying Incremental Refresh policies, the <code class="code-pill">VertiPaq</code> storage engine automatically compacts older historical partitions into Quarter and Year slices while maintaining granular Monthly slices for the active window. This minimizes partition metadata overhead, optimizes columnar dictionary encoding, and restricts scheduled refresh query execution exclusively to the latest active partition.</td>
+            <td><span class="badge badge-primary">P5</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-24</strong></td>
-            <td>XMLA Read/Write Endpoint Connectivity & TMSL Schema Inspection</td>
-            <td>Assigning workspaces to Microsoft Fabric / Premium capacity exposes standard Analysis Services XMLA endpoints (powerbi://api.powerbi.com/v1.0/myorg/workspace-name). External management tools (SSMS, DAX Studio, Tabular Editor) connect directly to live cloud models to inspect physical partition schemas (TMSL policyRange definitions) and execute granular partition processing without Power BI Desktop dependency.</td>
-            <td>P5</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-24</strong></td>
+            <td><strong><code class="code-pill">XMLA</code> Read/Write Endpoint Connectivity & <code class="code-pill">TMSL</code> Schema Inspection</strong></td>
+            <td style="line-height: 1.6;">Assigning workspaces to <code class="code-pill">Microsoft <code class="code-pill">Fabric</code></code> / Premium capacity exposes standard <code class="code-pill">Analysis Services</code> <code class="code-pill">XMLA</code> endpoints (powerbi://api.powerbi.com/v1.0/myorg/workspace-name). External management tools (<code class="code-pill">SSMS</code>, <code class="code-pill">DAX</code> Studio, <code class="code-pill">Tabular Editor</code>) connect directly to live cloud models to inspect physical partition schemas (<code class="code-pill">TMSL</code> policyRange definitions) and execute granular partition processing without <code class="code-pill"><code class="code-pill">Power BI</code> Desktop</code> dependency.</td>
+            <td><span class="badge badge-primary">P5</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-25</strong></td>
-            <td>Deployment Parameter Rules vs Static Data Source Rules Mechanics</td>
-            <td>In Fabric Deployment Pipelines, Parameter Rules allow dynamic environment remapping for all Power Query M connectors via parameters (e.g. PG_Database), whereas Data Source Rules are restricted to hardcoded static connection strings and specific native connectors. Parameterizing data sources in Desktop is the enterprise standard.</td>
-            <td>P6</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-25</strong></td>
+            <td><strong>Deployment <code class="code-pill">Parameter Rules</code> vs Static <code class="code-pill">Data Source Rules</code> Mechanics</strong></td>
+            <td style="line-height: 1.6;">In <code class="code-pill">Fabric</code> <code class="code-pill">Deployment Pipelines</code>, <code class="code-pill">Parameter Rules</code> allow dynamic environment remapping for all Power Query M connectors via parameters (e.g. <code class="code-pill">PG_Database</code>), whereas <code class="code-pill">Data Source Rules</code> are restricted to hardcoded static connection strings and specific native connectors. Parameterizing data sources in Desktop is the enterprise standard.</td>
+            <td><span class="badge badge-primary">P6</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-26</strong></td>
-            <td>Pipeline Compare Engine & Downstream Overwrite Mechanics (Lab L17)</td>
-            <td>The Deployment Pipeline compare engine computes schema differences and displays JSON diffs. Deploying from source unconditionally overwrites target stage metadata, wiping out uncommitted manual edits made directly in TEST/PROD. All changes must originate in DEV / source control.</td>
-            <td>P6</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-26</strong></td>
+            <td><strong>Pipeline Compare Engine & Downstream Overwrite Mechanics (Lab L17)</strong></td>
+            <td style="line-height: 1.6;">The <code class="code-pill">Deployment Pipeline</code> compare engine computes schema differences and displays JSON diffs. Deploying from source unconditionally overwrites target stage metadata, wiping out uncommitted manual edits made directly in <code class="code-pill">TEST</code>/<code class="code-pill">PROD</code>. All changes must originate in <code class="code-pill">DEV</code> / source control.</td>
+            <td><span class="badge badge-primary">P6</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-27</strong></td>
-            <td>Production App Publishing Buffer & Staged Release Governance (Lab L13)</td>
-            <td>Workspace deployment does not automatically publish changes to report consumers; the Power BI App acts as a deliberate staging buffer. This allows post-deployment data validation and smoke testing in the workspace before broadcasting new visuals to business consumers.</td>
-            <td>P6</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-27</strong></td>
+            <td><strong>Production App Publishing Buffer & Staged Release Governance (Lab L13)</strong></td>
+            <td style="line-height: 1.6;">Workspace deployment does not automatically publish changes to report consumers; the <code class="code-pill"><code class="code-pill">Power BI</code> App</code> acts as a deliberate staging buffer. This allows post-deployment data validation and smoke testing in the workspace before broadcasting new visuals to business consumers.</td>
+            <td><span class="badge badge-primary">P6</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-28</strong></td>
-            <td>TMDL & PBIP Plain-Text Serialization vs Binary PBIX</td>
-            <td>TMDL separates tabular metadata into clean, human-readable text files per object (tables, measures, roles, relationships), transforming Power BI models from opaque binary blobs into fully auditable code artifacts supporting branching, diffing, and multi-developer concurrency.</td>
-            <td>P7</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-28</strong></td>
+            <td><strong><code class="code-pill">TMDL</code> & <code class="code-pill">PBIP</code> Plain-Text Serialization vs Binary <code class="code-pill">PBIX</code></strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">TMDL</code> separates tabular metadata into clean, human-readable text files per object (tables, measures, roles, relationships), transforming <code class="code-pill">Power BI</code> models from opaque binary blobs into fully auditable code artifacts supporting branching, diffing, and multi-developer concurrency.</td>
+            <td><span class="badge badge-primary">P7</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-29</strong></td>
-            <td>Fabric Git .platform Metadata & Unique Logical ID Tracking</td>
-            <td>Every Fabric item in source control requires a .platform JSON file with a unique logicalId GUID and matching displayName. Duplicating item folders without re-generating logicalIds causes hash collisions that block Fabric Git sync.</td>
-            <td>P7</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-29</strong></td>
+            <td><strong><code class="code-pill">Fabric</code> Git .platform Metadata & Unique Logical ID Tracking</strong></td>
+            <td style="line-height: 1.6;">Every <code class="code-pill">Fabric</code> item in source control requires a .platform JSON file with a unique <code class="code-pill">logicalId</code> GUID and matching displayName. Duplicating item folders without re-generating logicalIds causes hash collisions that block <code class="code-pill">Fabric</code> Git sync.</td>
+            <td><span class="badge badge-primary">P7</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
           <tr>
-            <td><strong>CL-30</strong></td>
-            <td>Bi-Directional Cloud-to-Code Git Synchronization & Merge Conflict Resolution (Lab L18)</td>
-            <td>Fabric Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.</td>
-            <td>P7</td>
-            <td>2026-09-06</td>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-30</strong></td>
+            <td><strong>Bi-Directional Cloud-to-Code Git Synchronization & Merge Conflict Resolution (Lab L18)</strong></td>
+            <td style="line-height: 1.6;"><code class="code-pill">Fabric</code> Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.</td>
+            <td><span class="badge badge-primary">P7</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
           </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-25)</h2>
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Question</th>
-            <th>Evaluation</th>
-            <th>Score</th>
-            <th>Category</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>TQ-01</strong></td>
-            <td>Why do we use smaller data volume in DEV but larger in TEST/PROD?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Partially Correct</span></td>
-            <td><strong>4 / 10</strong></td>
-            <td>Workspace Architecture</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-02</strong></td>
-            <td>Why 3 separate databases instead of 1 shared database with environment flags?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9 / 10</strong></td>
-            <td>Workspace Architecture</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-03</strong></td>
-            <td>What is an SPN and why does CI/CD require one instead of user credentials?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8 / 10</strong></td>
-            <td>CI/CD</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-04</strong></td>
-            <td>If a PostgreSQL column is renamed in DEV, where does it break downstream and why?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
-            <td><strong>7 / 10</strong></td>
-            <td>Troubleshooting</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-05</strong></td>
-            <td>How do hybrid data sources (Postgres + OneDrive) behave during scheduled refresh in Service?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8 / 10</strong></td>
-            <td>Refresh</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-06</strong></td>
-            <td>What is Query Folding and why does custom M code often break it?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9 / 10</strong></td>
-            <td>Troubleshooting</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-07</strong></td>
-            <td>Why is PBIP (TMDL/JSON) superior to binary PBIX for multi-developer collaboration?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Git</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-08</strong></td>
-            <td>Why does VertiPaq strongly favor Star Schema over Snowflake / Bidirectional schemas?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Workspace Architecture</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-09</strong></td>
-            <td>Why is it an anti-pattern to leave foreign keys unhidden in report view?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
-            <td><strong>7 / 10</strong></td>
-            <td>Workspace Architecture</td>
-            <td>2026-09-05</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-10</strong></td>
-            <td>What is the difference between Promoted and Certified semantic model endorsements?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-11</strong></td>
-            <td>What is the operational difference between Read and Build permissions on a shared semantic model?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-12</strong></td>
-            <td>Why does taking over a dataset break existing gateway and scheduled refresh bindings?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Troubleshooting</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-13</strong></td>
-            <td>Where are rotated database passwords updated in Power BI Service, and how does it propagate?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Refresh</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-14</strong></td>
-            <td>What is the difference between Standard Mode and Personal Mode gateways in enterprise architecture?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Refresh</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-15</strong></td>
-            <td>What happens to report visuals in Import mode if a scheduled refresh fails due to gateway downtime?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Troubleshooting</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-16</strong></td>
-            <td>Why does Power Query enforce Privacy Levels (Formula.Firewall) during mixed-source joins?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-17</strong></td>
-            <td>Why use disconnected lookup tables with DAX rather than bi-directional relationships for Dynamic RLS?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-18</strong></td>
-            <td>If a user belongs to both a role with OLS restricting unit_cost and another role that allows read access, what does the Power BI engine do?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-19</strong></td>
-            <td>What happens to historical partitions when publishing a model with incremental refresh directly from Desktop?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9.5 / 10</strong></td>
-            <td>Deployment Pipelines</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-20</strong></td>
-            <td>Why did PostgreSQL appear under Parameter rules while Excel appeared under Data source rules in Deployment Pipelines?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Deployment Pipelines</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-21</strong></td>
-            <td>What does the Deployment Pipeline Compare UI show on schema drift, and what happens when DEV is deployed over direct changes in TEST (Lab L17)?</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
-            <td><strong>8.5 / 10</strong></td>
-            <td>Troubleshooting</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-22</strong></td>
-            <td>Why doesn't a Deployment Pipeline automatically update the published Production App upon deployment (Lab L13)?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9.5 / 10</strong></td>
-            <td>Security</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-23</strong></td>
-            <td>Why was collaborative team development impossible with .pbix files, and how do TMDL and PBIP solve this during Git branching and PRs?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9.5 / 10</strong></td>
-            <td>Git</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-24</strong></td>
-            <td>What is the role of the .platform metadata file in Fabric items, and why does Fabric require unique logicalId GUIDs?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>10 / 10</strong></td>
-            <td>Fabric</td>
-            <td>2026-09-06</td>
-          </tr>
-          <tr>
-            <td><strong>TQ-25</strong></td>
-            <td>In Fabric Source Control, what is the exact difference between Changes and Updates tabs, and what happens on Web UI commit?</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
-            <td><strong>9.5 / 10</strong></td>
-            <td>Fabric</td>
-            <td>2026-09-06</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2 class="section-title" style="margin-top: 2.5rem;">🎯 Technical Questions & Answers (TQ-01 – TQ-25)</h2>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem;">
+        Complete record of all adaptive phase gate evaluations, scores, and authoritative enterprise standard answers.
+      </p>
 
-      <h2 class="section-title" style="margin-top: 2rem;">⚠️ Knowledge Gaps</h2>
+      <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-01</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Workspace Architecture</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P0</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Partially Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-rose);">4 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why do we use smaller data volume in <code class="code-pill">DEV</code> but larger in <code class="code-pill">TEST</code>/<code class="code-pill">PROD</code>?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Fast iteration identified; performance at scale and incremental refresh partitioning explained.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-02</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Workspace Architecture</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P0</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why 3 separate databases instead of 1 shared database with environment flags?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified development isolation, realistic testing, and preventing accidental overwrites across teams.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-03</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;"><code class="code-pill">CI/CD</code></span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P0</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-amber);">8 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is an <code class="code-pill">SPN</code> and why does <code class="code-pill">CI/CD</code> require one instead of user credentials?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified eliminating personal dependency; explained MFA bypass, token rotation, and pipeline automation.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-04</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P0</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-in-progress" style="font-size: 0.75rem;">Technically Correct but Needs Improvement</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-amber);">7 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            If a <code class="code-pill">PostgreSQL</code> column is renamed in <code class="code-pill">DEV</code>, where does it break downstream and why?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified gap; taught Mashup Engine column binding failure, scheduled refresh crash, and <code class="code-pill">DAX</code> measure breakage (Lab L10 preview).
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-05</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Refresh</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P0</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-amber);">8 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            How do hybrid data sources (<code class="code-pill">Postgres</code> + OneDrive) behave during scheduled refresh in Service?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Recognized <code class="code-pill">Postgres</code>=data and OneDrive=security/targets; explained <code class="code-pill">Gateway</code> orchestration + direct cloud refresh + <code class="code-pill">Formula.Firewall</code> privacy levels.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-06</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P1</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is Query Folding and why does custom M code often break it?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly explained pushdown to SQL database server vs mashup engine execution, and why Native Query translation fails on unsupported M constructs.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-07</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Git</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P1</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why is <code class="code-pill">PBIP</code> (<code class="code-pill">TMDL</code>/JSON) superior to binary <code class="code-pill">PBIX</code> for multi-developer collaboration?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Explained plain-text Git diffing, line-by-line branch mergeability, and multi-developer collaboration without binary corruption.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-08</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Workspace Architecture</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P1</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why does <code class="code-pill">VertiPaq</code> strongly favor <code class="code-pill">Star Schema</code> over Snowflake / Bidirectional schemas?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified structural differences and performance advantage; taught single-hop <code class="code-pill">Storage Engine (SE)</code> bitmaps vs multi-hop <code class="code-pill">Formula Engine (FE)</code> materialization.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-09</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Workspace Architecture</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P1</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-in-progress" style="font-size: 0.75rem;">Technically Correct but Needs Improvement</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-amber);">7 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-05</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why is it an anti-pattern to leave foreign keys unhidden in report view?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified user drag error; explained high-cardinality fact table scans, <code class="code-pill">RLS</code> filter context leaks, and self-service governance.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-10</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P2</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is the difference between Promoted and Certified semantic model endorsements?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly distinguished self-service owner promotion from tenant-controlled governance team certification.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-11</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P2</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-in-progress" style="font-size: 0.75rem;">Technically Correct but Needs Improvement</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is the operational difference between Read and Build permissions on a shared semantic model?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified visual viewing restriction vs building new reports and connecting live via Analyze in Excel/<code class="code-pill">XMLA</code>.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-12</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P2</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why does taking over a dataset break existing gateway and scheduled refresh bindings?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified gateway credentials context; explained security invalidation of connection credentials on ownership change.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-13</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Refresh</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P3</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-in-progress" style="font-size: 0.75rem;">Technically Correct but Needs Improvement</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Where are rotated database passwords updated in <code class="code-pill"><code class="code-pill">Power BI</code> Service</code>, and how does it propagate?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified 'Manage Connections and Gateways'; clarified that updating the central connection object automatically updates all mapped semantic models across the tenant.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-14</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Refresh</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P3</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is the difference between Standard Mode and Personal Mode gateways in enterprise architecture?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly differentiated multi-user enterprise sharing, clustering, and <code class="code-pill">DirectQuery</code> support vs single-user Personal mode.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-15</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P3</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What happens to report visuals in <code class="code-pill">Import Mode</code> if a scheduled refresh fails due to gateway downtime?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified that consumers see last successful snapshot (stale data) rather than blank visuals.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-16</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P3</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why does Power Query enforce Privacy Levels (<code class="code-pill">Formula.Firewall</code>) during mixed-source joins?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly explained preventing confidential data leakage across untrusted external data boundaries.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-17</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P4</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why use disconnected lookup tables with <code class="code-pill">DAX</code> rather than bi-directional relationships for <code class="code-pill">Dynamic <code class="code-pill">RLS</code></code>?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified that bidirectional relationships cause filter ambiguity, unintended propagation across unrelated dimensions, and <code class="code-pill">VertiPaq</code> engine traversal overhead.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-18</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P4</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            If a user belongs to both a role with <code class="code-pill">OLS</code> restricting unit_cost and another role that allows read access, what does the <code class="code-pill">Power BI</code> engine do?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified that <code class="code-pill">OLS</code> is restrictive (most restrictive wins / None hides the object), preventing accidental data exposure across combined roles.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-19</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;"><code class="code-pill">Deployment Pipelines</code></span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P5</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What happens to historical partitions when publishing a model with incremental refresh directly from Desktop?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Explained metadata-only preservation in modern service while identifying the enterprise standard of using <code class="code-pill">Deployment Pipelines</code>/ALM to guarantee partition protection (Lab L20).
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-20</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;"><code class="code-pill">Deployment Pipelines</code></span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P6</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why did <code class="code-pill">PostgreSQL</code> appear under Parameter rules while Excel appeared under Data source rules in <code class="code-pill">Deployment Pipelines</code>?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified that <code class="code-pill">PostgreSQL</code> was parameterized via M parameters in Power Query while Excel had a static path, and noted parameter rules are the broader enterprise standard.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-21</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P6</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-in-progress" style="font-size: 0.75rem;">Technically Correct but Needs Improvement</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">8.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What does the <code class="code-pill">Deployment Pipeline</code> Compare UI show on schema drift, and what happens when <code class="code-pill">DEV</code> is deployed over direct changes in <code class="code-pill">TEST</code> (Lab L17)?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Identified orange drift indicator and JSON comparison; clarified that source deployment completely overwrites uncommitted manual changes in the downstream stage.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-22</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Security</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P6</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why doesn't a <code class="code-pill">Deployment Pipeline</code> automatically update the published Production App upon deployment (Lab L13)?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly explained the intentional staging buffer: preventing unwanted report drafts or broken states from reaching consumers until verified and explicitly published via Update App.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-23</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Git</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P7</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why was collaborative team development impossible with .pbix files, and how do <code class="code-pill">TMDL</code> and <code class="code-pill">PBIP</code> solve this during Git branching and PRs?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly identified binary blob limitations of .pbix versus human-readable <code class="code-pill">TMDL</code> text format enabling granular line diffs, version history, and conflict tracking.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-24</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;"><code class="code-pill">Fabric</code></span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P7</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            What is the role of the .platform metadata file in <code class="code-pill">Fabric</code> items, and why does <code class="code-pill">Fabric</code> require unique <code class="code-pill">logicalId</code> GUIDs?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Perfect answer: identified .platform JSON defining <code class="code-pill">logicalId</code> UUID and displayName, and explained that duplicate folder copies cause hash/ID collisions in <code class="code-pill">Fabric</code> Git indexing.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-25</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;"><code class="code-pill">Fabric</code></span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P7</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-06</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            In <code class="code-pill">Fabric</code> Source Control, what is the exact difference between Changes and Updates tabs, and what happens on Web UI commit?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Correctly articulated bi-directional synchronization: Changes tab tracks cloud workspace edits to commit to remote Git, Updates tab tracks incoming Git commits to compile into the workspace.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top: 2.5rem;">⚠️ Knowledge Gaps & Resolution Status</h2>
       <table class="custom-table">
         <thead>
           <tr>
             <th>Area</th>
-            <th>Detail</th>
+            <th>Detail & Diagnostic Finding</th>
             <th>Status</th>
             <th>Identified</th>
           </tr>
@@ -1210,155 +1630,155 @@
         <tbody>
           <tr>
             <td><strong>Incremental Refresh Partitioning</strong></td>
-            <td>Did not connect data volume/date range to partition testing requirements. Mastered and verified via XMLA TMSL partition inspection in Phase 5.</td>
-            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Mastered / Verified via XMLA in Phase 5</span></td>
-            <td>2026-09-05</td>
+            <td style="line-height: 1.5;">Did not connect data volume/date range to partition testing requirements. Mastered and verified via <code class="code-pill">XMLA</code> <code class="code-pill">TMSL</code> partition inspection in Phase 5.</td>
+            <td><span class="status-tag status-completed">Mastered / Verified via <code class="code-pill">XMLA</code> in Phase 5</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
             <td><strong>Schema Drift & Column Renaming (Lab L10)</strong></td>
-            <td>Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Scheduled for Lab L10</span></td>
-            <td>2026-09-05</td>
+            <td style="line-height: 1.5;">Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.</td>
+            <td><span class="status-tag status-in-progress">Explained — Scheduled for Lab L10</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
           <tr>
-            <td><strong>Formula.Firewall Privacy Levels in Mixed Sources</strong></td>
-            <td>Mashup engine privacy boundary between on-prem gateway and cloud OAuth2 sources explained and mastered in Phase 3.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Mastered / Resolved in Phase 3</span></td>
-            <td>2026-09-05</td>
+            <td><strong><code class="code-pill">Formula.Firewall</code> Privacy Levels in Mixed Sources</strong></td>
+            <td style="line-height: 1.5;">Mashup engine privacy boundary between on-prem gateway and cloud <code class="code-pill">OAuth2</code> sources explained and mastered in Phase 3.</td>
+            <td><span class="status-tag status-completed">Mastered / Resolved in Phase 3</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-05</span></td>
           </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">⏱️ Hours Log</h2>
+      <h2 class="section-title" style="margin-top: 2.5rem;">⏱️ Hours & Effort Log</h2>
       <table class="custom-table">
         <thead>
           <tr>
             <th>Week</th>
-            <th>Hours</th>
+            <th>Duration</th>
             <th>Phases</th>
-            <th>Notes</th>
+            <th>Milestone / Activity Note</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P0</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P0</span></td>
             <td>Initial setup session</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P0</td>
-            <td>T0.3 PostgreSQL databases + schema DDL</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P0</span></td>
+            <td>T0.3 <code class="code-pill">PostgreSQL</code> databases + schema DDL</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P0</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P0</span></td>
             <td>T0.4 Synthetic data generator execution (5.25M total rows seeded)</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P0</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P0</span></td>
             <td>T0.5 Cloud Excel sources generated and deployed to OneDrive</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P0</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P0</span></td>
             <td>T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P1</td>
-            <td>T1.1 PBIP + TMDL project initialized with M parameters</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td>T1.1 <code class="code-pill">PBIP</code> + <code class="code-pill">TMDL</code> project initialized with M parameters</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P1</td>
-            <td>T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td>T1.2 Ingested 7 queries & verified <code class="code-pill">PostgreSQL</code> Native Query Folding</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P1</td>
-            <td>T1.3 Star Schema model & Dim_Date table built</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td>T1.3 <code class="code-pill">Star Schema</code> model & Dim_Date table built</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P1</td>
-            <td>T1.4 Authored 22 DAX core measures across 4 display folders</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td>T1.4 Authored 22 <code class="code-pill">DAX</code> core measures across 4 display folders</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P1</td>
-            <td>T1.5 BPA hardening + Phase 1 Gate Exam passed</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P1</span></td>
+            <td>T1.5 <code class="code-pill">BPA</code> hardening + Phase 1 Gate Exam passed</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P2</td>
-            <td>T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td>T2.1 Trial verified (47d left) + T2.2 BL-Sales-<code class="code-pill">DEV</code> workspace created and published</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P2</td>
-            <td>T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P2</span></td>
+            <td>T2.3 Configured 3 Thin Reports in <code class="code-pill">PBIP</code>/<code class="code-pill">PBIR</code> format bound via live connection</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P2</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P2</span></td>
             <td>T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P3</td>
-            <td>T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td>T3.1-T3.3 <code class="code-pill">Gateway</code> configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P3</td>
-            <td>T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P3</span></td>
+            <td>T3.4 Privacy levels + T3.5 <code class="code-pill">Gateway</code> Gate Exam passed (90/100) + Phase 4 Unlocked</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P4</td>
-            <td>T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P4</span></td>
+            <td>T4.1-T4.5 <code class="code-pill">Dynamic <code class="code-pill">RLS</code></code>, <code class="code-pill">OLS</code>, Persona Testing, App Published & Phase 4 Gate passed (92/100)</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P5</td>
-            <td>T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P5</span></td>
+            <td>T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), <code class="code-pill">XMLA</code> <code class="code-pill">SSMS</code> <code class="code-pill">TMSL</code> verified, Gate passed (95/100)</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>0.5h</td>
-            <td>P6</td>
-            <td>T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">0.5h</strong></td>
+            <td><span class="badge badge-primary">P6</span></td>
+            <td>T6.1-T6.6 3-Stage Pipeline, Parameter & <code class="code-pill">Gateway</code> Rules, UAT 2.5M row refresh, <code class="code-pill">PROD</code> Multi-Audience App & Phase 6 Gate passed (93/100)</td>
           </tr>
           <tr>
-            <td>Week 1</td>
-            <td>1.5h</td>
-            <td>P7</td>
-            <td>T7.1-T7.5 PBIP TMDL DAX authoring, Fabric ADO/GitHub Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)</td>
+            <td><span class="font-mono text-muted">Week 1</span></td>
+            <td><strong class="font-mono text-cyan">1.5h</strong></td>
+            <td><span class="badge badge-primary">P7</span></td>
+            <td>T7.1-T7.5 <code class="code-pill">PBIP</code> <code class="code-pill">TMDL</code> <code class="code-pill">DAX</code> authoring, <code class="code-pill">Fabric</code> ADO/<code class="code-pill">GitHub</code> Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)</td>
           </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
-        <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">10.5h</span>
+        <span style="font-size: 1.1rem; font-weight: 700;">Total Time Invested:</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;" class="font-mono">10.5h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
