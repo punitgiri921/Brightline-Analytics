@@ -147,6 +147,10 @@ table _Meaure
 		formatString: 0.0%
 		displayFolder: 02. Margin & Profitability
 		lineageTag: e8a2c104-589d-472a-9e12-70b8c642a8b9
+	
+	measure 'Sloppy Return Ratio' = sum(Fact_Sales[sales_amount])/count(Fact_Sales[order_id])
+		displayFolder: KPIs
+
 
 
 	partition _Meaure = m
