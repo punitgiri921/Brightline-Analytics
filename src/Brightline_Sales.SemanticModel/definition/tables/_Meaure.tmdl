@@ -27,6 +27,12 @@ table _Meaure
 		displayFolder: 01. Base Metrics
 		lineageTag: 13b45279-4f49-4c9a-951b-1323be53af2c
 
+	measure 'Average Order Value (AOV)' = DIVIDE([Net Revenue], [Total Orders], 0)
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 01. Base Metrics
+		lineageTag: fba9785d-4a07-44b7-bb71-13d8cdac9f9b
+	
+
 	/// 02. MARGIN & PROFITABILITY
 	measure 'Total COGS' = SUMX(Fact_Sales, Fact_Sales[qty] * Fact_Sales[unit_cost])
 		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
@@ -47,6 +53,12 @@ table _Meaure
 		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
 		displayFolder: 02. Margin & Profitability
 		lineageTag: e15f7a43-6bb5-449e-cf04-2c58e639d744
+
+	
+	measure 'Gross Margin Per Order' = DIVIDE([Gross Margin], [Total Orders], 0)
+		formatString: ₹ #,0.00;(₹ #,0.00);₹ #,0.00
+		displayFolder: 02. Margin & Profitability
+		lineageTag: 0a1b2c3d-4e5f-6789-abcd-ef1234567890
 
 	/// 03. TARGET VARIANCE & QUOTA
 	measure 'Target Revenue' = SUM(Fact_Targets[Target_Revenue])

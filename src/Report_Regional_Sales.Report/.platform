@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "Report",
-    "displayName": "Report_Executive_Overview"
+    "displayName": "Report_Regional_Sales"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "d0ec9488-a231-43df-a15c-d8c96519008a"
+    "logicalId": "31be3a9e-c283-d6cd-7d64-13e0e03a9b05"
   }
 }
