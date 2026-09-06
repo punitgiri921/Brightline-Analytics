@@ -1,0 +1,40 @@
+name: "Model CI — Tabular Editor BPA Check"
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  validate-model:
+    name: "Run Tabular Editor BPA Validation"
+    runs-on: windows-latest
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v4
+
+      - name: "Download & Extract Tabular Editor CLI"
+        shell: pwsh
+        run: |
+          $teUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/2.28.0/TabularEditor.Portable.zip"
+          Invoke-WebRequest -Uri $teUrl -OutFile "TabularEditor.zip"
+          Expand-Archive -Path "TabularEditor.zip" -DestinationPath "TabularEditor" -Force
+          Write-Host "Tabular Editor Portable CLI ready."
+
+      - name: "Execute Best Practice Analyzer on TMDL Model"
+        shell: pwsh
+        run: |
+          $modelPath = "./src/Brightline_Sales.SemanticModel/definition"
+          $bpaPath = "./bpa-rules/BPARules.json"
+          
+          Write-Host "Running BPA analysis on: $modelPath"
+          $process = Start-Process -FilePath "TabularEditor/TabularEditor.exe" -ArgumentList "`"$modelPath`" -B `"$bpaPath`" -V" -NoNewWindow -PassThru -Wait
+          
+          if ($process.ExitCode -ne 0) {
+            Write-Error "❌ Model validation failed due to Best Practice Analyzer violations!"
+            exit 1
+          } else {
+            Write-Host "✅ Model is 100% compliant with enterprise Best Practice rules!"
+          }

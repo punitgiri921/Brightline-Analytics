@@ -1,0 +1,66 @@
+# ==============================================================================
+# BRIGHTLINE ANALYTICS — CONTINUOUS INTEGRATION (CI) PIPELINE
+# Automated Model Quality & Tabular Editor Best Practice Analyzer (BPA)
+# ==============================================================================
+
+trigger: none
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  TE_VERSION: '2.28.0'
+  MODEL_DIR: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
+  BPA_RULES_PATH: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
+
+steps:
+- checkout: self
+  displayName: 'Checkout Repository (PR Branch)'
+
+- task: PowerShell@2
+  displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "============================================================"
+      Write-Host " 🚀 BRIGHTLINE CI PIPELINE: TABULAR MODEL QUALITY VALIDATION"
+      Write-Host "============================================================"
+
+      $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
+      $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
+      $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
+
+      Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
+      Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
+      Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
+
+      $teExe = "$teExtractDir/TabularEditor.exe"
+      if (!(Test-Path $teExe)) {
+          Write-Error "TabularEditor.exe executable was not found at $teExe"
+          exit 1
+      }
+      Write-Host "Tabular Editor CLI ready at: $teExe"
+
+      Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
+      Write-Host "   Model Directory : $(MODEL_DIR)"
+      Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
+
+      # Execute Tabular Editor with:
+      # -B: Best Practice Analyzer check
+      # -V: Verbose / Validate syntax
+      $process = Start-Process -FilePath $teExe -ArgumentList "`"$(MODEL_DIR)`" -B `"${BPA_RULES_PATH}`" -V" -NoNewWindow -PassThru -Wait
+
+      if ($process.ExitCode -ne 0) {
+          Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
+          Write-Error "CI Gate Failed. Please review the BPA violations above and fix your DAX/TMDL code before merging."
+          exit 1
+      } else {
+          Write-Host "============================================================"
+          Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+          Write-Host "============================================================"
+      }
