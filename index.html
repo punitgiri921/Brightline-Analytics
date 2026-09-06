@@ -328,7 +328,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 7: PBIP, TMDL/PBIR & Fabric Git Integration</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 8: Azure DevOps CI/CD Automation</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -350,26 +350,26 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">80%</div>
+          <div class="stat-value" id="overall-pct">89%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 80%;"></div>
+            <div class="progress-fill" style="width: 89%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P7: TMDL & Fabric Git</div>
-          <span class="stat-subtitle">Plain-text TMDL/PBIR, Workspace Git Sync, PR Branches</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P8: Azure DevOps CI/CD</div>
+          <span class="stat-subtitle">Automated Validation, Deployment & Testing</span>
         </div>
         <div class="stat-card">
-          <span class="stat-label">Trial Clock Status</span>
-          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">Fabric F64 Active</div>
-          <span class="stat-subtitle">Diamond 💎 FTL4 in Central India (47d left)</span>
+          <span class="stat-label">Phase 7 Gate Score</span>
+          <div class="stat-value" style="font-size: 1.5rem; color: var(--accent-green);">97 / 100</div>
+          <span class="stat-subtitle">Passed with High Distinction</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95 | P6: 93</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95 | P6: 93 | P7: 97</span>
         </div>
       </div>
 
@@ -679,47 +679,70 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
+          <span class="status-tag status-completed">Passed (97/100)</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Connect BL-Sales-DEV workspace to Azure DevOps / GitHub Git repo, execute direct TMDL measure/metadata edits, commit and sync workspace changes, establish Git PR branch policies, and resolve TMDL merge conflicts (Lab L18).
         </p>
         <ul class="task-list">
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t71" />
-            <label for="t71"><strong>Task 7.1: TMDL Direct Code Editing</strong> — Author / refactor DAX measures and table metadata directly in plain-text .tmdl files. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t71" checked />
+            <label for="t71"><strong>Task 7.1: TMDL Direct Code Editing</strong> — Author / refactor DAX measures directly in plain-text _Meaure.tmdl. <span style="color: var(--accent-green); font-weight: 600;">(Done — AOV, Gross Margin, Return Rate, Discount %)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t72" />
-            <label for="t72"><strong>Task 7.2: Connect DEV Workspace to Git</strong> — Bind BL-Sales-DEV workspace to Azure DevOps / GitHub repository branch. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t72" checked />
+            <label for="t72"><strong>Task 7.2: Connect DEV Workspace to Git</strong> — Bind BL-Sales-DEV to Azure DevOps / GitHub; heal duplicate .platform logicalId collisions. <span style="color: var(--accent-green); font-weight: 600;">(Done — Git Connected & Synced)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t73" />
-            <label for="t73"><strong>Task 7.3: Commit & Sync Changes via Fabric Git</strong> — Test bi-directional synchronization (Desktop Git commit ➔ Workspace Update, and Workspace edit ➔ Git Commit). <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t73" checked />
+            <label for="t73"><strong>Task 7.3: Bi-Directional Git Synchronization</strong> — Validated 2-way sync (Code -> Cloud compile & Cloud web edit -> Commit c5acdc6 -> Pull). <span style="color: var(--accent-green); font-weight: 600;">(Done — Bi-directional Sync Verified)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t74" />
-            <label for="t74"><strong>Task 7.4: Branching Policies & PR Reviews</strong> — Create feature branch, submit Pull Request with plain-text diffs, and enforce approval gates. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t74" checked />
+            <label for="t74"><strong>Task 7.4: Branching Policies & PR Reviews</strong> — Created feature branches, reviewed plain-text TMDL diffs in Azure DevOps PR, merged into main. <span style="color: var(--accent-green); font-weight: 600;">(Done — PR Workflow Mastered)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t75" />
-            <label for="t75"><strong>Task 7.5: TMDL Merge Conflict Resolution & Phase 7 Gate Exam</strong> — Rehearse and resolve 3-way TMDL merge conflicts without PBIX corruption (Lab L18). <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t75" checked />
+            <label for="t75"><strong>Task 7.5: TMDL Merge Conflict Resolution & Phase 7 Gate Exam</strong> — Surgically resolved concurrent DAX merge conflict (Lab L18); passed Gate Exam (97/100). <span style="color: var(--accent-green); font-weight: 600;">(Done — Gate Score: 97/100)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 8 — Azure DevOps CI/CD Automation</span>
-          <span class="status-tag status-locked">🔒 Locked (10–12h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 8 — Azure DevOps CI/CD Automation</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (10–12h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Self-hosted agent, YAML CI (Tabular Editor BPA), YAML CD (Fabric REST Deploy API), Lab L19.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Set up Self-Hosted Azure DevOps Agent / GitHub Actions, configure automated Best Practice Analyzer (BPA) linting in CI PR validation, and automate Fabric Deployment Pipeline / REST API deployments (Lab L19).
+        </p>
+        <ul class="task-list">
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t81" />
+            <label for="t81"><strong>Task 8.1: CI/CD Architecture Blueprint & Pipeline Design</strong> — Design automated PR validation build and promotion triggers. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t82" />
+            <label for="t82"><strong>Task 8.2: Automated Tabular Editor BPA Build Check</strong> — Enforce automated model quality & formatting rules on PR commits. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t83" />
+            <label for="t83"><strong>Task 8.3: Automated Fabric Deployment Pipeline Trigger (REST API / SPN)</strong> — Automate DEV -> TEST -> PROD promotion upon PR merge. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t84" />
+            <label for="t84"><strong>Task 8.4: Execute Sabotage Lab L19 (BPA Violation in PR) & Phase 8 Gate Exam</strong> — Verify CI build fails and blocks merge when BPA rule is broken. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">
@@ -934,10 +957,31 @@
             <td>P6</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>CL-28</strong></td>
+            <td>TMDL & PBIP Plain-Text Serialization vs Binary PBIX</td>
+            <td>TMDL separates tabular metadata into clean, human-readable text files per object (tables, measures, roles, relationships), transforming Power BI models from opaque binary blobs into fully auditable code artifacts supporting branching, diffing, and multi-developer concurrency.</td>
+            <td>P7</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-29</strong></td>
+            <td>Fabric Git .platform Metadata & Unique Logical ID Tracking</td>
+            <td>Every Fabric item in source control requires a .platform JSON file with a unique logicalId GUID and matching displayName. Duplicating item folders without re-generating logicalIds causes hash collisions that block Fabric Git sync.</td>
+            <td>P7</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-30</strong></td>
+            <td>Bi-Directional Cloud-to-Code Git Synchronization & Merge Conflict Resolution (Lab L18)</td>
+            <td>Fabric Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.</td>
+            <td>P7</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-22)</h2>
+      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-25)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -1126,6 +1170,30 @@
             <td>Security</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>TQ-23</strong></td>
+            <td>Why was collaborative team development impossible with .pbix files, and how do TMDL and PBIP solve this during Git branching and PRs?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>9.5 / 10</strong></td>
+            <td>Git</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-24</strong></td>
+            <td>What is the role of the .platform metadata file in Fabric items, and why does Fabric require unique logicalId GUIDs?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Fabric</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-25</strong></td>
+            <td>In Fabric Source Control, what is the exact difference between Changes and Updates tabs, and what happens on Web UI commit?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>9.5 / 10</strong></td>
+            <td>Fabric</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
@@ -1280,11 +1348,17 @@
             <td>P6</td>
             <td>T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>1.5h</td>
+            <td>P7</td>
+            <td>T7.1-T7.5 PBIP TMDL DAX authoring, Fabric ADO/GitHub Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">9.0h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">10.5h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
@@ -1320,7 +1394,7 @@
           <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
-          <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition; surgically resolved in _Meaure.tmdl</td><td><span class="status-tag status-completed">Passed / Demonstrated (P7)</span></td></tr>
           <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-completed">Passed / Rehearsed (P5)</span></td></tr>
         </tbody>

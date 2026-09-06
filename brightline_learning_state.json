@@ -4,8 +4,8 @@
   "last_updated": "2026-09-06T15:00:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 80,
-  "current_phase": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
+  "overall_progress_pct": 89,
+  "current_phase": "Phase 8 — Azure DevOps CI/CD Automation",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -356,16 +356,54 @@
     {
       "id": "P7",
       "name": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 97,
+      "gate_date": "2026-09-06",
       "hours_estimated": "8-10h",
-      "evidence_tag": "phase-7-git"
+      "evidence_tag": "phase-7-git",
+      "tasks": [
+        {
+          "id": "T7.1",
+          "name": "Author DAX Measures Directly in Plain-Text TMDL (_Meaure.tmdl)",
+          "status": "Completed",
+          "evidence": "Authored Average Order Value (AOV), Gross Margin Per Order, Return Rate %, and Average Discount % directly in plain-text TMDL definition files without opening Desktop."
+        },
+        {
+          "id": "T7.2",
+          "name": "Connect Fabric Workspace BL-Sales-DEV to Git (Azure DevOps / GitHub)",
+          "status": "Completed",
+          "evidence": "Resolved multi-tenant Entra ID identity federation for Azure DevOps (OAuth policy + user invite) and repaired duplicate .platform logicalId collisions across copied thin reports."
+        },
+        {
+          "id": "T7.3",
+          "name": "Execute Bi-Directional Git Synchronization (Code -> Cloud & Cloud -> Code)",
+          "status": "Completed",
+          "evidence": "Synced TMDL code from Git into Fabric cloud semantic model; modified report visual layouts in Fabric web UI, committed directly from cloud portal, and pulled commit c5acdc6 locally."
+        },
+        {
+          "id": "T7.4",
+          "name": "Enterprise Feature Branching, TMDL Diff Code Review & PR Merging",
+          "status": "Completed",
+          "evidence": "Created feature branches (feat/return-rate-kpi, feat/discount-kpi), authored PRs in Azure DevOps with plain-text DAX diffs, completed Merge (no fast-forward), and hydrated Fabric via Updates tab."
+        },
+        {
+          "id": "T7.5",
+          "name": "Execute Sabotage Lab L18 (TMDL Merge Conflict Resolution) & Phase 7 Gate Exam",
+          "status": "Completed",
+          "evidence": "Induced concurrent DAX formula merge conflict in _Meaure.tmdl, surgically resolved <<<<<<< HEAD markers combining COALESCE with Units formatting, and passed Phase 7 Gate Exam with 97/100."
+        }
+      ],
+      "gate_topics": [
+        "TMDL vs TMSL vs Model.bim plain-text serialization",
+        ".platform JSON logicalId metadata and entity collision prevention",
+        "Bi-directional sync mechanics: Changes tab (Cloud->Git) vs Updates tab (Git->Cloud)",
+        "TMDL merge conflict resolution and PR branch lifecycle"
+      ]
     },
     {
       "id": "P8",
       "name": "Phase 8 — Azure DevOps CI/CD Automation",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "10-12h",
@@ -591,6 +629,27 @@
       "concept": "Production App Publishing Buffer & Staged Release Governance (Lab L13)",
       "details": "Workspace deployment does not automatically publish changes to report consumers; the Power BI App acts as a deliberate staging buffer. This allows post-deployment data validation and smoke testing in the workspace before broadcasting new visuals to business consumers.",
       "phase": "P6",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-28",
+      "concept": "TMDL & PBIP Plain-Text Serialization vs Binary PBIX",
+      "details": "TMDL separates tabular metadata into clean, human-readable text files per object (tables, measures, roles, relationships), transforming Power BI models from opaque binary blobs into fully auditable code artifacts supporting branching, diffing, and multi-developer concurrency.",
+      "phase": "P7",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-29",
+      "concept": "Fabric Git .platform Metadata & Unique Logical ID Tracking",
+      "details": "Every Fabric item in source control requires a .platform JSON file with a unique logicalId GUID and matching displayName. Duplicating item folders without re-generating logicalIds causes hash collisions that block Fabric Git sync.",
+      "phase": "P7",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-30",
+      "concept": "Bi-Directional Cloud-to-Code Git Synchronization & Merge Conflict Resolution (Lab L18)",
+      "details": "Fabric Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.",
+      "phase": "P7",
       "date": "2026-09-06"
     }
   ],
@@ -836,6 +895,39 @@
       "category": "Security",
       "phase": "P6",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-23",
+      "question": "Why was collaborative team development impossible with .pbix files, and how do TMDL and PBIP solve this during Git branching and PRs?",
+      "answer_summary": "Correctly identified binary blob limitations of .pbix versus human-readable TMDL text format enabling granular line diffs, version history, and conflict tracking.",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Git",
+      "phase": "P7",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-24",
+      "question": "What is the role of the .platform metadata file in Fabric items, and why does Fabric require unique logicalId GUIDs?",
+      "answer_summary": "Perfect answer: identified .platform JSON defining logicalId UUID and displayName, and explained that duplicate folder copies cause hash/ID collisions in Fabric Git indexing.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Fabric",
+      "phase": "P7",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-25",
+      "question": "In Fabric Source Control, what is the exact difference between Changes and Updates tabs, and what happens on Web UI commit?",
+      "answer_summary": "Correctly articulated bi-directional synchronization: Changes tab tracks cloud workspace edits to commit to remote Git, Updates tab tracks incoming Git commits to compile into the workspace.",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Fabric",
+      "phase": "P7",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
@@ -876,7 +968,8 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"},
     {"week": "Week 1", "hours": 0.5, "phases": "P4", "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"},
     {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P6", "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P6", "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"},
+    {"week": "Week 1", "hours": 1.5, "phases": "P7", "note": "T7.1-T7.5 PBIP TMDL DAX authoring, Fabric ADO/GitHub Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)"}
   ],
   "troubleshooting_log": [
     {
