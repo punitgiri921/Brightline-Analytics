@@ -877,5 +877,25 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P4", "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"},
     {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"},
     {"week": "Week 1", "hours": 0.5, "phases": "P6", "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"}
+  ],
+  "troubleshooting_log": [
+    {
+      "id": "TB-01",
+      "topic": "Cross-Tenant Azure DevOps vs Microsoft Fabric Git Integration",
+      "symptom": "Fabric Git integration Organization dropdown shows 'You don't have any organizations in this Git provider' or fails with 'organization not found'.",
+      "root_cause": "Fabric relies on the logged-in corporate Entra ID tenant account. When an Azure DevOps organization is created under a personal Microsoft Account (MSA @gmail.com), tenant directory isolation prevents cross-boundary discovery.",
+      "resolution": "Invite the corporate Entra ID account (punitgiri@punitgiri921gmail.onmicrosoft.com) to Azure DevOps Organization Settings -> Users with Basic access + Contributor role, and toggle Organization Settings -> Policies -> 'Third-party application access via OAuth' to ON. Alternatively, use identity-agnostic GitHub Git provider.",
+      "date": "2026-09-06",
+      "status": "Resolved"
+    },
+    {
+      "id": "TB-02",
+      "topic": "Fabric Git Integration Duplicate logicalId Collision in .platform Metadata",
+      "symptom": "Git sync fails with error: 'Duplicate logical IDs. In order to continue, fix all duplicate logical IDs in the source control pane...'.",
+      "root_cause": "When duplicating thin reports in PBIP/PBIR format (Report_Regional_Sales and Report_Store_Performance copied from Report_Executive_Overview), the inner .platform JSON retained identical logicalId GUIDs and displayNames.",
+      "resolution": "Updated .platform file in each report directory with unique UUID/GUID logicalId values and proper displayNames. Committed and pushed clean definitions to Git.",
+      "date": "2026-09-06",
+      "status": "Resolved"
+    }
   ]
 }

@@ -340,6 +340,7 @@
     <button class="tab-btn" onclick="switchTab('phases')">🚀 Phases (P0 – P9)</button>
     <button class="tab-btn" onclick="switchTab('knowledge')">📚 Knowledge & Scores</button>
     <button class="tab-btn" onclick="switchTab('labs')">🧪 Sabotage Labs (L1 – L20)</button>
+    <button class="tab-btn" onclick="switchTab('troubleshooting')">🛠️ Troubleshooting & Production Playbook</button>
     <button class="tab-btn" onclick="switchTab('lenses')">🧠 7 Lenses & Scoring</button>
   </div>
 
@@ -1326,7 +1327,125 @@
       </table>
     </div>
 
-    <!-- TAB 5: 7 LENSES & SCORING -->
+    <!-- TAB: TROUBLESHOOTING & PRODUCTION PLAYBOOK -->
+    <div id="tab-troubleshooting" class="tab-pane">
+      <h2 class="section-title">🛠️ Troubleshooting & Production Playbook</h2>
+      <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Battle-tested incident response playbooks, enterprise identity federation guides, and exact diagnostic resolutions encountered during the Brightline deployment lifecycle.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+
+        <!-- CASE 1: Cross-Tenant Azure DevOps & Fabric Git Integration -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-indigo);">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-indigo);">
+              <span>🌐</span> Cross-Tenant / Multi-Account Azure DevOps vs Fabric Git Integration
+            </div>
+            <span class="status-tag status-completed">Enterprise Identity Guide</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Symptom:</strong> When connecting Microsoft Fabric Git integration to Azure DevOps, the Organization dropdown says <em>"You don't have any organizations in this Git provider"</em> or returns <em>"The organization in your Azure DevOps URL wasn't found"</em>.
+            </p>
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Root Cause:</strong> Microsoft Fabric uses the signed-in corporate Entra ID identity (<code class="code-pill">user@tenant.onmicrosoft.com</code>). If your Azure DevOps organization was created under a personal Microsoft Account (<code class="code-pill">user@gmail.com</code> / MSA), the identity directories are isolated by tenant boundaries. Fabric cannot discover MSA-backed organizations by default.
+            </p>
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; margin-top: 0.75rem;">
+              <strong style="color: var(--accent-cyan); display: block; margin-bottom: 0.5rem;">⚡ 3-Tier Enterprise Resolution Options:</strong>
+              <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <li>
+                  <strong style="color: var(--text-primary);">Option A (Enterprise Member Invite + OAuth Policy):</strong> In Azure DevOps (<code class="code-pill">dev.azure.com/{org}</code>) &rarr; <em>Organization Settings</em> &rarr; <em>Users</em> &rarr; <em>Add Users</em> &rarr; Invite the Entra ID work email (<code class="code-pill">punitgiri@punitgiri921gmail.onmicrosoft.com</code>) with <strong>Basic</strong> access and add to project as <strong>Contributor</strong>. Then go to <em>Organization Settings</em> &rarr; <em>Policies</em> &rarr; Toggle <strong>Third-party application access via OAuth</strong> to <strong>ON</strong>. Fabric will immediately populate the Organization and Repositories!
+                </li>
+                <li>
+                  <strong style="color: var(--text-primary);">Option B (Identity-Agnostic Provider - GitHub):</strong> Switch Git Provider to <strong>GitHub</strong> in Fabric Workspace Settings. GitHub uses standard OAuth2 apps (<code class="code-pill">punitgiri921/Brightline-Analytics</code>) completely decoupled from Microsoft Entra tenant boundaries.
+                </li>
+                <li>
+                  <strong style="color: var(--text-primary);">Option C (Directory Linking):</strong> In Azure DevOps &rarr; <em>Organization Settings</em> &rarr; <em>Microsoft Entra</em> &rarr; <em>Connect directory</em> to link the entire ADO organization to the Entra ID tenant (requires Azure subscription tenant owner privileges).
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 2: Duplicate Logical IDs in PBIP .platform Metadata -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-rose);">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-rose);">
+              <span>🆔</span> Duplicate Logical IDs in PBIP <code style="font-size: 1rem;">.platform</code> Metadata Collision
+            </div>
+            <span class="status-tag status-completed">Resolved in P7</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Symptom:</strong> Git connection in Fabric fails with: <em>"Duplicate logical IDs. In order to continue, fix all duplicate logical IDs in the source control pane..."</em> listing items such as <code class="code-pill">Report_Regional_Sales.Report</code> and <code class="code-pill">Report_Store_Performance.Report</code>.
+            </p>
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Root Cause:</strong> In Fabric/PBIP projects, every item folder contains a hidden <code class="code-pill">.platform</code> JSON metadata file defining its <code class="code-pill">logicalId</code> (UUID) and <code class="code-pill">displayName</code>. When thin report folders are duplicated/copied from an existing report (e.g. <code class="code-pill">Report_Executive_Overview.Report</code>), the copied <code class="code-pill">.platform</code> files retain the original GUID and title, causing a hash/ID collision in Fabric Git source control indexing.
+            </p>
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; margin-top: 0.75rem;">
+              <strong style="color: var(--accent-green); display: block; margin-bottom: 0.5rem;">🔧 Resolution Applied:</strong>
+              <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.35rem;">
+                <li>Updated <code class="code-pill">src/Report_Regional_Sales.Report/.platform</code> &rarr; <code class="code-pill">"displayName": "Report_Regional_Sales"</code>, <code class="code-pill">"logicalId": "31be3a9e-c283-d6cd-7d64-13e0e03a9b05"</code>.</li>
+                <li>Updated <code class="code-pill">src/Report_Store_Performance.Report/.platform</code> &rarr; <code class="code-pill">"displayName": "Report_Store_Performance"</code>, <code class="code-pill">"logicalId": "67aa6ca4-e043-27d8-f7d3-8ae6bc410b80"</code>.</li>
+                <li>Committed and pushed clean GUID definitions to remote Git repos, enabling clean one-to-one entity binding.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASE 3: Deployment Pipelines Parameter vs Data Source Rules -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-amber);">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-amber);">
+              <span>🔄</span> Parameter Rules vs Data Source Rules in Multi-Stage Pipelines
+            </div>
+            <span class="status-tag status-completed">Mastered in P6</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Architecture Takeaway:</strong> Why did PostgreSQL appear under <em>Parameter Rules</em> while Excel appeared under <em>Data Source Rules</em>?
+            </p>
+            <p style="margin-bottom: 0.75rem;">
+              Parameterized sources in Power Query M (<code class="code-pill">PG_Database</code>) map dynamically to Deployment Pipeline Parameter Rules, which works universally for <em>any</em> connector type across DEV, TEST, and PROD. Static connection paths rely on native Data Source Rules, which are limited to specific supported cloud connectors. Best practice is always parameterizing in Power Query.
+            </p>
+          </div>
+        </div>
+
+        <!-- CASE 4: Pipeline Compare Drift & Downstream Overwrite -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-blue);">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-blue);">
+              <span>⚠️</span> Schema Drift & Downstream Overwrite Mechanics (Lab L17)
+            </div>
+            <span class="status-tag status-completed">Mastered in P6</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Key Finding:</strong> If a developer directly hand-edits a measure or visual in the <code class="code-pill">BL-Sales-Test</code> workspace, the Deployment Pipeline Compare UI turns <strong>Orange</strong> indicating schema drift. When deploying from DEV &rarr; TEST, Fabric performs a complete metadata overwrite from source to target, permanently erasing uncommitted manual changes in TEST. All production changes must flow strictly DEV &rarr; TEST &rarr; PROD through Git.
+            </p>
+          </div>
+        </div>
+
+        <!-- CASE 5: Gateway Hybrid Refresh & Formula.Firewall Isolation -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-green);">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-green);">
+              <span>🔒</span> Gateway Binding, SSL Negotiation & Formula.Firewall Privacy Levels
+            </div>
+            <span class="status-tag status-completed">Mastered in P3</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Key Finding:</strong> Hybrid models combining on-premise PostgreSQL (via Enterprise Data Gateway) and cloud OneDrive Excel files require uniform Privacy Levels (e.g. <strong>Organizational</strong>). If privacy levels clash, the Power Query mashup engine throws <code class="code-pill">Formula.Firewall</code> cross-boundary data leakage errors. Furthermore, local PostgreSQL instances require <code class="code-pill">sslmode=disable</code> to prevent gateway handshake timeouts during cloud scheduling.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 6: 7 LENSES & SCORING -->
     <div id="tab-lenses" class="tab-pane">
       <h2 class="section-title">🧠 The Seven Lenses of Architectural Mastery</h2>
       <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
