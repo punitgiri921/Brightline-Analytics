@@ -1,6 +1,22 @@
 table Fact_Sales
 	lineageTag: 879f375c-5aa1-44ed-a63c-85928f47ef79
 
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 3
+		incrementalGranularity: month
+		incrementalPeriods: 1
+		pollingExpression = let Maxlast_modified = List.Max(Fact_Sales[last_modified]), accountForNull = if Maxlast_modified = null then #datetime(1901, 01, 01, 00, 00, 00) else Maxlast_modified in accountForNull
+		sourceExpression =
+			let
+			  Source = PostgreSQL.Database(PG_Server, PG_Database),
+			  #"Navigation 1" = Source{[Schema = "erp", Item = "sales_transactions"]}[Data],
+			    #"Changed Type" = Table.TransformColumnTypes(#"Navigation 1",{{"txn_date", type datetime}}),
+			    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [txn_date] >= RangeStart and [txn_date] <= RangeEnd)
+			in
+			  #"Filtered Rows"
+
 	column txn_id
 		dataType: int64
 		formatString: 0

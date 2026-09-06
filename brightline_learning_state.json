@@ -1,16 +1,16 @@
 {
   "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-06T01:13:00+05:30",
+  "last_updated": "2026-09-06T14:02:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 70,
-  "current_phase": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
+  "overall_progress_pct": 75,
+  "current_phase": "Phase 6 — Deployment Pipelines & Stage Rules",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
     "individual_trial": "Active (47 days remaining)",
-    "fabric_f64_trial": "Not Started (Begins Phase 5 - 60 day clock)"
+    "fabric_f64_trial": "Active (47 days remaining)"
   },
   "phases": [
     {
@@ -250,20 +250,102 @@
     {
       "id": "P5",
       "name": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
-      "status": "Locked",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 95,
+      "gate_date": "2026-09-06",
       "hours_estimated": "8h",
-      "evidence_tag": "phase-5-incremental"
+      "evidence_tag": "phase-5-incremental",
+      "tasks": [
+        {
+          "id": "T5.1",
+          "name": "Microsoft Fabric F64 Trial Activation & Capacity Assignment",
+          "status": "Completed",
+          "evidence": "Activated 60-day Microsoft Fabric trial capacity and assigned BL-Sales-DEV workspace (Diamond badge FTL4 capacity in Central India)."
+        },
+        {
+          "id": "T5.2",
+          "name": "Incremental Refresh Policy Configuration",
+          "status": "Completed",
+          "evidence": "Configured Incremental Refresh policy on Fact_Sales: 3-year historical archive, 1-month incremental refresh window, and Detect Data Changes on last_modified."
+        },
+        {
+          "id": "T5.3",
+          "name": "Initial Partition Seeding Refresh",
+          "status": "Completed",
+          "evidence": "Executed initial partition seeding refresh in Power BI Service, successfully completing in 25 seconds."
+        },
+        {
+          "id": "T5.4",
+          "name": "XMLA Endpoint Partition Inspection",
+          "status": "Completed",
+          "evidence": "Connected SSMS 20 to powerbi://api.powerbi.com/v1.0/myorg/BL-Sales-DEV via XMLA; verified physical partitions (2023, 2024, 2025, 2026Q1, 2026Q2, 2026Q307, 2026Q308, 2026Q309) in TMSL JSON schema."
+        },
+        {
+          "id": "T5.5",
+          "name": "Incremental Sabotage Labs & Phase 5 Gate Exam",
+          "status": "Completed",
+          "evidence": "Passed Phase 5 Gate Exam with 95/100 evaluating metadata-only publishing vs ALM partition preservation mechanics (Lab L20)."
+        }
+      ],
+      "gate_topics": [
+        "RangeStart/RangeEnd query folding pushdown",
+        "Detect data changes polling expression mechanics",
+        "VertiPaq hierarchical partition structure (Year, Quarter, Month)",
+        "Desktop full overwrite partition wipe risk (Lab L20)"
+      ]
     },
     {
       "id": "P6",
-      "name": "Phase 6 — Deployment Pipelines & Rules",
-      "status": "Locked",
+      "name": "Phase 6 — Deployment Pipelines & Stage Rules",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "8h",
-      "evidence_tag": "phase-6-pipelines"
+      "evidence_tag": "phase-6-pipelines",
+      "tasks": [
+        {
+          "id": "T6.1",
+          "name": "Create Fabric Deployment Pipeline 'Brightline-Sales-Pipeline'",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T6.2",
+          "name": "Assign Workspaces to Pipeline Stages (DEV, TEST, PROD)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T6.3",
+          "name": "Configure Deployment Parameter Rules (PG_Database to brightline_test and brightline_prod)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T6.4",
+          "name": "Configure Gateway Connection Rules (Swap to BL-PG-TEST and BL-PG-PROD)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T6.5",
+          "name": "Execute DEV -> TEST Promotion & Validate Pipeline Compare Drift Engine",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T6.6",
+          "name": "Execute TEST -> PROD Promotion & App Publishing",
+          "status": "Pending",
+          "evidence": null
+        }
+      ],
+      "gate_topics": [
+        "Deployment rules vs M parameters vs Gateway mapping",
+        "Pipeline Compare engine & drift detection",
+        "Selective artifact deployment vs Full stage deploy",
+        "UAT validation sign-off workflow"
+      ]
     },
     {
       "id": "P7",
@@ -469,6 +551,20 @@
       "details": "While RLS permissions are cumulative (evaluating the union of permitted rows using OR logic across multiple roles), OLS permissions are strictly restrictive. If any assigned role sets an object's permission to 'none', the table/column is completely concealed from metadata and queries, preventing accidental data leaks across combined roles.",
       "phase": "P4",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-23",
+      "concept": "Hierarchical VertiPaq Partition Compression (Year, Quarter, Month Slices)",
+      "details": "When applying Incremental Refresh policies, the VertiPaq storage engine automatically compacts older historical partitions into Quarter and Year slices while maintaining granular Monthly slices for the active window. This minimizes partition metadata overhead, optimizes columnar dictionary encoding, and restricts scheduled refresh query execution exclusively to the latest active partition.",
+      "phase": "P5",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-24",
+      "concept": "XMLA Read/Write Endpoint Connectivity & TMSL Schema Inspection",
+      "details": "Assigning workspaces to Microsoft Fabric / Premium capacity exposes standard Analysis Services XMLA endpoints (powerbi://api.powerbi.com/v1.0/myorg/workspace-name). External management tools (SSMS, DAX Studio, Tabular Editor) connect directly to live cloud models to inspect physical partition schemas (TMSL policyRange definitions) and execute granular partition processing without Power BI Desktop dependency.",
+      "phase": "P5",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -669,13 +765,24 @@
       "category": "Security",
       "phase": "P4",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-19",
+      "question": "What happens to historical partitions when publishing a model with incremental refresh directly from Desktop?",
+      "answer_summary": "Explained metadata-only preservation in modern service while identifying the enterprise standard of using Deployment Pipelines/ALM to guarantee partition protection (Lab L20).",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Deployment Pipelines",
+      "phase": "P5",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
     {
       "area": "Incremental Refresh Partitioning",
-      "detail": "Did not connect data volume/date range to partition testing requirements. Elaboration provided — retest in Phase 5.",
-      "status": "Explained — Pending Retest",
+      "detail": "Did not connect data volume/date range to partition testing requirements. Mastered and verified via XMLA TMSL partition inspection in Phase 5.",
+      "status": "Mastered / Verified via XMLA in Phase 5",
       "identified_date": "2026-09-05"
     },
     {
@@ -706,6 +813,8 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"},
     {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"},
     {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P4", "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"}
   ]
 }

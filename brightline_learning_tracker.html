@@ -328,7 +328,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 3: Gateway & Refresh</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 6: Deployment Pipelines & Stage Rules</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -349,26 +349,26 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">70%</div>
+          <div class="stat-value" id="overall-pct">75%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 70%;"></div>
+            <div class="progress-fill" style="width: 75%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P5: Incremental & XMLA</div>
-          <span class="stat-subtitle">Fabric F64 Capacity, RangeStart/RangeEnd, Partitions</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P6: Deployment Pipelines</div>
+          <span class="stat-subtitle">DEV → TEST → PROD, Stage Rules, Drift Engine</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
-          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">F64 Activation Ready</div>
-          <span class="stat-subtitle">Fabric F64 clock starts at Phase 5</span>
+          <div class="stat-value" style="font-size: 1.25rem; color: var(--accent-green);">Fabric F64 Active</div>
+          <span class="stat-subtitle">Diamond 💎 FTL4 in Central India (47d left)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95</span>
         </div>
       </div>
 
@@ -604,47 +604,78 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 95 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Activate 60-day Microsoft Fabric F64 capacity trial, bind workspace to Premium capacity, configure native Incremental Refresh policy on Fact_Sales (RangeStart/RangeEnd), and inspect physical VertiPaq partitions via XMLA endpoint.
         </p>
         <ul class="task-list">
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t51" />
-            <label for="t51"><strong>Task 5.1: Microsoft Fabric F64 Trial Activation</strong> — Start 60-day Fabric capacity trial and assign BL-Sales-DEV workspace to Fabric capacity (Diamond icon 💎). <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t51" checked />
+            <label for="t51"><strong>Task 5.1: Microsoft Fabric F64 Trial Activation</strong> — Start 60-day Fabric capacity trial and assign BL-Sales-DEV workspace to Fabric capacity (Diamond icon 💎). <span style="color: var(--accent-green); font-weight: 600;">(Done — Diamond FTL4 Active)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t52" />
-            <label for="t52"><strong>Task 5.2: Incremental Refresh Policy Configuration</strong> — Define 3-year historical archive + 1-month incremental refresh window with Detect Data Changes on last_modified. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t52" checked />
+            <label for="t52"><strong>Task 5.2: Incremental Refresh Policy Configuration</strong> — Define 3-year historical archive + 1-month incremental refresh window with Detect Data Changes on last_modified. <span style="color: var(--accent-green); font-weight: 600;">(Done — Policy Active)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t53" />
-            <label for="t53"><strong>Task 5.3: Initial Partition Seeding Refresh</strong> — Trigger first Service refresh to generate physical VertiPaq historical partitions without query timeout. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t53" checked />
+            <label for="t53"><strong>Task 5.3: Initial Partition Seeding Refresh</strong> — Trigger first Service refresh to generate physical VertiPaq historical partitions without query timeout. <span style="color: var(--accent-green); font-weight: 600;">(Done — 25s Seeding Refresh)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t54" />
-            <label for="t54"><strong>Task 5.4: XMLA Endpoint Partition Inspection</strong> — Connect DAX Studio / Tabular Editor via XMLA endpoint and document physical table partition slices. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t54" checked />
+            <label for="t54"><strong>Task 5.4: XMLA Endpoint Partition Inspection</strong> — Connect SSMS via XMLA endpoint and document physical table partition slices. <span style="color: var(--accent-green); font-weight: 600;">(Done — 2023-2026Q3 TMSL Partitions Verified)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t55" />
-            <label for="t55"><strong>Task 5.5: Incremental Sabotage Labs (L9, L20) & Phase 5 Gate Exam</strong> — Rehearse non-folding filter failures and PBIX full overwrite partition wipes. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t55" checked />
+            <label for="t55"><strong>Task 5.5: Incremental Sabotage Labs (L9, L20) & Phase 5 Gate Exam</strong> — Rehearse non-folding filter failures and PBIX full overwrite partition wipes. <span style="color: var(--accent-green); font-weight: 600;">(Done — Passed 95/100)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 6 — Deployment Pipelines & Stage Rules</span>
-          <span class="status-tag status-locked">🔒 Locked (8h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 6 — Deployment Pipelines & Stage Rules</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">DEV→TEST→PROD pipeline, parameter rules, drift detection, Labs L12, L13, L17.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Build 3-stage Fabric Deployment Pipeline (DEV → TEST → PROD), configure stage parameter rules for PostgreSQL databases, bind gateway connection rules, validate schema compare / drift detection, and execute end-to-end promotion.
+        </p>
+        <ul class="task-list">
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t61" />
+            <label for="t61"><strong>Task 6.1: Create Fabric Deployment Pipeline</strong> — Create 'Brightline-Sales-Pipeline' in Power BI Service / Fabric. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t62" />
+            <label for="t62"><strong>Task 6.2: Assign Workspaces to Pipeline Stages</strong> — Assign BL-Sales-DEV to Development; create/assign BL-Sales-TEST and BL-Sales-PROD. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t63" />
+            <label for="t63"><strong>Task 6.3: Configure Deployment Parameter Rules</strong> — Define parameter rules on PG_Database (TEST: brightline_test, PROD: brightline_prod). <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t64" />
+            <label for="t64"><strong>Task 6.4: Configure Gateway Connection Rules</strong> — Map TEST/PROD stages to BL-PG-TEST and BL-PG-PROD gateway connections. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t65" />
+            <label for="t65"><strong>Task 6.5: DEV → TEST Promotion & Drift Engine</strong> — Deploy to TEST, trigger UAT refresh (2.5M rows), test Pipeline Compare schema drift. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t66" />
+            <label for="t66"><strong>Task 6.6: TEST → PROD Promotion & App Publishing</strong> — Execute final production deployment, publish certified app, and test Labs L12, L13, L17. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">
@@ -819,10 +850,45 @@
             <td>P3</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>CL-20</strong></td>
+            <td>Dynamic Row-Level Security with Disconnected Security Tables</td>
+            <td>Dynamic RLS uses USERPRINCIPALNAME() and LOOKUPVALUE() on a disconnected security table to evaluate row-level filter predicates at query runtime. This avoids bidirectional relationship ambiguity, preserves single-direction star schema architecture, and prevents cross-filtering side effects across unrelated dimensions.</td>
+            <td>P4</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-21</strong></td>
+            <td>Hierarchical Fallback Evaluation in Dynamic RLS Filters</td>
+            <td>Enterprise RLS filters implement nested IF/OR structures (e.g. ALL -> Region -> Territory) allowing executive users unconstrained access, regional directors aggregate regional scope, and field territory managers strictly localized visibility in a single unified security role.</td>
+            <td>P4</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-22</strong></td>
+            <td>Object-Level Security (OLS) Restrictive Engine Mechanics vs RLS Union Logic</td>
+            <td>While RLS permissions are cumulative (evaluating the union of permitted rows using OR logic across multiple roles), OLS permissions are strictly restrictive. If any assigned role sets an object's permission to 'none', the table/column is completely concealed from metadata and queries, preventing accidental data leaks across combined roles.</td>
+            <td>P4</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-23</strong></td>
+            <td>Hierarchical VertiPaq Partition Compression (Year, Quarter, Month Slices)</td>
+            <td>When applying Incremental Refresh policies, the VertiPaq storage engine automatically compacts older historical partitions into Quarter and Year slices while maintaining granular Monthly slices for the active window. This minimizes partition metadata overhead, optimizes columnar dictionary encoding, and restricts scheduled refresh query execution exclusively to the latest active partition.</td>
+            <td>P5</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-24</strong></td>
+            <td>XMLA Read/Write Endpoint Connectivity & TMSL Schema Inspection</td>
+            <td>Assigning workspaces to Microsoft Fabric / Premium capacity exposes standard Analysis Services XMLA endpoints (powerbi://api.powerbi.com/v1.0/myorg/workspace-name). External management tools (SSMS, DAX Studio, Tabular Editor) connect directly to live cloud models to inspect physical partition schemas (TMSL policyRange definitions) and execute granular partition processing without Power BI Desktop dependency.</td>
+            <td>P5</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-13)</h2>
+      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-19)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -963,6 +1029,30 @@
             <td>Security</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>TQ-17</strong></td>
+            <td>Why use disconnected lookup tables with DAX rather than bi-directional relationships for Dynamic RLS?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-18</strong></td>
+            <td>If a user belongs to both a role with OLS restricting unit_cost and another role that allows read access, what does the Power BI engine do?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-19</strong></td>
+            <td>What happens to historical partitions when publishing a model with incremental refresh directly from Desktop?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>9.5 / 10</strong></td>
+            <td>Deployment Pipelines</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
@@ -979,8 +1069,8 @@
         <tbody>
           <tr>
             <td><strong>Incremental Refresh Partitioning</strong></td>
-            <td>Did not connect data volume/date range to partition testing requirements. Elaboration provided — retest in Phase 5.</td>
-            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Explained — Pending Retest</span></td>
+            <td>Did not connect data volume/date range to partition testing requirements. Mastered and verified via XMLA TMSL partition inspection in Phase 5.</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Mastered / Verified via XMLA in Phase 5</span></td>
             <td>2026-09-05</td>
           </tr>
           <tr>
@@ -1099,11 +1189,23 @@
             <td>P3</td>
             <td>T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P4</td>
+            <td>T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)</td>
+          </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P5</td>
+            <td>T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">7.5h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">8.5h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
@@ -1141,7 +1243,7 @@
           <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-completed">Passed / Rehearsed (P5)</span></td></tr>
         </tbody>
       </table>
     </div>
