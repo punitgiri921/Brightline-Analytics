@@ -1,11 +1,11 @@
 {
   "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-06T14:02:00+05:30",
+  "last_updated": "2026-09-06T15:00:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 75,
-  "current_phase": "Phase 6 — Deployment Pipelines & Stage Rules",
+  "overall_progress_pct": 80,
+  "current_phase": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -101,10 +101,16 @@
         },
         {
           "id": "T1.5",
-          "name": "Tabular Editor Best Practice Analyzer (BPA)",
+          "name": "Best Practice Analyzer (BPA) & Formatting",
           "status": "Completed",
-          "evidence": "Applied BPA rules: hid raw foreign keys and fact numeric metrics in Fact_Sales, enforced explicit measure formatting. Passed Phase 1 Gate Exam with 85/100."
+          "evidence": "Ran Tabular Editor Best Practice Analyzer (BPA): resolved object formatting, marked date table, hidden foreign keys, and organized display folders. Passed Phase 1 Gate Exam with 85/100."
         }
+      ],
+      "gate_topics": [
+        "Why PBIP/TMDL is used instead of binary PBIX",
+        "M parameter mechanics and RangeStart/RangeEnd folding",
+        "Star Schema vs Snowflake schema performance in VertiPaq",
+        "DAX measure design patterns & display folder organization"
       ]
     },
     {
@@ -113,38 +119,38 @@
       "status": "Completed",
       "score": 90,
       "gate_date": "2026-09-06",
-      "hours_estimated": "8-10h",
+      "hours_estimated": "6-8h",
       "evidence_tag": "phase-2-published",
       "tasks": [
         {
           "id": "T2.1",
-          "name": "Start Individual Power BI Pro / Fabric Trial",
+          "name": "Verify Fabric Trial / Pro Trial Clock Status",
           "status": "Completed",
-          "evidence": "Verified Fabric & Power BI trial active with 47 days remaining on punitgiri@punitgiri921gmail.onmicrosoft.com."
+          "evidence": "Verified active individual trial (47 days remaining) in Power BI Service."
         },
         {
           "id": "T2.2",
-          "name": "Workspace Setup & First Publish",
+          "name": "Create DEV Workspace & Publish Golden Dataset",
           "status": "Completed",
-          "evidence": "Created 'BL-Sales-DEV' workspace and published Brightline_Sales semantic model + report from Power BI Desktop. Verified via Service screenshot."
+          "evidence": "Created workspace 'BL-Sales-DEV' and published Brightline_Sales.SemanticModel."
         },
         {
           "id": "T2.3",
-          "name": "Build 3 Thin Reports (Live Connection)",
+          "name": "Create Thin Reports in PBIP/PBIR format bound via Live Connection",
           "status": "Completed",
-          "evidence": "Configured 3 Thin Reports (Report_Executive_Overview, Report_Regional_Sales, Report_Store_Performance) in PBIP/PBIR format bound via XMLA live connection string to Brightline_Sales semantic model in BL-Sales-DEV."
+          "evidence": "Configured 3 PBIP thin reports (Report_Executive_Overview, Report_Regional_Sales, Report_Store_Performance) with definition.pbir connection strings pointing to live cloud model."
         },
         {
           "id": "T2.4",
-          "name": "Model Settings & Endorsement",
+          "name": "Configure Semantic Model Endorsement (Promoted)",
           "status": "Completed",
-          "evidence": "Configured semantic model description and verified 'Promoted' endorsement badge in BL-Sales-DEV workspace."
+          "evidence": "Configured 'Promoted' endorsement badge on Brightline_Sales dataset in BL-Sales-DEV settings."
         },
         {
           "id": "T2.5",
-          "name": "Read vs Build Permissions & Takeover Rehearsal",
+          "name": "Evaluate Read vs Build Permissions & Dataset Takeover",
           "status": "Completed",
-          "evidence": "Rehearsed Direct Access permissions (Read vs Build) and verified dataset takeover credential invalidation mechanics. Passed Phase 2 Gate Exam with 90/100."
+          "evidence": "Evaluated user permissions (Read vs Build) and tested takeover/credential invalidation behavior."
         }
       ],
       "gate_topics": [
@@ -297,47 +303,47 @@
     {
       "id": "P6",
       "name": "Phase 6 — Deployment Pipelines & Stage Rules",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 93,
+      "gate_date": "2026-09-06",
       "hours_estimated": "8h",
       "evidence_tag": "phase-6-pipelines",
       "tasks": [
         {
           "id": "T6.1",
           "name": "Create Fabric Deployment Pipeline 'Brightline-Sales-Pipeline'",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Created 3-stage Deployment Pipeline 'Brightline-Sales-Pipeline' with Fabric F64 capacity integration."
         },
         {
           "id": "T6.2",
           "name": "Assign Workspaces to Pipeline Stages (DEV, TEST, PROD)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Assigned BL-Sales-DEV to Development; created and assigned BL-Sales-Test and BL-Sales-Prod to Test and Production stages."
         },
         {
           "id": "T6.3",
           "name": "Configure Deployment Parameter Rules (PG_Database to brightline_test and brightline_prod)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Configured M parameter rules on PG_Database: TEST stage bound to brightline_test, PROD stage bound to brightline_prod."
         },
         {
           "id": "T6.4",
           "name": "Configure Gateway Connection Rules (Swap to BL-PG-TEST and BL-PG-PROD)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Mapped On-premises Gateway connections: BL-PG-TEST on TEST stage and BL-PG-PROD on PROD stage."
         },
         {
           "id": "T6.5",
           "name": "Execute DEV -> TEST Promotion & Validate Pipeline Compare Drift Engine",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Deployed DEV -> TEST, triggered UAT refresh (completed in 1m 23s loading 2.5M rows / ₹2.04bn revenue vs 250k rows in DEV), verified Compare drift engine (Lab L12, L17)."
         },
         {
           "id": "T6.6",
           "name": "Execute TEST -> PROD Promotion & App Publishing",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Deployed TEST -> PROD, published 'Brightline Sales Analytics (PROD)' multi-audience app (Executive Board vs Field Operations), verified App buffer mechanics (Lab L13). Passed Phase 6 Gate Exam with 93/100."
         }
       ],
       "gate_topics": [
@@ -350,7 +356,7 @@
     {
       "id": "P7",
       "name": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
-      "status": "Locked",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "8-10h",
@@ -565,6 +571,27 @@
       "details": "Assigning workspaces to Microsoft Fabric / Premium capacity exposes standard Analysis Services XMLA endpoints (powerbi://api.powerbi.com/v1.0/myorg/workspace-name). External management tools (SSMS, DAX Studio, Tabular Editor) connect directly to live cloud models to inspect physical partition schemas (TMSL policyRange definitions) and execute granular partition processing without Power BI Desktop dependency.",
       "phase": "P5",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-25",
+      "concept": "Deployment Parameter Rules vs Static Data Source Rules Mechanics",
+      "details": "In Fabric Deployment Pipelines, Parameter Rules allow dynamic environment remapping for all Power Query M connectors via parameters (e.g. PG_Database), whereas Data Source Rules are restricted to hardcoded static connection strings and specific native connectors. Parameterizing data sources in Desktop is the enterprise standard.",
+      "phase": "P6",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-26",
+      "concept": "Pipeline Compare Engine & Downstream Overwrite Mechanics (Lab L17)",
+      "details": "The Deployment Pipeline compare engine computes schema differences and displays JSON diffs. Deploying from source unconditionally overwrites target stage metadata, wiping out uncommitted manual edits made directly in TEST/PROD. All changes must originate in DEV / source control.",
+      "phase": "P6",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "CL-27",
+      "concept": "Production App Publishing Buffer & Staged Release Governance (Lab L13)",
+      "details": "Workspace deployment does not automatically publish changes to report consumers; the Power BI App acts as a deliberate staging buffer. This allows post-deployment data validation and smoke testing in the workspace before broadcasting new visuals to business consumers.",
+      "phase": "P6",
+      "date": "2026-09-06"
     }
   ],
   "technical_questions": [
@@ -776,6 +803,39 @@
       "category": "Deployment Pipelines",
       "phase": "P5",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-20",
+      "question": "Why did PostgreSQL appear under Parameter rules while Excel appeared under Data source rules in Deployment Pipelines?",
+      "answer_summary": "Correctly identified that PostgreSQL was parameterized via M parameters in Power Query while Excel had a static path, and noted parameter rules are the broader enterprise standard.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Deployment Pipelines",
+      "phase": "P6",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-21",
+      "question": "What does the Deployment Pipeline Compare UI show on schema drift, and what happens when DEV is deployed over direct changes in TEST (Lab L17)?",
+      "answer_summary": "Identified orange drift indicator and JSON comparison; clarified that source deployment completely overwrites uncommitted manual changes in the downstream stage.",
+      "score": 8.5,
+      "max_score": 10,
+      "evaluation": "Technically Correct but Needs Improvement",
+      "category": "Troubleshooting",
+      "phase": "P6",
+      "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-22",
+      "question": "Why doesn't a Deployment Pipeline automatically update the published Production App upon deployment (Lab L13)?",
+      "answer_summary": "Correctly explained the intentional staging buffer: preventing unwanted report drafts or broken states from reaching consumers until verified and explicitly published via Update App.",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P6",
+      "date": "2026-09-06"
     }
   ],
   "weak_areas": [
@@ -815,6 +875,7 @@
     {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"},
     {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"},
     {"week": "Week 1", "hours": 0.5, "phases": "P4", "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"}
+    {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"},
+    {"week": "Week 1", "hours": 0.5, "phases": "P6", "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"}
   ]
 }

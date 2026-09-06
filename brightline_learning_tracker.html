@@ -328,7 +328,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 6: Deployment Pipelines & Stage Rules</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 7: PBIP, TMDL/PBIR & Fabric Git Integration</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -349,16 +349,16 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">75%</div>
+          <div class="stat-value" id="overall-pct">80%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 75%;"></div>
+            <div class="progress-fill" style="width: 80%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P6: Deployment Pipelines</div>
-          <span class="stat-subtitle">DEV → TEST → PROD, Stage Rules, Drift Engine</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P7: TMDL & Fabric Git</div>
+          <span class="stat-subtitle">Plain-text TMDL/PBIR, Workspace Git Sync, PR Branches</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Trial Clock Status</span>
@@ -368,7 +368,7 @@
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95 | P6: 93</span>
         </div>
       </div>
 
@@ -639,51 +639,78 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 6 — Deployment Pipelines & Stage Rules</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (8h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 93 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
           Goal: Build 3-stage Fabric Deployment Pipeline (DEV → TEST → PROD), configure stage parameter rules for PostgreSQL databases, bind gateway connection rules, validate schema compare / drift detection, and execute end-to-end promotion.
         </p>
         <ul class="task-list">
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t61" />
-            <label for="t61"><strong>Task 6.1: Create Fabric Deployment Pipeline</strong> — Create 'Brightline-Sales-Pipeline' in Power BI Service / Fabric. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t61" checked />
+            <label for="t61"><strong>Task 6.1: Create Fabric Deployment Pipeline</strong> — Create 'Brightline-Sales-Pipeline' in Power BI Service / Fabric. <span style="color: var(--accent-green); font-weight: 600;">(Done — Pipeline Created)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t62" />
-            <label for="t62"><strong>Task 6.2: Assign Workspaces to Pipeline Stages</strong> — Assign BL-Sales-DEV to Development; create/assign BL-Sales-TEST and BL-Sales-PROD. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t62" checked />
+            <label for="t62"><strong>Task 6.2: Assign Workspaces to Pipeline Stages</strong> — Assign BL-Sales-DEV to Development; create/assign BL-Sales-TEST and BL-Sales-PROD. <span style="color: var(--accent-green); font-weight: 600;">(Done — Workspaces Assigned)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t63" />
-            <label for="t63"><strong>Task 6.3: Configure Deployment Parameter Rules</strong> — Define parameter rules on PG_Database (TEST: brightline_test, PROD: brightline_prod). <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t63" checked />
+            <label for="t63"><strong>Task 6.3: Configure Deployment Parameter Rules</strong> — Define parameter rules on PG_Database (TEST: brightline_test, PROD: brightline_prod). <span style="color: var(--accent-green); font-weight: 600;">(Done — Parameter Rules Active)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t64" />
-            <label for="t64"><strong>Task 6.4: Configure Gateway Connection Rules</strong> — Map TEST/PROD stages to BL-PG-TEST and BL-PG-PROD gateway connections. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t64" checked />
+            <label for="t64"><strong>Task 6.4: Configure Gateway Connection Rules</strong> — Map TEST/PROD stages to BL-PG-TEST and BL-PG-PROD gateway connections. <span style="color: var(--accent-green); font-weight: 600;">(Done — Gateway Mapped)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t65" />
-            <label for="t65"><strong>Task 6.5: DEV → TEST Promotion & Drift Engine</strong> — Deploy to TEST, trigger UAT refresh (2.5M rows), test Pipeline Compare schema drift. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t65" checked />
+            <label for="t65"><strong>Task 6.5: DEV → TEST Promotion & Drift Engine</strong> — Deploy to TEST, trigger UAT refresh (2.5M rows / ₹2.04bn in 1m 23s), test Pipeline Compare schema drift. <span style="color: var(--accent-green); font-weight: 600;">(Done — UAT Validated)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t66" />
-            <label for="t66"><strong>Task 6.6: TEST → PROD Promotion & App Publishing</strong> — Execute final production deployment, publish certified app, and test Labs L12, L13, L17. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t66" checked />
+            <label for="t66"><strong>Task 6.6: TEST → PROD Promotion & App Publishing</strong> — Execute final production deployment, publish certified app, and test Labs L12, L13, L17. <span style="color: var(--accent-green); font-weight: 600;">(Done — Production App Live)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration</span>
-          <span class="status-tag status-locked">🔒 Locked (8–10h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (8–10h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">TMDL hand-editing, Git-connected DEV workspace, PR branch policies, merge conflict Lab L18.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Connect BL-Sales-DEV workspace to Azure DevOps / GitHub Git repo, execute direct TMDL measure/metadata edits, commit and sync workspace changes, establish Git PR branch policies, and resolve TMDL merge conflicts (Lab L18).
+        </p>
+        <ul class="task-list">
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t71" />
+            <label for="t71"><strong>Task 7.1: TMDL Direct Code Editing</strong> — Author / refactor DAX measures and table metadata directly in plain-text .tmdl files. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t72" />
+            <label for="t72"><strong>Task 7.2: Connect DEV Workspace to Git</strong> — Bind BL-Sales-DEV workspace to Azure DevOps / GitHub repository branch. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t73" />
+            <label for="t73"><strong>Task 7.3: Commit & Sync Changes via Fabric Git</strong> — Test bi-directional synchronization (Desktop Git commit ➔ Workspace Update, and Workspace edit ➔ Git Commit). <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t74" />
+            <label for="t74"><strong>Task 7.4: Branching Policies & PR Reviews</strong> — Create feature branch, submit Pull Request with plain-text diffs, and enforce approval gates. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t75" />
+            <label for="t75"><strong>Task 7.5: TMDL Merge Conflict Resolution & Phase 7 Gate Exam</strong> — Rehearse and resolve 3-way TMDL merge conflicts without PBIX corruption (Lab L18). <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+        </ul>
       </div>
 
       <div class="phase-card">
@@ -885,10 +912,31 @@
             <td>P5</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>CL-25</strong></td>
+            <td>Deployment Parameter Rules vs Static Data Source Rules Mechanics</td>
+            <td>In Fabric Deployment Pipelines, Parameter Rules allow dynamic environment remapping for all Power Query M connectors via parameters (e.g. PG_Database), whereas Data Source Rules are restricted to hardcoded static connection strings and specific native connectors. Parameterizing data sources in Desktop is the enterprise standard.</td>
+            <td>P6</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-26</strong></td>
+            <td>Pipeline Compare Engine & Downstream Overwrite Mechanics (Lab L17)</td>
+            <td>The Deployment Pipeline compare engine computes schema differences and displays JSON diffs. Deploying from source unconditionally overwrites target stage metadata, wiping out uncommitted manual edits made directly in TEST/PROD. All changes must originate in DEV / source control.</td>
+            <td>P6</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>CL-27</strong></td>
+            <td>Production App Publishing Buffer & Staged Release Governance (Lab L13)</td>
+            <td>Workspace deployment does not automatically publish changes to report consumers; the Power BI App acts as a deliberate staging buffer. This allows post-deployment data validation and smoke testing in the workspace before broadcasting new visuals to business consumers.</td>
+            <td>P6</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-19)</h2>
+      <h2 class="section-title" style="margin-top: 2rem;">🎯 Technical Questions & Scores (TQ-01 – TQ-22)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -1053,6 +1101,30 @@
             <td>Deployment Pipelines</td>
             <td>2026-09-06</td>
           </tr>
+          <tr>
+            <td><strong>TQ-20</strong></td>
+            <td>Why did PostgreSQL appear under Parameter rules while Excel appeared under Data source rules in Deployment Pipelines?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>10 / 10</strong></td>
+            <td>Deployment Pipelines</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-21</strong></td>
+            <td>What does the Deployment Pipeline Compare UI show on schema drift, and what happens when DEV is deployed over direct changes in TEST (Lab L17)?</td>
+            <td><span class="status-tag" style="background: rgba(56,189,248,0.15); color: var(--accent-blue);">Technically Correct but Needs Improvement</span></td>
+            <td><strong>8.5 / 10</strong></td>
+            <td>Troubleshooting</td>
+            <td>2026-09-06</td>
+          </tr>
+          <tr>
+            <td><strong>TQ-22</strong></td>
+            <td>Why doesn't a Deployment Pipeline automatically update the published Production App upon deployment (Lab L13)?</td>
+            <td><span class="status-tag" style="background: rgba(34,197,94,0.15); color: var(--accent-green);">Correct</span></td>
+            <td><strong>9.5 / 10</strong></td>
+            <td>Security</td>
+            <td>2026-09-06</td>
+          </tr>
         </tbody>
       </table>
 
@@ -1201,11 +1273,17 @@
             <td>P5</td>
             <td>T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)</td>
           </tr>
+          <tr>
+            <td>Week 1</td>
+            <td>0.5h</td>
+            <td>P6</td>
+            <td>T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.75rem;">
         <span style="font-size: 1.1rem; font-weight: 700;">Total Hours:</span>
-        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">8.5h</span>
+        <span style="font-size: 1.1rem; font-weight: 800; color: var(--accent-blue); margin-left: 0.5rem;">9.0h</span>
         <span style="color: var(--text-muted); margin-left: 0.5rem;">/ estimated 90–100h total</span>
       </div>
     </div>
@@ -1235,12 +1313,12 @@
           <tr><td><strong>L9</strong></td><td>Non-Folding Step Before Incremental Filter</td><td>P5</td><td>Incremental refresh fails or takes full table duration</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L10</strong></td><td>Postgres Column Renamed</td><td>P3/P5</td><td>Refresh fails with schema mismatch</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L11</strong></td><td>Measure Renamed Without Impact Analysis</td><td>P2</td><td>Downstream visuals in 3 thin reports break</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
+          <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped; re-authentication verified</td><td><span class="status-tag status-completed">Passed / Rehearsed</span></td></tr>
           <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
-          <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-completed">Passed / Rehearsed (P5)</span></td></tr>
