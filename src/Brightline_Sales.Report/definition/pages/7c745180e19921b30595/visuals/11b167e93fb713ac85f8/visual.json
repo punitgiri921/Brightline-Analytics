@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "11b167e93fb713ac85f8",
+  "position": {
+    "x": 266.80336299077629,
+    "y": 521.570484042119,
+    "z": 6,
+    "height": 88.265774222512448,
+    "width": 575.73357276956983,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Q3 FMCG Performance",
+                    "textStyle": {
+                      "fontFamily": "Segoe WPC, Segoe UI, sans-serif",
+                      "fontStyle": "italic",
+                      "fontSize": "13.008px",
+                      "color": "#cccccc"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "68b2077b6488cd678779",
+  "position": {
+    "x": 282.8516855766876,
+    "y": 571.721492123092,
+    "z": 4,
+    "height": 214.64631458656436,
+    "width": 318.96041139498817,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Meaure"
+                    }
+                  },
+                  "Property": "Gross Revenue"
+                }
+              },
+              "queryRef": "_Meaure.Gross Revenue",
+              "nativeQueryRef": "Gross Revenue"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Meaure"
+                  }
+                },
+                "Property": "Gross Revenue"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "74cd9febeb18c7eebc6f",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Meaure"
+              }
+            },
+            "Property": "Gross Revenue"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
