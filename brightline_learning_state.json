@@ -407,7 +407,45 @@
       "score": null,
       "gate_date": null,
       "hours_estimated": "10-12h",
-      "evidence_tag": "phase-8-cicd"
+      "evidence_tag": "phase-8-cicd",
+      "tasks": [
+        {
+          "id": "T8.1",
+          "name": "Author Enterprise BPA Rulebook & CI Pipeline Configurations",
+          "status": "Completed",
+          "evidence": "Created bpa-rules/BPARules.json (DAX formatting, integer formatting, relationship validation), azure-pipelines-ci.yml, and .github/workflows/ci-bpa.yml."
+        },
+        {
+          "id": "T8.2",
+          "name": "Test Local Tabular Editor CLI v2.28.0 BPA Linter",
+          "status": "Completed",
+          "evidence": "Executed scripts/run-bpa-check.ps1 with Tabular Editor CLI v2.28.0 against TMDL semantic model definition, verifying 100% compliance with zero violations."
+        },
+        {
+          "id": "T8.3",
+          "name": "Configure Azure DevOps CI Pipeline & Branch Protection Policy",
+          "status": "Completed",
+          "evidence": "Configured azure-pipelines-ci.yml in Azure DevOps pipeline 'Brightline-Analytics (2)' with branch policy on main requiring passing Tabular Editor BPA build status."
+        },
+        {
+          "id": "T8.4",
+          "name": "Author Automated CD Deployment Pipeline Promotion via REST API & SPN",
+          "status": "Completed",
+          "evidence": "Authored azure-pipelines-cd.yml targeting Fabric Deployment Pipeline REST API endpoint using Service Principal credentials."
+        },
+        {
+          "id": "T8.5",
+          "name": "Execute Sabotage Lab L19 (CI BPA PR Breach) & Phase 8 Gate Exam",
+          "status": "Completed",
+          "evidence": "Injected unformatted DAX measure 'Sloppy Return Ratio' on branch feat/bpa-violation-test; CI runner blocked PR #3 with exit code 1. Refactored measure to compliant Return Ratio in TMDL; CI passed with exit code 0, unblocked merge, and successfully completed PR #3."
+        }
+      ],
+      "gate_topics": [
+        "Automated Tabular Editor BPA execution in headless CI runners",
+        "Branch policies and PR merge gate enforcement in Azure DevOps",
+        "Fabric REST API deployment pipeline trigger mechanics",
+        "Service Principal OAuth2 token acquisition and pipeline permissions"
+      ]
     },
     {
       "id": "P9",
@@ -438,7 +476,7 @@
     {"id": "L16", "title": "SharePoint Source File Renamed", "phase": "P3", "status": "Pending"},
     {"id": "L17", "title": "Direct Hand-Editing in TEST (Drift)", "phase": "P6", "status": "Pending"},
     {"id": "L18", "title": "TMDL Git Merge Conflict Resolution", "phase": "P7", "status": "Pending"},
-    {"id": "L19", "title": "BPA Rule Violation Fails CI Pipeline", "phase": "P8", "status": "Pending"},
+    {"id": "L19", "title": "BPA Rule Violation Fails CI Pipeline", "phase": "P8", "status": "Completed"},
     {"id": "L20", "title": "Full PBIX Republish Wipes Partitions", "phase": "P5", "status": "Pending"}
   ],
   "concepts_learned": [
