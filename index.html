@@ -2171,6 +2171,58 @@
             <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
               Branch policies ensure that no broken code is merged into <strong style="color: var(--accent-blue);">main</strong>. A bad TMDL definition can reach the Fabric DEV workspace and break the shared development environment for the entire engineering team.
             </p>
+            <!-- SIDE-BY-SIDE ARCHITECTURAL COMPARISON: WITHOUT VS WITH BRANCH POLICY -->
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.45; margin: 1rem 0 1.25rem;">
+<span style="color: var(--accent-rose); font-weight: 700;">╔══════════════════════════════════════════════╗</span>    <span style="color: var(--accent-green); font-weight: 700;">╔══════════════════════════════════════════════╗</span>
+<span style="color: var(--accent-rose); font-weight: 700;">║ 🔴 WITHOUT BRANCH POLICY                     ║</span>    <span style="color: var(--accent-green); font-weight: 700;">║ 🟢 WITH BRANCH POLICY                       ║</span>
+<span style="color: var(--accent-rose); font-weight: 700;">╚══════════════════════════════════════════════╝</span>    <span style="color: var(--accent-green); font-weight: 700;">╚══════════════════════════════════════════════╝</span>
+
+              Developer                                      Developer
+                  │                                               │
+                  ▼                                               ▼
+           Feature Branch                                  Feature Branch
+                  │                                               │
+                  ▼                                               ▼
+         Pull Request → main                            Pull Request → main
+                  │                                               │
+                  ▼                                               ▼
+       <span style="color: var(--accent-rose); font-weight: 700;">❗ No validation gate</span>                         <span style="color: var(--accent-green); font-weight: 700;">🔒 Branch Policy</span>
+                  │                                  <strong style="color: var(--accent-green);">Build Validation REQUIRED</strong>
+                  ▼                                               │
+               MERGE                                              ▼
+                  │                                         Azure DevOps CI
+                  ▼                                               │
+          <strong style="color: var(--accent-rose);">main ❌ contains</strong>                                         ▼
+            <strong style="color: var(--accent-rose);">bad TMDL</strong>                                      Tabular Editor + BPA
+                  │                                               │
+                  ▼                                               ▼
+              CI runs                                     Severity 3 violation
+                  │                                               │
+                  ▼                                               ▼
+       Tabular Editor + BPA                                <strong style="color: var(--accent-rose);">CI ❌ FAILS</strong>
+                  │                                               │
+                  ▼                                               ▼
+       Severity 3 violation                              <strong style="color: var(--accent-green);">PR MERGE BLOCKED 🔒</strong>
+                  │                                               │
+                  ▼                                               ▼
+             <strong style="color: var(--accent-rose);">CI ❌ FAILS</strong>                                     <strong style="color: var(--accent-green);">main CLEAN ✅</strong>
+                  │                                               │
+                  ▼                                               ▼
+     <span style="color: var(--accent-rose);">But bad code is already in</span>                        <span style="color: var(--accent-green);">Fabric protected from</span>
+              <strong style="color: var(--accent-rose);">main</strong>                                      <span style="color: var(--accent-green);">this bad change</span>
+                  │
+                  ▼
+    Git → Fabric Synchronization
+           / Updates
+                  │
+                  ▼
+      DEV Workspace potentially
+       receives bad definition
+                  │
+                  ▼
+      <strong style="color: var(--accent-rose);">❌ Shared Fabric DEV</strong>
+         <strong style="color: var(--accent-rose);">can be broken</strong>
+            </pre>
             <table class="custom-table">
               <thead>
                 <tr>
