@@ -311,12 +311,12 @@
 
     pre, code { font-family: var(--font-mono); }
     .code-pill {
-      background: var(--bg-secondary);
       color: var(--accent-blue);
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.25rem;
-      font-size: 0.85rem;
-      border: 1px solid var(--border-color);
+      font-weight: 700;
+      font-family: inherit;
+      background: transparent;
+      border: none;
+      padding: 0;
     }
       .font-mono { font-family: var(--font-mono); }
     .text-cyan { color: var(--accent-cyan); }
@@ -1997,6 +1997,566 @@
     
     <!-- TAB 7: CI/CD PIPELINE STEPS & PLAYBOOK -->
     <div id="tab-cicd" class="tab-pane">
+
+      <!-- FROM ZERO TO ENTERPRISE: THE COMPLETE MASTERCLASS GUIDE (WHITE BACKGROUND READER FORMAT) -->
+      <div class="masterclass-reader" style="background: #ffffff; color: #1e293b; padding: 2.5rem 3rem; border-radius: 1rem; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.25); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.75;">
+        
+        <!-- Header Banner Flow -->
+        <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.75rem; font-size: 0.95rem; color: #334155;">
+          Developer writes model &rarr; <strong>Tabular Editor</strong> validates it with <strong>BPA</strong> &rarr; <strong>PR policy</strong> blocks bad changes &rarr; approved <strong>TMDL</strong> reaches <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem; color: #0f172a;">main</code> &rarr; <strong>Fabric Git Updates</strong> deploys it to workspace &rarr; <strong>Azure DevOps</strong> can promote it through Fabric pipelines using an <strong>SPN</strong>.
+        </div>
+
+        <p style="font-size: 1.05rem; color: #475569; margin-bottom: 2rem;">
+          Your notes are focusing on the architecture, but if you don't know <strong>BPA</strong> and <strong>Tabular Editor</strong>, let's build from zero.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 1. What is Tabular Editor? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">1. First: What is Tabular Editor?</h2>
+        <p style="margin-bottom: 1rem;">Think of Power BI Desktop as the <strong>GUI</strong> for building a semantic model.</p>
+        <p style="margin-bottom: 0.5rem;">You normally create:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li>Tables</li>
+          <li>Relationships</li>
+          <li>Measures</li>
+          <li>Calculation groups</li>
+          <li>Columns</li>
+          <li>Perspectives</li>
+          <li>Display folders</li>
+          <li>Formatting</li>
+          <li>Model properties</li>
+        </ul>
+        <p style="margin-bottom: 1rem;">But Power BI Desktop isn't always the best tool for <strong>large-scale model development and automation</strong>.</p>
+        <p style="margin-bottom: 1.5rem;">That's where <strong>Tabular Editor</strong> comes in.</p>
+
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 1.25rem 0 0.5rem;">Simple analogy</h3>
+        <p style="margin-bottom: 1rem;">You already know VBA/Excel. Think:</p>
+
+        <table style="width: 100%; max-width: 650px; border-collapse: collapse; margin-bottom: 1.5rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; overflow: hidden;">
+          <thead>
+            <tr style="background: #f1f5f9; text-align: left;">
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Excel world</th>
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Power BI world</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155; font-size: 0.95rem;">
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Excel GUI</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Power BI Desktop</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">VBA</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Tabular Editor scripting</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Workbook structure</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Semantic model</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">VBA validation/checks</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">BPA</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Git</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Source control</td></tr>
+            <tr><td style="padding: 0.6rem 1rem;">Automated VBA checks</td><td style="padding: 0.6rem 1rem;">CI validation</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-bottom: 1.75rem;"><strong>Tabular Editor</strong> is a specialized tool for working with Tabular models, including Power BI semantic models.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 2. What can Tabular Editor do? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">2. What can Tabular Editor do?</h2>
+        <p style="margin-bottom: 1rem;">Suppose you have 500 measures.</p>
+        <p style="margin-bottom: 1rem;">In Power BI Desktop, manually changing properties on 500 measures would be painful.</p>
+        <p style="margin-bottom: 0.5rem;">Tabular Editor can automate things like:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0 1.25rem;">
+          Sales Amount<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Display Folder = Sales<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Format = $#,##0<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Description = "Total sales amount"<br /><br />
+          Gross Margin<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Display Folder = Profitability<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Format = 0.0%
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">You can also use scripting to perform bulk operations.</p>
+        <p style="margin-bottom: 0.5rem;">For example:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 0.75rem 0 1.25rem;">
+          foreach (var measure in Model.AllMeasures)<br />
+          {<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;measure.FormatString = "#,##0";<br />
+          }
+        </div>
+        <p style="margin-bottom: 1.75rem;">So instead of manually modifying hundreds of objects, you can automate the model metadata.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 3. Now what is BPA? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">3. Now what is BPA?</h2>
+        <p style="margin-bottom: 1rem;">This is probably the most important missing concept in your notes.</p>
+        <p style="margin-bottom: 1rem;"><strong>BPA = Best Practice Analyzer</strong>.</p>
+        <p style="margin-bottom: 1rem;">It is essentially a rule engine that checks your semantic model against predefined best practices.</p>
+        <p style="margin-bottom: 0.5rem;">Imagine your Power BI model contains:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1rem; color: #334155;">
+          <li>FactSales</li>
+          <li>DimCustomer</li>
+          <li>DimProduct</li>
+          <li>DimDate</li>
+        </ul>
+        <p style="margin-bottom: 0.5rem;">Someone creates a measure:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin-bottom: 1rem;">
+          Total Sales = SUM(FactSales[SalesAmount])
+        </div>
+        <p style="margin-bottom: 0.5rem;">BPA can check things such as:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li>Does the measure have a description?</li>
+          <li>Are naming conventions followed?</li>
+          <li>Are unnecessary columns exposed?</li>
+          <li>Are relationships configured properly?</li>
+          <li>Are certain modeling patterns being violated?</li>
+          <li>Are there potentially problematic DAX patterns?</li>
+        </ul>
+        <div style="background: #f1f5f9; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.75rem; font-size: 0.95rem;">
+          <strong>Tabular Editor</strong> = tool that works with the model.<br />
+          <strong>BPA</strong> = rules that inspect the model.
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 4. BPA is basically a model quality gate -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">4. BPA is basically a model quality gate</h2>
+        <p style="margin-bottom: 0.75rem;">Imagine your company defines this rule:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          Every measure must have a description.
+        </blockquote>
+        <p style="margin-bottom: 0.5rem;">Developer creates:</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #0f172a; margin-bottom: 0.5rem;">Total Sales</div>
+        <p style="margin-bottom: 0.5rem;">but doesn't provide a description.</p>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">BPA detects: ❌ Measure "Total Sales" has no description</p>
+        <p style="margin-bottom: 0.5rem;">Another rule might say:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          Measures should not be named Measure 1, Measure 2, etc.
+        </blockquote>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">BPA could detect: ❌ Invalid measure naming convention</p>
+        <p style="margin-bottom: 1.75rem;">So <strong>BPA becomes an automated quality-control layer</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 5. What does Severity mean? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">5. What does Severity mean?</h2>
+        <p style="margin-bottom: 0.75rem;">This connects directly to your note:</p>
+        <div style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 1rem 0; font-weight: 700; color: #0f172a; font-size: 1.05rem;">
+          BPA Severity 3 = Error
+        </div>
+        <p style="margin-bottom: 0.75rem;">Think of BPA rules as having different levels. For example:</p>
+        
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Severity 1 &rarr; Information<br />
+          Severity 2 &rarr; Warning<br />
+          Severity 3 &rarr; Error
+        </div>
+
+        <p style="margin-bottom: 1rem;">The important thing is that <strong>Severity 3 can be configured to fail the automated validation process</strong>.</p>
+        <p style="margin-bottom: 0.5rem;">For example:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Developer creates model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Tabular Editor<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Run BPA<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          BPA finds Severity 3 violation<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Exit code = 1<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          CI pipeline sees failure<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #b91c1c; font-weight: 700;">❌ Build fails</span>
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">That's what your note means by:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          "Tabular Editor to output an error stream and set a non-zero exit code (1)"
+        </blockquote>
+        <p style="margin-bottom: 1.75rem;">The important concept is <strong>exit code</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 6. What is an exit code? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">6. What is an exit code?</h2>
+        <p style="margin-bottom: 1rem;">This is an important DevOps concept.</p>
+        <p style="margin-bottom: 0.5rem;">A command executed by a pipeline usually returns a status. Simplified:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          0 = Success<br />
+          1 = Failure
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">Suppose Azure DevOps executes:</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #0f172a; margin-bottom: 0.75rem;">TabularEditor.exe model.bim /BPA</div>
+        
+        <p style="margin-bottom: 0.5rem;">If everything passes:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 0.75rem;">
+          Process completed<br />
+          Exit code: 0
+        </div>
+        <p style="margin-bottom: 1rem; color: #15803d; font-weight: 600;">Azure DevOps says: Good &mdash; continue.</p>
+
+        <p style="margin-bottom: 0.5rem;">But if a Severity 3 BPA rule fails:</p>
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #991b1b; margin-bottom: 0.75rem;">
+          BPA Error<br />
+          Exit code: 1
+        </div>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">Azure DevOps says: Something failed &rarr; fail this pipeline step.</p>
+        <p style="margin-bottom: 1.75rem;">So BPA isn't merely showing a red warning on someone's screen. <strong>It can become an automated CI gate</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 7. Now the "Shift-Left" concept -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">7. Now the "Shift-Left" concept</h2>
+        <p style="margin-bottom: 1rem;">This is a very common DevOps architecture principle.</p>
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.25rem; font-weight: 600; color: #1e3a8a;">
+          Shift-left = detect problems earlier in the development lifecycle.
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">Imagine this workflow:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.25rem 0;">
+          <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #991b1b;">
+            <strong>Bad architecture</strong><br />
+            Developer<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Git<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            main<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Fabric DEV<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Everyone discovers broken model
+          </div>
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #166534;">
+            <strong>Better architecture (Shift-Left)</strong><br />
+            Developer<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Feature Branch<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            BPA validation &rarr; <span style="color: #b91c1c;">❌ Error &rarr; STOP</span><br />
+            &nbsp;&nbsp;&nbsp;&darr; (or)<br />
+            BPA validation &rarr; <span style="color: #15803d;">✅ Pass</span><br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Pull Request &rarr; main
+          </div>
+        </div>
+        <p style="margin-bottom: 1.75rem;">That's <strong>shift-left</strong>. You're catching the problem <em>before</em> it reaches <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">main</code>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 8. Why is this particularly important with Power BI + Git? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">8. Why is this particularly important with Power BI + Git?</h2>
+        <p style="margin-bottom: 1rem;">This is where your note is very good.</p>
+        <p style="margin-bottom: 1rem;">A Fabric workspace is not just a folder containing <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">.pbix</code> files.</p>
+        <p style="margin-bottom: 1rem;">You have a <strong>live semantic model/report runtime</strong>.</p>
+        <p style="margin-bottom: 0.5rem;">Your Git repository contains the <strong>source representation</strong>. Conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Git Repository<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ source code / TMDL<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric Workspace<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ compiled/deployed model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Live Power BI environment
+        </div>
+
+        <p style="margin-bottom: 1rem;">Therefore, if bad model metadata gets merged into <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">main</code>, you can potentially push bad definitions toward the development workspace.</p>
+        <p style="margin-bottom: 0.5rem;">That's why:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 1.75rem;">
+          Feature branch &rarr; CI validation &rarr; BPA &rarr; PR policy &rarr; main
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 9. What exactly is TMDL? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">9. What exactly is TMDL?</h2>
+        <p style="margin-bottom: 1rem;">This is another important connection.</p>
+        <p style="margin-bottom: 1rem;"><strong>TMDL = Tabular Model Definition Language</strong>.</p>
+        <p style="margin-bottom: 1rem;">Instead of keeping your entire semantic model as one opaque file, the model can be represented as structured text.</p>
+        <p style="margin-bottom: 0.5rem;">For example, conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 1rem 0;">
+          model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;name: SalesModel<br /><br />
+          table Sales<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;column SalesAmount<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;measure Total Sales = SUM(...)
+        </div>
+
+        <p style="margin-bottom: 1rem;">This is much more Git-friendly than treating the model as one large binary artifact.</p>
+        <p style="margin-bottom: 0.5rem;">So your architecture becomes:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 1.75rem;">
+          Power BI semantic model &rarr; TMDL &rarr; Git &rarr; Pull Request &rarr; BPA / CI
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 10. Now the "Updates" tab -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">10. Now the "Updates" tab</h2>
+        <p style="margin-bottom: 1rem;">This is a completely different part of the architecture.</p>
+        <p style="margin-bottom: 1rem;">Your note says:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-weight: 600; color: #0f172a;">
+          Fabric workspaces are live runtimes. Git is a code repository.
+        </blockquote>
+        <p style="margin-bottom: 1rem;">This distinction is very important.</p>
+        <p style="margin-bottom: 1rem;">Suppose Git contains <strong>Version A</strong>, and your Fabric workspace currently contains <strong>Version A</strong>. A developer changes Git to <strong>Version B</strong>. Does the workspace automatically become Version B?</p>
+        <p style="margin-bottom: 1rem;">Not necessarily in the way you should conceptualize it.</p>
+        <p style="margin-bottom: 1rem;">There is a synchronization process between Git source and the workspace state. The <strong>Updates</strong> experience lets you control when Git changes are applied/synchronized into the workspace.</p>
+        <p style="margin-bottom: 0.5rem;">Think:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Git<br />
+          &nbsp;│<br />
+          &nbsp;│ "I have new changes"<br />
+          &nbsp;&darr;<br />
+          Updates<br />
+          &nbsp;│<br />
+          &nbsp;│ developer chooses to apply/sync<br />
+          &nbsp;&darr;<br />
+          Fabric Workspace
+        </div>
+
+        <p style="margin-bottom: 1.75rem;">This matters because workspace development can also happen directly through Fabric/Power BI authoring experiences. So you don't want to blindly overwrite someone's live changes.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 11. Why race conditions matter -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">11. Why race conditions matter</h2>
+        <p style="margin-bottom: 0.5rem;">Imagine:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-size: 0.95rem; color: #334155; margin: 1rem 0;">
+          <strong>Developer A</strong>: Working directly in the Fabric workspace &rarr; Adds new measure<br />
+          <em>Meanwhile</em><br />
+          <strong>Developer B</strong>: Pushes Git changes &rarr; Changes semantic model<br /><br />
+          Now you have:<br />
+          Developer A &rarr; Workspace<br />
+          Developer B &rarr; Git
+        </div>
+        <p style="margin-bottom: 1rem;">If synchronization is uncontrolled, you can potentially overwrite or conflict with work.</p>
+        <p style="margin-bottom: 1rem;">Therefore: <strong>Git is the source-controlled definition, while the workspace is the live working/runtime environment.</strong></p>
+        <p style="margin-bottom: 1.75rem;">The <strong>Updates</strong> mechanism gives you control over when Git changes are applied.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 12. Now SPN -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">12. Now SPN</h2>
+        <p style="margin-bottom: 1rem;">This is the next major concept.</p>
+        <p style="margin-bottom: 1rem;"><strong>SPN = Service Principal Name</strong>, commonly used to refer to an Entra ID service principal in this automation context.</p>
+        <p style="margin-bottom: 0.5rem;">Don't think of it as a human user. Think:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-size: 0.95rem; margin: 0.75rem 0 1rem;">
+          Human: <strong>Punit</strong><br />
+          <em>versus</em><br />
+          Application identity: <strong>Azure DevOps automation</strong>
+        </div>
+        <p style="margin-bottom: 1.75rem;">The SPN is essentially an identity used by automation.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 13. Why do we need an SPN? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">13. Why do we need an SPN?</h2>
+        <p style="margin-bottom: 1rem;">Suppose Azure DevOps needs to tell Fabric:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          "Deploy this pipeline from DEV to TEST."
+        </blockquote>
+        <p style="margin-bottom: 1rem;">Should Azure DevOps log in using your personal Microsoft account? <strong>No.</strong> That's fragile and bad practice.</p>
+        <p style="margin-bottom: 0.5rem;">Instead:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Service Principal<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Entra ID<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Access token<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric REST API<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Deployment
+        </div>
+        <p style="margin-bottom: 1.75rem;">Now the deployment is performed using a controlled machine/application identity.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 14. Client credentials flow -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">14. Client credentials flow</h2>
+        <p style="margin-bottom: 1rem;">Your note says: <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">client_id + client_secret</code></p>
+        <p style="margin-bottom: 1rem;">This is referring to the <strong>OAuth 2.0 client credentials flow</strong>. Very simplified:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1rem; color: #334155;">
+          <li>Azure DevOps has: <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">client_id</code> and <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">client_secret</code></li>
+          <li>It sends these credentials to Entra ID.</li>
+          <li>Entra ID verifies them.</li>
+          <li>Then Entra ID returns: <strong>Access Token</strong></li>
+          <li>Azure DevOps then sends: <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">Authorization: Bearer &lt;token&gt;</code> to the Fabric REST API.</li>
+        </ul>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0 1.75rem;">
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ client_id + client_secret<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Entra ID<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ Bearer token<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ REST API request<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 15. Why does the SPN need permissions? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">15. Why does the SPN need permissions?</h2>
+        <p style="margin-bottom: 1rem;">Having an identity isn't enough. Fabric needs to know: <em>"Is this identity allowed to perform this operation?"</em></p>
+        <p style="margin-bottom: 1rem;">Your note says: <strong>The SPN must be an Admin on the pipeline.</strong></p>
+        <p style="margin-bottom: 0.5rem;">So conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          SPN<br />
+          &nbsp;│<br />
+          &nbsp;├── Authentication &rarr; Entra ID<br />
+          &nbsp;│<br />
+          &nbsp;└── Authorization &rarr; Fabric<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pipeline Admin
+        </div>
+
+        <div style="background: #f1f5f9; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1.25rem 0 1.75rem;">
+          <strong>Authentication answers:</strong> Who are you?<br />
+          <strong>Authorization answers:</strong> What are you allowed to do?<br />
+          <em>This distinction is extremely important.</em>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 16. Putting ALL four concepts together -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">16. Putting ALL four concepts together</h2>
+        <p style="margin-bottom: 1rem;">Now we can connect your entire table. Imagine a professional Power BI/Fabric development setup:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 1.25rem 0;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEVELOPER</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Git Feature Branch<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TMDL model changes<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Tabular Editor + BPA</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┌───────┴────────┐<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #15803d; font-weight: 700;">Pass</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b91c1c; font-weight: 700;">Error</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b91c1c; font-weight: 700;">❌ Stop</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Pull Request</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>main</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Fabric Git Integration</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Updates</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEV Workspace</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Fabric Deployment</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;<strong>Azure DevOps + SPN + REST API</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>TEST / PROD</strong>
+        </div>
+        <p style="margin-bottom: 1.75rem;">That is the bigger architecture your four notes are describing.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 17. The key distinction you should remember -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">17. The key distinction you should remember</h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; overflow: hidden;">
+          <thead>
+            <tr style="background: #f1f5f9; text-align: left;">
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Concept</th>
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">What it does</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155; font-size: 0.95rem;">
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Tabular Editor</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Develop/modify/automate tabular semantic models</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">BPA</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Checks semantic model against rules</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Severity 3</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Treats a BPA violation as an error that can fail CI</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Shift-left</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Find problems before they reach main/shared environments</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">TMDL</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Text-based representation of tabular model definitions</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Git</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Stores/version-controls the model source</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Updates</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Controls synchronization of Git changes into Fabric workspace</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">SPN</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Machine/application identity for automation</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Entra ID</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Authenticates the SPN and issues token</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Bearer token</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Credential used to call Fabric REST API</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Fabric pipeline</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Promotes/deploys content between environments</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; font-weight: 600;">Azure DevOps</td><td style="padding: 0.6rem 1rem;">Automates CI/CD process</td></tr>
+          </tbody>
+        </table>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 18. One thing I want you to be careful about -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">18. One thing I want you to be careful about</h2>
+        <p style="margin-bottom: 0.75rem;">Don't mentally combine BPA and Tabular Editor as if they are the same thing. Think:</p>
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.25rem; font-size: 0.95rem; color: #1e3a8a;">
+          <strong>Tabular Editor is the tool.</strong> BPA is a capability/rule framework used to analyze the model.
+        </div>
+        <p style="margin-bottom: 0.5rem;">And don't confuse:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li><strong>Git</strong> &rarr; source/control</li>
+          <li><em>with</em> <strong>Fabric workspace</strong> &rarr; live environment</li>
+          <li><em>and</em> <strong>Deployment pipeline</strong> &rarr; promotion between environments</li>
+        </ul>
+        <p style="margin-bottom: 1.25rem;">These are three different layers.</p>
+
+        <!-- Your Mental Model Box -->
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Your mental model</h3>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin-bottom: 1.75rem;">
+          <span style="color: #0284c7; font-weight: 700;">SOURCE</span><br />
+          Git / TMDL<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">QUALITY</span><br />
+          Tabular Editor / BPA / CI<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">RUNTIME</span><br />
+          Fabric Workspace<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">PROMOTION</span><br />
+          Fabric Deployment Pipeline<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">AUTOMATION</span><br />
+          Azure DevOps + SPN + REST API
+        </div>
+
+        <p style="margin-bottom: 1rem; color: #475569;">
+          That mental model will make a lot of the advanced Fabric CI/CD topics much easier.
+        </p>
+
+        <div style="background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; margin-top: 1.5rem;">
+          <strong style="color: #0f172a; font-size: 1rem;">Next technical practice</strong>
+          <p style="margin-top: 0.5rem; color: #475569; font-size: 0.95rem;">
+            A good next step is to test whether you can distinguish <strong>Tabular Editor</strong>, <strong>BPA</strong>, <strong>Git</strong>, <strong>Fabric Updates</strong>, and <strong>Deployment Pipelines</strong> in a real CI/CD scenario.
+          </p>
+        </div>
+
+      </div>
+
       <div class="phase-card" style="border-left: 4px solid var(--accent-cyan); margin-bottom: 2rem;">
         <div class="phase-header">
           <div class="phase-title" style="color: var(--accent-cyan);">
