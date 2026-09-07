@@ -465,19 +465,19 @@
         {
           "id": "T9.2",
           "name": "DAX Studio Performance Tuning (Server Timings: VertiPaq SE vs FE xmSQL)",
-          "status": "In Progress",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Connected DAX Studio to local VertiPaq engine with Server Timings enabled. Executed category margin benchmark query on Fact_Sales (250k rows): Total 13ms (FE 9ms / 69.2%, SE 4ms / 30.8%), 1 unified xmSQL scan query, 0 callbacks (CallbackDataID=0), demonstrating vectorized Storage Engine evaluation."
         },
         {
           "id": "T9.3",
           "name": "Execute Sabotage Lab L15 (Severe DAX Performance Bottleneck Injected & Resolved)",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Executed Sabotage Lab L15. Injected unvectorized iterator measure forcing context transition over VALUES(Dim_Products[product_id]), causing 376 materialized rows, 2 SE queries, and 16ms CPU time. Refactored using vectorized measure branching with KEEPFILTERS predicate pushdown, dropping materialized rows back to 8, collapsing SE queries back to 1, and reducing duration to 13ms."
         },
         {
           "id": "T9.4",
           "name": "The Final 6-Scenario Gauntlet (Enterprise Architecture Defense)",
-          "status": "Pending",
+          "status": "In Progress",
           "evidence": null
         },
         {
@@ -584,7 +584,7 @@
       "id": "L15",
       "title": "Performance Bottleneck (DAX Studio SE/FE)",
       "phase": "P9",
-      "status": "Pending"
+      "status": "Completed"
     },
     {
       "id": "L16",

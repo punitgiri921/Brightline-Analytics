@@ -847,13 +847,13 @@
             <input type="checkbox" class="task-checkbox" id="t91" checked />
             <label for="t91"><strong>Task 9.1: Semantic Model Refresh &amp; Capacity Metric App Monitoring</strong> — Fabric CU consumption, background vs interactive operations, refresh history, and throttling protection. <span style="color: var(--accent-green); font-weight: 600;">(Done — Metrics App Live Telemetry: 706.8 CU-s TEST / 543.7 CU-s PROD / 283.3 CU-s DEV)</span></label>
           </li>
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t92" />
-            <label for="t92"><strong>Task 9.2: DAX Studio Performance Tuning (Server Timings)</strong> — Connect via XMLA endpoint; evaluate VertiPaq Storage Engine (SE) multithreaded scans vs Formula Engine (FE) single-threaded iteration xmSQL. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
-          </li>
           <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t92" checked />
+            <label for="t92"><strong>Task 9.2: DAX Studio Performance Tuning (Server Timings)</strong> — Connect via XMLA / Desktop; evaluate VertiPaq Storage Engine (SE) multithreaded scans vs Formula Engine (FE) single-threaded iteration xmSQL. <span style="color: var(--accent-green); font-weight: 600;">(Done — Baseline: 13ms Total, 1 Unified xmSQL Scan, 0 Callbacks)</span></label>
+          </li>
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
             <input type="checkbox" class="task-checkbox" id="t93" />
-            <label for="t93"><strong>Task 9.3: Sabotage Lab L15 (Severe DAX Bottleneck Injected &amp; Resolved)</strong> — Inject unvectorized iterator measure; benchmark FE delay; refactor to SE-folded vectorized DAX. <span style="color: var(--text-muted);">Pending</span></label>
+            <label for="t93"><strong>Task 9.3: Sabotage Lab L15 (Severe DAX Bottleneck Injected &amp; Resolved)</strong> — Inject unvectorized iterator measure; benchmark FE delay; refactor to SE-folded vectorized DAX. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
           </li>
           <li class="task-item">
             <input type="checkbox" class="task-checkbox" id="t94" />
@@ -869,7 +869,7 @@
 
                     <!-- TAB 3: KNOWLEDGE & SCORES -->
     <div id="tab-knowledge" class="tab-pane">
-      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-30)</h2>
+      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-33)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -1102,6 +1102,26 @@
             <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-32</strong></td>
             <td><strong>3-Tier Triage Architecture for Automated CD Refresh Failures</strong></td>
             <td style="line-height: 1.6;">When an automated REST API or CD pipeline refresh fails in production, triage across 3 layers: (1) Workspace Semantic Model Refresh History (inspect M mashup error &amp; duration breakdown), (2) Fabric Capacity Metrics App (detect CU exhaustion and background throttling), and (3) Gateway &amp; Data Source Connectivity (verify on-premises gateway online state, DB connection pool, and credentials).</td>
+            <td><span class="badge badge-primary">P9</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-08</span></td>
+          </tr>
+          <tr>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-33</strong></td>
+            <td><strong>Materialized Rows in <strong style="color: var(--accent-blue);">VertiPaq</strong> &amp; <strong style="color: var(--accent-blue);">Formula Engine</strong> Saturation (Lab L15)</strong></td>
+            <td style="line-height: 1.6;">
+              <strong>Definition:</strong> When the Storage Engine (SE) runs an xmSQL query, &quot;materialization&quot; is the process of taking compressed column data from memory and physically constructing actual rows/tuples in RAM to pass to the Formula Engine (FE).<br />
+              <div style="margin-top: 0.5rem; padding: 0.75rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem;">
+                <strong style="color: var(--accent-amber);">📦 Warehouse Supervisor Analogy:</strong><br />
+                Imagine asking your warehouse supervisor: <em>&quot;What was our total revenue for each of our 5 product categories?&quot;</em><br />
+                • <strong style="color: var(--accent-green);">Method A (Clean DAX — 8 Materialized Rows):</strong> The supervisor looks at the category totals and hands you a tiny slip of paper with just 5 category totals (e.g. Beverages, Home Care, Packaged Foods, Personal Care, Snacks).<br />
+                &nbsp;&nbsp;&nbsp;<em>Result:</em> 8 rows in memory, takes <strong>4 ms</strong>, instant response.<br />
+                • <strong style="color: var(--accent-rose);">Method B (Lab L15 Bottleneck — 376 Materialized Rows):</strong> Because the measure forced an iterator over <code style="color: var(--accent-blue);">VALUES(product_id)</code>, the supervisor went down to every single individual product SKU (e.g. Colgate 100g, Pepsi 500ml, Lays Cream &amp; Onion, Tide 1kg... all 376 products!), wrote a massive 376-line manifest in RAM, and dumped it on your desk for you to add up manually line-by-line.<br />
+                &nbsp;&nbsp;&nbsp;<em>Result:</em> 376 intermediate rows constructed in RAM, SE CPU spiked to 16ms, and SE queries doubled from 1 to 2!<br />
+                <div style="margin-top: 0.4rem; font-size: 0.85rem; color: var(--text-muted);">
+                  <strong>Production Scale Risk:</strong> In a PROD model with 2.5M rows and 50,000 products/customers, Method B materializes 50,000+ rows into the single-threaded Formula Engine, exhausting RAM and causing 15–30s visual timeouts. Refactored using vectorized measure branching with <code style="color: var(--accent-blue);">CALCULATE([Net Revenue], KEEPFILTERS(...))</code> pushing filters directly to Storage Engine xmSQL.
+                </div>
+              </div>
+            </td>
             <td><span class="badge badge-primary">P9</span></td>
             <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-08</span></td>
           </tr>
@@ -2085,11 +2105,11 @@
           <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped; re-authentication verified</td><td><span class="status-tag status-completed">Passed / Rehearsed</span></td></tr>
-          <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-in-progress">In Progress (P9)</span></td></tr>
           <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition; surgically resolved in _Meaure.tmdl</td><td><span class="status-tag status-completed">Passed / Demonstrated (P7)</span></td></tr>
-          <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-completed">Passed / Rehearsed (P8)</span></td></tr>
           <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-completed">Passed / Rehearsed (P5)</span></td></tr>
         </tbody>
       </table>
