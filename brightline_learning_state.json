@@ -1,11 +1,11 @@
 {
-  "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
+  "project_name": "Brightline Analytics \u2014 Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
-  "last_updated": "2026-09-06T15:00:00+05:30",
+  "last_updated": "2026-09-08T00:15:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
-  "overall_progress_pct": 89,
-  "current_phase": "Phase 8 — Azure DevOps CI/CD Automation",
+  "overall_progress_pct": 95,
+  "current_phase": "Phase 9 \u2014 Monitoring, Performance, The Gauntlet & Capstone",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -15,7 +15,7 @@
   "phases": [
     {
       "id": "P0",
-      "name": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
+      "name": "Phase 0 \u2014 Foundations: Tenant Discovery, Environments, Data",
       "status": "Completed",
       "score": 82,
       "gate_date": "2026-09-05",
@@ -68,7 +68,7 @@
     },
     {
       "id": "P1",
-      "name": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
+      "name": "Phase 1 \u2014 Semantic Model Build in Desktop (Import Mode & PBIP)",
       "status": "Completed",
       "score": 85,
       "gate_date": "2026-09-05",
@@ -115,7 +115,7 @@
     },
     {
       "id": "P2",
-      "name": "Phase 2 — Publish & Semantic Model Management in Service",
+      "name": "Phase 2 \u2014 Publish & Semantic Model Management in Service",
       "status": "Completed",
       "score": 90,
       "gate_date": "2026-09-06",
@@ -161,7 +161,7 @@
     },
     {
       "id": "P3",
-      "name": "Phase 3 — Gateway & Refresh Deep Dive",
+      "name": "Phase 3 \u2014 Gateway & Refresh Deep Dive",
       "status": "Completed",
       "score": 90,
       "gate_date": "2026-09-06",
@@ -208,7 +208,7 @@
     },
     {
       "id": "P4",
-      "name": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
+      "name": "Phase 4 \u2014 Security: Dynamic RLS, OLS, Permissions & Apps",
       "status": "Completed",
       "score": 92,
       "gate_date": "2026-09-06",
@@ -255,7 +255,7 @@
     },
     {
       "id": "P5",
-      "name": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
+      "name": "Phase 5 \u2014 Incremental Refresh & XMLA Partitions (F64 Activation)",
       "status": "Completed",
       "score": 95,
       "gate_date": "2026-09-06",
@@ -302,7 +302,7 @@
     },
     {
       "id": "P6",
-      "name": "Phase 6 — Deployment Pipelines & Stage Rules",
+      "name": "Phase 6 \u2014 Deployment Pipelines & Stage Rules",
       "status": "Completed",
       "score": 93,
       "gate_date": "2026-09-06",
@@ -337,7 +337,7 @@
           "id": "T6.5",
           "name": "Execute DEV -> TEST Promotion & Validate Pipeline Compare Drift Engine",
           "status": "Completed",
-          "evidence": "Deployed DEV -> TEST, triggered UAT refresh (completed in 1m 23s loading 2.5M rows / ₹2.04bn revenue vs 250k rows in DEV), verified Compare drift engine (Lab L12, L17)."
+          "evidence": "Deployed DEV -> TEST, triggered UAT refresh (completed in 1m 23s loading 2.5M rows / \u20b92.04bn revenue vs 250k rows in DEV), verified Compare drift engine (Lab L12, L17)."
         },
         {
           "id": "T6.6",
@@ -355,7 +355,7 @@
     },
     {
       "id": "P7",
-      "name": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
+      "name": "Phase 7 \u2014 PBIP, TMDL/PBIR & Fabric Git Integration",
       "status": "Completed",
       "score": 97,
       "gate_date": "2026-09-06",
@@ -402,10 +402,10 @@
     },
     {
       "id": "P8",
-      "name": "Phase 8 — Azure DevOps CI/CD Automation",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "name": "Phase 8 \u2014 Azure DevOps CI/CD Automation",
+      "status": "Completed",
+      "score": 100,
+      "gate_date": "2026-09-08",
       "hours_estimated": "10-12h",
       "evidence_tag": "phase-8-cicd",
       "tasks": [
@@ -449,8 +449,8 @@
     },
     {
       "id": "P9",
-      "name": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
-      "status": "Locked",
+      "name": "Phase 9 \u2014 Monitoring, Performance, The Gauntlet & Capstone",
+      "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "10h",
@@ -458,26 +458,126 @@
     }
   ],
   "sabotage_labs": [
-    {"id": "L1", "title": "Postgres Credential Rotation", "phase": "P3", "status": "Pending"},
-    {"id": "L2", "title": "Gateway Service Stopped", "phase": "P3", "status": "Pending"},
-    {"id": "L3", "title": "Gateway Connection Mapping Deleted", "phase": "P3", "status": "Pending"},
-    {"id": "L4", "title": "Build Permission Revoked", "phase": "P2/P4", "status": "Pending"},
-    {"id": "L5", "title": "App Access Without Model Access", "phase": "P4", "status": "Pending"},
-    {"id": "L6", "title": "Workspace Role vs RLS Bypass", "phase": "P4", "status": "Pending"},
-    {"id": "L7", "title": "Security Table Relationship Direction Flip", "phase": "P4", "status": "Pending"},
-    {"id": "L8", "title": "USERNAME() vs USERPRINCIPALNAME() Desktop vs Service", "phase": "P4", "status": "Pending"},
-    {"id": "L9", "title": "Query Folding Break Before Incremental Filter", "phase": "P5", "status": "Pending"},
-    {"id": "L10", "title": "Source Column Renamed in PostgreSQL", "phase": "P3/P5", "status": "Pending"},
-    {"id": "L11", "title": "Measure Rename Without Impact Analysis", "phase": "P2", "status": "Pending"},
-    {"id": "L12", "title": "Missing Deployment Rule on TEST Model", "phase": "P6", "status": "Pending"},
-    {"id": "L13", "title": "App Not Updated After PROD Deploy", "phase": "P6", "status": "Pending"},
-    {"id": "L14", "title": "Dataset Takeover Breaks Gateway Binding", "phase": "P2/P3", "status": "Pending"},
-    {"id": "L15", "title": "Performance Bottleneck (DAX Studio SE/FE)", "phase": "P9", "status": "Pending"},
-    {"id": "L16", "title": "SharePoint Source File Renamed", "phase": "P3", "status": "Pending"},
-    {"id": "L17", "title": "Direct Hand-Editing in TEST (Drift)", "phase": "P6", "status": "Pending"},
-    {"id": "L18", "title": "TMDL Git Merge Conflict Resolution", "phase": "P7", "status": "Pending"},
-    {"id": "L19", "title": "BPA Rule Violation Fails CI Pipeline", "phase": "P8", "status": "Completed"},
-    {"id": "L20", "title": "Full PBIX Republish Wipes Partitions", "phase": "P5", "status": "Pending"}
+    {
+      "id": "L1",
+      "title": "Postgres Credential Rotation",
+      "phase": "P3",
+      "status": "Pending"
+    },
+    {
+      "id": "L2",
+      "title": "Gateway Service Stopped",
+      "phase": "P3",
+      "status": "Pending"
+    },
+    {
+      "id": "L3",
+      "title": "Gateway Connection Mapping Deleted",
+      "phase": "P3",
+      "status": "Pending"
+    },
+    {
+      "id": "L4",
+      "title": "Build Permission Revoked",
+      "phase": "P2/P4",
+      "status": "Pending"
+    },
+    {
+      "id": "L5",
+      "title": "App Access Without Model Access",
+      "phase": "P4",
+      "status": "Pending"
+    },
+    {
+      "id": "L6",
+      "title": "Workspace Role vs RLS Bypass",
+      "phase": "P4",
+      "status": "Pending"
+    },
+    {
+      "id": "L7",
+      "title": "Security Table Relationship Direction Flip",
+      "phase": "P4",
+      "status": "Pending"
+    },
+    {
+      "id": "L8",
+      "title": "USERNAME() vs USERPRINCIPALNAME() Desktop vs Service",
+      "phase": "P4",
+      "status": "Pending"
+    },
+    {
+      "id": "L9",
+      "title": "Query Folding Break Before Incremental Filter",
+      "phase": "P5",
+      "status": "Pending"
+    },
+    {
+      "id": "L10",
+      "title": "Source Column Renamed in PostgreSQL",
+      "phase": "P3/P5",
+      "status": "Pending"
+    },
+    {
+      "id": "L11",
+      "title": "Measure Rename Without Impact Analysis",
+      "phase": "P2",
+      "status": "Pending"
+    },
+    {
+      "id": "L12",
+      "title": "Missing Deployment Rule on TEST Model",
+      "phase": "P6",
+      "status": "Pending"
+    },
+    {
+      "id": "L13",
+      "title": "App Not Updated After PROD Deploy",
+      "phase": "P6",
+      "status": "Pending"
+    },
+    {
+      "id": "L14",
+      "title": "Dataset Takeover Breaks Gateway Binding",
+      "phase": "P2/P3",
+      "status": "Pending"
+    },
+    {
+      "id": "L15",
+      "title": "Performance Bottleneck (DAX Studio SE/FE)",
+      "phase": "P9",
+      "status": "Pending"
+    },
+    {
+      "id": "L16",
+      "title": "SharePoint Source File Renamed",
+      "phase": "P3",
+      "status": "Pending"
+    },
+    {
+      "id": "L17",
+      "title": "Direct Hand-Editing in TEST (Drift)",
+      "phase": "P6",
+      "status": "Pending"
+    },
+    {
+      "id": "L18",
+      "title": "TMDL Git Merge Conflict Resolution",
+      "phase": "P7",
+      "status": "Pending"
+    },
+    {
+      "id": "L19",
+      "title": "BPA Rule Violation Fails CI Pipeline",
+      "phase": "P8",
+      "status": "Completed"
+    },
+    {
+      "id": "L20",
+      "title": "Full PBIX Republish Wipes Partitions",
+      "phase": "P5",
+      "status": "Pending"
+    }
   ],
   "concepts_learned": [
     {
@@ -689,6 +789,34 @@
       "details": "Fabric Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.",
       "phase": "P7",
       "date": "2026-09-06"
+    },
+    {
+      "id": "CL-31",
+      "concept": "Tabular Editor CLI Headless Validation & Exit Code Pipeline Gating",
+      "details": "In automated CI runners, Tabular Editor CLI v2.28 uses -A for custom rulebook input and -V for Azure DevOps log stream emission. Setting rule Severity to 3 produces error streams and sets process exit code to 1, which PowerShell captures via $process.ExitCode to fail the build task.",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "CL-32",
+      "concept": "Shift-Left Branch Policy Prevention vs Post-Merge Detection",
+      "details": "Running CI validation on PR branches prevents bad model metadata and broken DAX from ever contaminating the main branch. This isolates failures to feature branches and guarantees the live Fabric DEV workspace remains completely healthy.",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "CL-33",
+      "concept": "Fabric Live Runtime vs Git Code Repository & Updates Governance",
+      "details": "A Fabric workspace is a running Analysis Services instance, whereas Git is a static code repository. The Updates tab prevents race conditions between web GUI authoring and Git commits, giving developers manual oversight before compiling Git source code into live workspace objects.",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "CL-34",
+      "concept": "OAuth2 Client Credentials & SPN Pipeline Admin RBAC Delegation",
+      "details": "Automated CD deployment uses an Entra ID Service Principal with client_id and client_secret to authenticate and retrieve a scoped Bearer token. For authorization, the SPN must be granted Pipeline Admin permissions in Fabric to trigger stage promotions via REST API.",
+      "phase": "P8",
+      "date": "2026-09-08"
     }
   ],
   "technical_questions": [
@@ -966,6 +1094,50 @@
       "category": "Fabric",
       "phase": "P7",
       "date": "2026-09-06"
+    },
+    {
+      "id": "TQ-31",
+      "question": "Why configure Severity: 3 in BPARules.json, and how do Tabular Editor CLI flags (-A, -V) interact with PowerShell exit codes?",
+      "answer_summary": "Severity 3 designates violations as fatal errors. -A loads custom rulebook, -V emits Azure DevOps logging commands (##vso). Start-Process captures $process.ExitCode (1 for violations, 0 for clean), and exit 1 explicitly fails the CI gate.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "CI/CD",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-32",
+      "question": "Why is enforcing a Branch Policy (Build Validation) architecturally superior to post-merge CI?",
+      "answer_summary": "Prevention vs detection. Post-merge CI detects errors after bad TMDL has already entered main, risking corruption of Fabric DEV workspace. PR Build Validation isolates testing to feature branch, strictly preventing bad code from entering main.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "CI/CD",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-33",
+      "question": "What is the mechanical role of the Fabric Updates tab, and why doesn't Fabric auto-apply changes to cloud workspaces on Git push?",
+      "answer_summary": "Fabric workspace is a live runtime; Git is a code repository. Automatic sync would trigger race conditions and overwrite in-flight concurrent web authoring. The Updates tab provides deliberate developer governance over when Git code compiles into live workspace memory.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Fabric",
+      "phase": "P8",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-34",
+      "question": "How does automated CD promote artifacts via Fabric REST API without user credentials, and what permissions are required?",
+      "answer_summary": "Azure DevOps uses OAuth2 client credentials grant (client_id + client_secret) with Entra ID to receive a Bearer token. It calls Fabric REST API endpoint (/pipelines/{id}/deploy). Authentication proves SPN identity; Authorization requires SPN assigned Role = ADMIN on the Deployment Pipeline.",
+      "score": 10,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "CI/CD",
+      "phase": "P8",
+      "date": "2026-09-08"
     }
   ],
   "weak_areas": [
@@ -978,7 +1150,7 @@
     {
       "area": "Schema Drift & Column Renaming (Lab L10)",
       "detail": "Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.",
-      "status": "Explained — Scheduled for Lab L10",
+      "status": "Explained \u2014 Scheduled for Lab L10",
       "identified_date": "2026-09-05"
     },
     {
@@ -989,25 +1161,120 @@
     }
   ],
   "hours_log": [
-    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "Initial setup session"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.3 PostgreSQL databases + schema DDL"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.4 Synthetic data generator execution (5.25M total rows seeded)"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.5 Cloud Excel sources generated and deployed to OneDrive"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P0", "note": "T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.1 PBIP + TMDL project initialized with M parameters"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.3 Star Schema model & Dim_Date table built"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.4 Authored 22 DAX core measures across 4 display folders"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P1", "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P2", "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P3", "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P4", "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P5", "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"},
-    {"week": "Week 1", "hours": 0.5, "phases": "P6", "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"},
-    {"week": "Week 1", "hours": 1.5, "phases": "P7", "note": "T7.1-T7.5 PBIP TMDL DAX authoring, Fabric ADO/GitHub Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)"}
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P0",
+      "note": "Initial setup session"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P0",
+      "note": "T0.3 PostgreSQL databases + schema DDL"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P0",
+      "note": "T0.4 Synthetic data generator execution (5.25M total rows seeded)"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P0",
+      "note": "T0.5 Cloud Excel sources generated and deployed to OneDrive"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P0",
+      "note": "T0.6 Architecture blueprint authored + Phase 0 Gate Exam passed"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P1",
+      "note": "T1.1 PBIP + TMDL project initialized with M parameters"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P1",
+      "note": "T1.2 Ingested 7 queries & verified PostgreSQL Native Query Folding"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P1",
+      "note": "T1.3 Star Schema model & Dim_Date table built"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P1",
+      "note": "T1.4 Authored 22 DAX core measures across 4 display folders"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P1",
+      "note": "T1.5 BPA hardening + Phase 1 Gate Exam passed"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P2",
+      "note": "T2.1 Trial verified (47d left) + T2.2 BL-Sales-DEV workspace created and published"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P2",
+      "note": "T2.3 Configured 3 Thin Reports in PBIP/PBIR format bound via live connection"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P2",
+      "note": "T2.4 Endorsement configured + T2.5 Read/Build & Takeover evaluated + Phase 2 Gate passed"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P3",
+      "note": "T3.1-T3.3 Gateway configured, SSL handshake timeout diagnosed & resolved, on-demand refresh completed"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P3",
+      "note": "T3.4 Privacy levels + T3.5 Gateway Gate Exam passed (90/100) + Phase 4 Unlocked"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P4",
+      "note": "T4.1-T4.5 Dynamic RLS, OLS, Persona Testing, App Published & Phase 4 Gate passed (92/100)"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P5",
+      "note": "T5.1-T5.5 Incremental Refresh configured, initial partition seeding (25s), XMLA SSMS TMSL verified, Gate passed (95/100)"
+    },
+    {
+      "week": "Week 1",
+      "hours": 0.5,
+      "phases": "P6",
+      "note": "T6.1-T6.6 3-Stage Pipeline, Parameter & Gateway Rules, UAT 2.5M row refresh, PROD Multi-Audience App & Phase 6 Gate passed (93/100)"
+    },
+    {
+      "week": "Week 1",
+      "hours": 1.5,
+      "phases": "P7",
+      "note": "T7.1-T7.5 PBIP TMDL DAX authoring, Fabric ADO/GitHub Git sync, .platform GUID resolution, PR workflow, Lab L18 conflict resolution & Phase 7 Gate passed (97/100)"
+    }
   ],
   "troubleshooting_log": [
     {
