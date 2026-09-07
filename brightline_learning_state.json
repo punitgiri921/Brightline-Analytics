@@ -449,12 +449,50 @@
     },
     {
       "id": "P9",
-      "name": "Phase 9 \u2014 Monitoring, Performance, The Gauntlet & Capstone",
+      "name": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
       "status": "In Progress",
       "score": null,
       "gate_date": null,
       "hours_estimated": "10h",
-      "evidence_tag": "phase-9-capstone"
+      "evidence_tag": "phase-9-capstone",
+      "tasks": [
+        {
+          "id": "T9.1",
+          "name": "Semantic Model Refresh & Capacity Metric App Monitoring",
+          "status": "Completed",
+          "evidence": "Installed Microsoft Fabric Capacity Metrics App on FTL4 trial capacity (Central India). Telemetry verified healthy operations: Avg utilization 0.27%, Peak utilization 5.91% on Sun 6 during UAT refresh. Items breakdown confirmed BL-Sales-Test (706.8 CU-s / 98.4s), BL-Sales-Prod (543.7 CU-s / 114.9s), and BL-Sales-DEV (283.3 CU-s / 48.5s) with 0 throttled or rejected operations."
+        },
+        {
+          "id": "T9.2",
+          "name": "DAX Studio Performance Tuning (Server Timings: VertiPaq SE vs FE xmSQL)",
+          "status": "In Progress",
+          "evidence": null
+        },
+        {
+          "id": "T9.3",
+          "name": "Execute Sabotage Lab L15 (Severe DAX Performance Bottleneck Injected & Resolved)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T9.4",
+          "name": "The Final 6-Scenario Gauntlet (Enterprise Architecture Defense)",
+          "status": "Pending",
+          "evidence": null
+        },
+        {
+          "id": "T9.5",
+          "name": "Capstone Certification Presentation & Final Architecture Sign-Off",
+          "status": "Pending",
+          "evidence": null
+        }
+      ],
+      "gate_topics": [
+        "Microsoft Fabric Capacity Metrics (CU consumption, background vs interactive operations, throttling)",
+        "VertiPaq Storage Engine (SE) multithreaded scans vs Formula Engine (FE) single-threaded iteration",
+        "xmSQL generation, callback functions, and DAX query optimization",
+        "Enterprise deployment architecture defense across the full 3-tier lifecycle"
+      ]
     }
   ],
   "sabotage_labs": [
