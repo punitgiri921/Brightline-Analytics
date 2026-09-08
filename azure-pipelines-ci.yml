@@ -108,7 +108,7 @@ steps:
       Write-Host "Authentication successful. Access token acquired."
 
       Write-Host "`n2. Triggering Deployment Pipeline Promotion (DEV -> TEST)..."
-      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deploy"
+      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
       
       # sourceStageOrder: 0 represents DEV -> TEST
       $payload = @{
@@ -120,9 +120,22 @@ steps:
           note = "Automated promotion via Azure DevOps Build $(Build.BuildNumber)"
       } | ConvertTo-Json
 
-      $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
-      Write-Host "Deployment operation initiated successfully."
-      Write-Host "Operation ID: $($deployJob.id)"
+      try {
+          $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+          Write-Host "Deployment operation initiated successfully."
+          Write-Host "Operation ID: $($deployJob.id)"
+      } catch {
+          Write-Host "##[error]Deployment request failed! Inspecting Power BI API response..."
+          if ($_.Exception.Response) {
+              $stream = $_.Exception.Response.GetResponseStream()
+              $reader = New-Object System.IO.StreamReader($stream)
+              $errorDetails = $reader.ReadToEnd()
+              Write-Host "##[error]Microsoft API Error Details: $errorDetails"
+          } else {
+              Write-Host "##[error]$($_.Exception.Message)"
+          }
+          exit 1
+      }
 
       Write-Host "`n3. Monitoring deployment status until completion..."
       $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
