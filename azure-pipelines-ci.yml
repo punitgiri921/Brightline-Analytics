@@ -1,7 +1,7 @@
 # ==============================================================================
-# BRIGHTLINE ANALYTICS — CONTINUOUS INTEGRATION & DEPLOYMENT (CI/CD)
-# 1. Automated Model Quality & Tabular Editor BPA (PR Gate)
-# 2. Automated Fabric Deployment Pipeline Promotion (Merge to Main)
+# BRIGHTLINE ANALYTICS — ENTERPRISE MULTI-STAGE CI/CD PIPELINE
+# Stage 1: Brightline Quality Gate (BPA) & Automated Dev -> Test Deployment
+# Stage 2: Brightline Production Promotion (Test -> Prod) with Approval Gate
 # ==============================================================================
 
 trigger:
@@ -17,7 +17,6 @@ pr:
 pool:
   vmImage: 'windows-latest'
 
-# Link the Variable Group created in Azure DevOps Library
 variables:
   - group: Brightline-pipeline-variables
   - name: TE_VERSION
@@ -27,129 +26,214 @@ variables:
   - name: BPA_RULES_PATH
     value: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
 
-steps:
-- checkout: self
-  displayName: 'Checkout Repository Code'
-
+stages:
 # ------------------------------------------------------------------------------
-# STAGE 1: BPA QUALITY VALIDATION (Runs on both PR and Merge)
+# STAGE 1: BRIGHTLINE CI QUALITY VALIDATION & AUTOMATED TEST DEPLOYMENT
 # ------------------------------------------------------------------------------
-- task: PowerShell@2
-  displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
-  inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "============================================================"
-      Write-Host " 🚀 BRIGHTLINE CI PIPELINE: TABULAR MODEL QUALITY VALIDATION"
-      Write-Host "============================================================"
+- stage: Brightline_Build_And_Test
+  displayName: 'Brightline Build, Lint & Deploy to Test'
+  jobs:
+  - job: Validate_And_Deploy_Test
+    displayName: 'Validate BPA & Promote to Test Stage'
+    steps:
+    - checkout: self
+      displayName: 'Checkout Repository Code'
 
-      $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
-      $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
-      $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
-
-      Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
-      Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
-      Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
-
-      $teExe = "$teExtractDir/TabularEditor.exe"
-      if (!(Test-Path $teExe)) {
-          Write-Error "TabularEditor.exe executable was not found at $teExe"
-          exit 1
-      }
-      Write-Host "Tabular Editor CLI ready at: $teExe"
-
-      Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
-      Write-Host "   Model Directory : $(MODEL_DIR)"
-      Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
-
-      # Execute Tabular Editor 2 CLI with array argument list:
-      # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
-      # -V: Verbose / Validate syntax & output rule violations
-      $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
-
-      if ($process.ExitCode -ne 0) {
-          Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
-          Write-Error "CI Gate Failed. Please review the BPA violations above and fix your DAX/TMDL code before merging."
-          exit 1
-      } else {
+    - task: PowerShell@2
+      displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
+      inputs:
+        targetType: 'inline'
+        script: |
           Write-Host "============================================================"
-          Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+          Write-Host " 🚀 BRIGHTLINE CI: TABULAR MODEL QUALITY VALIDATION"
           Write-Host "============================================================"
-      }
 
-# ------------------------------------------------------------------------------
-# STAGE 2: AUTOMATED DEPLOYMENT PIPELINE PROMOTION (DEV -> TEST)
-# Condition: Only runs when code is merged into 'main' and BPA checks succeeded
-# ------------------------------------------------------------------------------
-- task: PowerShell@2
-  displayName: 'Automate Fabric Deployment Pipeline Promotion (Dev -> Test)'
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-  inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "============================================================"
-      Write-Host " 🚢 AUTOMATED PROMOTION: FABRIC DEPLOYMENT PIPELINE"
-      Write-Host "============================================================"
+          $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
+          $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
+          $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
 
-      Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
-      $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
-      $body = @{
-          client_id     = "$(AZURE_CLIENT_ID)"
-          client_secret = "$(AZURE_CLIENT_SECRET)"
-          scope         = "https://analysis.windows.net/powerbi/api/.default"
-          grant_type    = "client_credentials"
-      }
-      
-      $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
-      $headers = @{
-          Authorization = "Bearer $($tokenResponse.access_token)"
-          "Content-Type" = "application/json"
-      }
-      Write-Host "Authentication successful. Access token acquired."
+          Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
+          Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
+          Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
 
-      Write-Host "`n2. Triggering Deployment Pipeline Promotion (DEV -> TEST)..."
-      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
-      
-      # sourceStageOrder: 0 represents DEV -> TEST
-      $payload = @{
-          sourceStageOrder = 0
-          options = @{
-              allowCreateArtifact    = $true
-              allowOverwriteArtifact = $true
+          $teExe = "$teExtractDir/TabularEditor.exe"
+          if (!(Test-Path $teExe)) {
+              Write-Error "TabularEditor.exe executable was not found at $teExe"
+              exit 1
           }
-          note = "Automated promotion via Azure DevOps Build $(Build.BuildNumber)"
-      } | ConvertTo-Json
+          Write-Host "Tabular Editor CLI ready at: $teExe"
 
-      try {
-          $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
-          Write-Host "Deployment operation initiated successfully."
-          Write-Host "Operation ID: $($deployJob.id)"
-      } catch {
-          Write-Host "##[error]Deployment request failed! Inspecting Power BI API response..."
-          if ($_.Exception.Response) {
-              $stream = $_.Exception.Response.GetResponseStream()
-              $reader = New-Object System.IO.StreamReader($stream)
-              $errorDetails = $reader.ReadToEnd()
-              Write-Host "##[error]Microsoft API Error Details: $errorDetails"
+          Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
+          Write-Host "   Model Directory : $(MODEL_DIR)"
+          Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
+
+          $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
+
+          if ($process.ExitCode -ne 0) {
+              Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
+              Write-Error "CI Gate Failed. Please review the BPA violations above."
+              exit 1
           } else {
-              Write-Host "##[error]$($_.Exception.Message)"
+              Write-Host "============================================================"
+              Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+              Write-Host "============================================================"
           }
-          exit 1
-      }
 
-      Write-Host "`n3. Monitoring deployment status until completion..."
-      $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
-      
-      do {
-          Start-Sleep -Seconds 5
-          $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
-          Write-Host "Current Status: $($status.status)"
-      } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+    - task: PowerShell@2
+      displayName: 'Automate Fabric Deployment Pipeline Promotion (Dev -> Test)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "============================================================"
+          Write-Host " 🚢 BRIGHTLINE DEPLOYMENT: DEV -> TEST"
+          Write-Host "============================================================"
 
-      if ($status.status -ne "Succeeded") {
-          Write-Error "❌ Deployment Pipeline failed with status: $($status.status)"
-          exit 1
-      }
-      Write-Host "============================================================"
-      Write-Host " 🎉 SUCCESS: Fabric Deployment Pipeline promoted to Test stage!"
-      Write-Host "============================================================"
+          Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
+          $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
+          $body = @{
+              client_id     = "$(AZURE_CLIENT_ID)"
+              client_secret = "$(AZURE_CLIENT_SECRET)"
+              scope         = "https://analysis.windows.net/powerbi/api/.default"
+              grant_type    = "client_credentials"
+          }
+          
+          $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
+          $headers = @{
+              Authorization = "Bearer $($tokenResponse.access_token)"
+              "Content-Type" = "application/json"
+          }
+          Write-Host "Authentication successful. Access token acquired."
+
+          Write-Host "`n2. Triggering Deployment Pipeline Promotion (DEV -> TEST)..."
+          $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
+          
+          # sourceStageOrder: 0 represents DEV -> TEST
+          $payload = @{
+              sourceStageOrder = 0
+              options = @{
+                  allowCreateArtifact    = $true
+                  allowOverwriteArtifact = $true
+              }
+              note = "Automated promotion to Test via Azure DevOps Build $(Build.BuildNumber)"
+          } | ConvertTo-Json
+
+          try {
+              $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+              Write-Host "Deployment operation initiated successfully. Operation ID: $($deployJob.id)"
+          } catch {
+              Write-Host "##[error]Deployment to Test failed!"
+              if ($_.Exception.Response) {
+                  $stream = $_.Exception.Response.GetResponseStream()
+                  $reader = New-Object System.IO.StreamReader($stream)
+                  Write-Host "##[error]$($reader.ReadToEnd())"
+              } else {
+                  Write-Host "##[error]$($_.Exception.Message)"
+              }
+              exit 1
+          }
+
+          Write-Host "`n3. Monitoring deployment status until completion..."
+          $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
+          
+          do {
+              Start-Sleep -Seconds 5
+              $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
+              Write-Host "Current Status: $($status.status)"
+          } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+
+          if ($status.status -ne "Succeeded") {
+              Write-Error "❌ Deployment to Test failed with status: $($status.status)"
+              exit 1
+          }
+          Write-Host "============================================================"
+          Write-Host " 🎉 SUCCESS: Fabric Test Stage (BL-Sales-Test) Deployed!"
+          Write-Host "============================================================"
+
+# ------------------------------------------------------------------------------
+# STAGE 2: BRIGHTLINE PRODUCTION PROMOTION (Gated by Approval Environment)
+# Pauses here, sends email to punitgiri74@gmail.com, and waits for your approval!
+# ------------------------------------------------------------------------------
+- stage: Brightline_Production_Promotion
+  displayName: 'Brightline Production Promotion (Test -> Prod)'
+  dependsOn: Brightline_Build_And_Test
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: Promote_To_Production
+    displayName: 'Brightline Production Release Gate'
+    environment: 'Brightline-Production-Environment'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: none
+          - task: PowerShell@2
+            displayName: 'Execute Fabric Deployment Pipeline Promotion (Test -> Prod)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Write-Host "============================================================"
+                Write-Host " 🚀 BRIGHTLINE DEPLOYMENT: TEST -> PRODUCTION"
+                Write-Host " Approved by: $(Build.RequestedFor) (punitgiri74@gmail.com)"
+                Write-Host "============================================================"
+
+                Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
+                $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
+                $body = @{
+                    client_id     = "$(AZURE_CLIENT_ID)"
+                    client_secret = "$(AZURE_CLIENT_SECRET)"
+                    scope         = "https://analysis.windows.net/powerbi/api/.default"
+                    grant_type    = "client_credentials"
+                }
+                
+                $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
+                $headers = @{
+                    Authorization = "Bearer $($tokenResponse.access_token)"
+                    "Content-Type" = "application/json"
+                }
+                Write-Host "Authentication successful."
+
+                Write-Host "`n2. Triggering Deployment Pipeline Promotion (TEST -> PROD)..."
+                $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
+                
+                # sourceStageOrder: 1 represents TEST -> PROD
+                $payload = @{
+                    sourceStageOrder = 1
+                    options = @{
+                        allowCreateArtifact    = $true
+                        allowOverwriteArtifact = $true
+                    }
+                    note = "Production Release authorized via Azure DevOps Build $(Build.BuildNumber)"
+                } | ConvertTo-Json
+
+                try {
+                    $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+                    Write-Host "Production deployment operation initiated successfully. Operation ID: $($deployJob.id)"
+                } catch {
+                    Write-Host "##[error]Production deployment failed!"
+                    if ($_.Exception.Response) {
+                        $stream = $_.Exception.Response.GetResponseStream()
+                        $reader = New-Object System.IO.StreamReader($stream)
+                        Write-Host "##[error]$($reader.ReadToEnd())"
+                    } else {
+                        Write-Host "##[error]$($_.Exception.Message)"
+                    }
+                    exit 1
+                }
+
+                Write-Host "`n3. Monitoring Production deployment status..."
+                $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
+                
+                do {
+                    Start-Sleep -Seconds 5
+                    $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
+                    Write-Host "Current Status: $($status.status)"
+                } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+
+                if ($status.status -ne "Succeeded") {
+                    Write-Error "❌ Production Deployment failed with status: $($status.status)"
+                    exit 1
+                }
+                Write-Host "============================================================"
+                Write-Host " 🏆 SUCCESS: Brightline Production (BL-Sales-Prod) Deployed!"
+                Write-Host "============================================================"
