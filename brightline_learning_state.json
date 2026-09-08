@@ -1,11 +1,11 @@
 {
-  "project_name": "Brightline Analytics \u2014 Enterprise Power BI / Fabric Deployment Pipeline",
+  "project_name": "Brightline Analytics — Enterprise Power BI / Fabric Deployment Pipeline",
   "version": "1.0",
   "last_updated": "2026-09-08T00:15:00+05:30",
   "learner": "Punit",
   "coach": "Antigravity",
   "overall_progress_pct": 95,
-  "current_phase": "Phase 9 \u2014 Monitoring, Performance, The Gauntlet & Capstone",
+  "current_phase": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -15,7 +15,7 @@
   "phases": [
     {
       "id": "P0",
-      "name": "Phase 0 \u2014 Foundations: Tenant Discovery, Environments, Data",
+      "name": "Phase 0 — Foundations: Tenant Discovery, Environments, Data",
       "status": "Completed",
       "score": 82,
       "gate_date": "2026-09-05",
@@ -68,7 +68,7 @@
     },
     {
       "id": "P1",
-      "name": "Phase 1 \u2014 Semantic Model Build in Desktop (Import Mode & PBIP)",
+      "name": "Phase 1 — Semantic Model Build in Desktop (Import Mode & PBIP)",
       "status": "Completed",
       "score": 85,
       "gate_date": "2026-09-05",
@@ -115,7 +115,7 @@
     },
     {
       "id": "P2",
-      "name": "Phase 2 \u2014 Publish & Semantic Model Management in Service",
+      "name": "Phase 2 — Publish & Semantic Model Management in Service",
       "status": "Completed",
       "score": 90,
       "gate_date": "2026-09-06",
@@ -161,7 +161,7 @@
     },
     {
       "id": "P3",
-      "name": "Phase 3 \u2014 Gateway & Refresh Deep Dive",
+      "name": "Phase 3 — Gateway & Refresh Deep Dive",
       "status": "Completed",
       "score": 90,
       "gate_date": "2026-09-06",
@@ -208,7 +208,7 @@
     },
     {
       "id": "P4",
-      "name": "Phase 4 \u2014 Security: Dynamic RLS, OLS, Permissions & Apps",
+      "name": "Phase 4 — Security: Dynamic RLS, OLS, Permissions & Apps",
       "status": "Completed",
       "score": 92,
       "gate_date": "2026-09-06",
@@ -255,7 +255,7 @@
     },
     {
       "id": "P5",
-      "name": "Phase 5 \u2014 Incremental Refresh & XMLA Partitions (F64 Activation)",
+      "name": "Phase 5 — Incremental Refresh & XMLA Partitions (F64 Activation)",
       "status": "Completed",
       "score": 95,
       "gate_date": "2026-09-06",
@@ -302,7 +302,7 @@
     },
     {
       "id": "P6",
-      "name": "Phase 6 \u2014 Deployment Pipelines & Stage Rules",
+      "name": "Phase 6 — Deployment Pipelines & Stage Rules",
       "status": "Completed",
       "score": 93,
       "gate_date": "2026-09-06",
@@ -337,7 +337,7 @@
           "id": "T6.5",
           "name": "Execute DEV -> TEST Promotion & Validate Pipeline Compare Drift Engine",
           "status": "Completed",
-          "evidence": "Deployed DEV -> TEST, triggered UAT refresh (completed in 1m 23s loading 2.5M rows / \u20b92.04bn revenue vs 250k rows in DEV), verified Compare drift engine (Lab L12, L17)."
+          "evidence": "Deployed DEV -> TEST, triggered UAT refresh (completed in 1m 23s loading 2.5M rows / ₹2.04bn revenue vs 250k rows in DEV), verified Compare drift engine (Lab L12, L17)."
         },
         {
           "id": "T6.6",
@@ -355,7 +355,7 @@
     },
     {
       "id": "P7",
-      "name": "Phase 7 \u2014 PBIP, TMDL/PBIR & Fabric Git Integration",
+      "name": "Phase 7 — PBIP, TMDL/PBIR & Fabric Git Integration",
       "status": "Completed",
       "score": 97,
       "gate_date": "2026-09-06",
@@ -402,7 +402,7 @@
     },
     {
       "id": "P8",
-      "name": "Phase 8 \u2014 Azure DevOps CI/CD Automation",
+      "name": "Phase 8 — Azure DevOps CI/CD Automation",
       "status": "Completed",
       "score": 100,
       "gate_date": "2026-09-08",
@@ -477,8 +477,8 @@
         {
           "id": "T9.4",
           "name": "The Final 6-Scenario Gauntlet (Enterprise Architecture Defense)",
-          "status": "In Progress",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "All 6 Gauntlet Scenarios Defended (10/10 each): Direct-to-Prod SOP (TQ-37), Schema Evolution (TQ-38), Gateway Clustering HA (TQ-39), OLS & RLS Governance (TQ-40), Partition Reconciliation & XMLA/TMSL Recovery (TQ-41), and Automated CI/CD Gates & Git Rollback Strategy (TQ-42)."
         },
         {
           "id": "T9.5",
@@ -1176,6 +1176,94 @@
       "category": "CI/CD",
       "phase": "P8",
       "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-35",
+      "question": "If 5 large semantic models execute full refresh at 9:00 AM Monday, what risk is created and how do Fabric smoothing and stage isolation mitigate this?",
+      "answer_summary": "Refreshes are Background Operations evaluated over a 24-hour smoothing window. Heavy concurrent refreshes deplete CUs, risking Interactive Delay and Rejection. Mitigated by off-peak staggering, incremental refresh, and dedicated DEV/TEST vs PROD capacity assignment.",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Fabric",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-36",
+      "question": "If an automated CD pipeline refresh fails in PROD with a timeout, what are the first three places to inspect for root cause?",
+      "answer_summary": "(1) Workspace Refresh History for mashup error & duration; (2) Fabric Capacity Metrics App for background throttling/overconsumption; (3) On-premises Gateway cluster and PostgreSQL connection/credential status.",
+      "score": 9.5,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Troubleshooting",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-37",
+      "question": "Gauntlet Scenario 1: Why is editing or publishing directly to PROD catastrophic (even for a minor measure emergency), and what is the exact Zero-Downtime Hotfix SOP?",
+      "answer_summary": "Directly republishing a production PBIX can replace or alter the production semantic model metadata and its incremental-refresh configuration. That creates a risk of partition reconciliation or unnecessary reprocessing of historical VertiPaq data. Therefore, even a small DAX hotfix should go through the controlled CI/CD deployment path.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Deployment Pipelines",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-38",
+      "question": "Gauntlet Scenario 2: If a production PostgreSQL schema renames a column and alters data types on an incremental refresh table, how do you prevent refresh failure and zero-downtime report breakage?",
+      "answer_summary": "Preserve the existing semantic contract and isolate the source-schema change at the ingestion boundary. Preferred approach: a PostgreSQL view that aliases discount_rate back to discount_pct. This allows the database schema to evolve while the Power BI semantic model continues exposing discount_pct, so existing DAX measures and downstream reports remain unchanged. The RangeStart/RangeEnd filter can still fold to PostgreSQL, which is critical for incremental refresh and avoiding the transfer of millions of unnecessary rows. If a database view isn't possible, perform the rename as the earliest foldable Power Query transformation and verify folding using query diagnostics or the native query/folding indicators.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Parameters",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-39",
+      "question": "Gauntlet Scenario 3: How do you architect On-Premises Data Gateway High Availability (HA) against unexpected host crashes, and how do Gateway Deployment Rules enforce DEV/TEST/PROD security boundaries?",
+      "answer_summary": "For Production, use an on-premises gateway cluster with multiple gateway VMs for HA and automatic failover. Separate DEV, TEST, and PROD gateway connections and credentials. In Deployment Pipelines, configure gateway deployment rules so the model seamlessly resolves to its own isolated gateway and database per environment.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Gateway & Security",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-40",
+      "question": "Gauntlet Scenario 4: Why does Object-Level Security (OLS) crash report visuals instead of showing blanks, and why was dynamic RLS bypassed in Analyze in Excel?",
+      "answer_summary": "OLS hides columns/measures completely from model metadata; when visuals query them, they fail with field-not-found errors. Fix: Tailor reports/pages for Audience 2 with non-restricted fields and hide restricted pages in App Audience settings. RLS was bypassed because user had Admin/Member/Contributor role; RLS only applies to Viewers. Business consumers should only have App access.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Security",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-41",
+      "question": "Gauntlet Scenario 5: What happens mechanically during Partition Reconciliation on desktop publish to PROD, and how do you execute emergency recovery via XMLA and TMSL?",
+      "answer_summary": "Direct publish from Desktop alters dataset metadata, triggering Partition Reconciliation where the service evaluates partitions and drops/reprocesses them. The service attempted a full 5-year refresh from PostgreSQL which failed because archived data was missing. Recovery: Connect via XMLA Read/Write using Tabular Editor, restore metadata from previous Git branch TMDL/BIM, and execute TMSL to process only the 2026 current partition while leaving historical partitions untouched.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "Refresh",
+      "phase": "P9",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "TQ-42",
+      "question": "Gauntlet Scenario 6: How do automated CI quality gates with Tabular Editor BPA prevent unformatted or broken DAX from merging into main, and what is the Zero-Data-Loss Rollback Strategy?",
+      "answer_summary": "CI workflow runs Tabular Editor BPA on PR branches. Severity 3 violations return exit code 1, causing the pipeline to fail and Branch Policies to block merging into main. Rollback: Execute git revert to create a clean rollback commit and redeploy via Fabric Deployment Pipeline (DEV -> TEST -> PROD). This avoids partition reconciliation, preserving historical VertiPaq data and gateway settings.",
+      "score": 10.0,
+      "max_score": 10,
+      "evaluation": "Correct",
+      "category": "CI/CD",
+      "phase": "P9",
+      "date": "2026-09-08"
     }
   ],
   "weak_areas": [
@@ -1188,7 +1276,7 @@
     {
       "area": "Schema Drift & Column Renaming (Lab L10)",
       "detail": "Power Query mashup step failure mechanics explained. Will rehearse during Sabotage Lab L10.",
-      "status": "Explained \u2014 Scheduled for Lab L10",
+      "status": "Explained — Scheduled for Lab L10",
       "identified_date": "2026-09-05"
     },
     {
