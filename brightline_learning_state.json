@@ -5,7 +5,7 @@
   "learner": "Punit",
   "coach": "Antigravity",
   "overall_progress_pct": 95,
-  "current_phase": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
+  "current_phase": "Completed (Certified Enterprise Deployment Architect)",
   "phase_gate_pass_threshold": 80,
   "tenant_plan": "Plan A (Service Principal / SPN CI/CD + Real Test Users)",
   "trial_clock_status": {
@@ -450,9 +450,9 @@
     {
       "id": "P9",
       "name": "Phase 9 — Monitoring, Performance, The Gauntlet & Capstone",
-      "status": "In Progress",
-      "score": null,
-      "gate_date": null,
+      "status": "Completed",
+      "score": 100,
+      "gate_date": "2026-09-08",
       "hours_estimated": "10h",
       "evidence_tag": "phase-9-capstone",
       "tasks": [
@@ -483,8 +483,8 @@
         {
           "id": "T9.5",
           "name": "Capstone Certification Presentation & Final Architecture Sign-Off",
-          "status": "Pending",
-          "evidence": null
+          "status": "Completed",
+          "evidence": "Official Capstone Architecture Certification Sign-Off awarded. Complete defense of all 10 phases (P0–P9), including 3-tier workspace design, PBIP/TMDL source control, Azure DevOps CI/CD automation, Deployment Pipelines, Incremental Refresh VertiPaq partitioning, Fabric Capacity Metrics telemetry, DAX Storage Engine optimization, and the 6-Scenario Gauntlet."
         }
       ],
       "gate_topics": [
@@ -1421,5 +1421,6 @@
       "date": "2026-09-06",
       "status": "Resolved"
     }
-  ]
+  ],
+  "overall_progress": 100
 }
