@@ -311,16 +311,94 @@
 
     pre, code { font-family: var(--font-mono); }
     .code-pill {
-      background: var(--bg-secondary);
       color: var(--accent-blue);
-      padding: 0.2rem 0.4rem;
-      border-radius: 0.25rem;
-      font-size: 0.85rem;
-      border: 1px solid var(--border-color);
+      font-weight: 700;
+      font-family: inherit;
+      background: transparent;
+      border: none;
+      padding: 0;
     }
       .font-mono { font-family: var(--font-mono); }
     .text-cyan { color: var(--accent-cyan); }
     .text-muted { color: var(--text-muted); }
+  
+    /* Collapsible Code Card Styles */
+    details.collapsible-file-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    details.collapsible-file-card[open] {
+      border-color: var(--accent-blue);
+      box-shadow: 0 4px 12px var(--glow-blue);
+    }
+    summary.collapsible-file-header {
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      transition: background 0.2s;
+    }
+    summary.collapsible-file-header::-webkit-details-marker {
+      display: none;
+    }
+    summary.collapsible-file-header:hover {
+      background: var(--bg-card-hover);
+    }
+    .collapsible-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .collapsible-arrow {
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    details[open] .collapsible-arrow {
+      transform: rotate(90deg);
+    }
+    .collapsible-body {
+      padding: 0 1.5rem 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+
+  
+    /* Segmented CI/CD Sub-Nav Buttons */
+    .cicd-subnav-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.6rem 1.1rem;
+      border-radius: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .cicd-subnav-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: var(--accent-blue);
+    }
+    .cicd-subnav-btn.active {
+      background: rgba(56, 189, 248, 0.15) !important;
+      color: var(--accent-blue) !important;
+      border-color: var(--accent-blue) !important;
+      box-shadow: 0 0 12px var(--glow-blue);
+    }
+
   </style>
 </head>
 <body>
@@ -331,7 +409,7 @@
         <span>⚡</span> Brightline Analytics Deployment Tracker
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary" id="header-phase-badge">Phase 8: Azure DevOps CI/CD Automation</span>
+        <span class="badge badge-primary" id="header-phase-badge">Phase 9: Monitoring, Performance &amp; Capstone</span>
         <span class="badge badge-green" id="header-plan-badge">Plan A: SPN + Real Users</span>
         <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
       </div>
@@ -344,6 +422,7 @@
     <button class="tab-btn" onclick="switchTab('knowledge')">📚 Knowledge & Scores</button>
     <button class="tab-btn" onclick="switchTab('labs')">🧪 Sabotage Labs (L1 – L20)</button>
     <button class="tab-btn" onclick="switchTab('troubleshooting')">🛠️ Troubleshooting & Production Playbook</button>
+    <button class="tab-btn" onclick="switchTab('cicd')">⚡ CI/CD Pipeline Steps</button>
     <button class="tab-btn" onclick="switchTab('lenses')">🧠 7 Lenses & Scoring</button>
   </div>
 
@@ -353,26 +432,26 @@
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-label">Overall Completion</span>
-          <div class="stat-value" id="overall-pct">89%</div>
+          <div class="stat-value" id="overall-pct">95%</div>
           <div class="progress-bar-container">
-            <div class="progress-fill" style="width: 89%;"></div>
+            <div class="progress-fill" style="width: 95%;"></div>
           </div>
           <span class="stat-subtitle" style="margin-top: 0.5rem;">Target: 10 Phases (90–100 Hours)</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Current Active Phase</span>
-          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P8: Azure DevOps CI/CD</div>
-          <span class="stat-subtitle">Automated Validation, Deployment & Testing</span>
+          <div class="stat-value" style="font-size: 1.3rem; color: var(--accent-blue);">P9: Monitoring &amp; Capstone</div>
+          <span class="stat-subtitle">Performance Tuning, The Gauntlet &amp; Certification</span>
         </div>
         <div class="stat-card">
-          <span class="stat-label">Phase 7 Gate Score</span>
-          <div class="stat-value" style="font-size: 1.5rem; color: var(--accent-green);">97 / 100</div>
-          <span class="stat-subtitle">Passed with High Distinction</span>
+          <span class="stat-label">Phase 8 Gate Score</span>
+          <div class="stat-value" style="font-size: 1.5rem; color: var(--accent-green);">100 / 100</div>
+          <span class="stat-subtitle">Passed with Distinction</span>
         </div>
         <div class="stat-card">
           <span class="stat-label">Phase Gate Discipline</span>
           <div class="stat-value" style="color: var(--accent-green);">≥ 80 / 100</div>
-          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95 | P6: 93 | P7: 97</span>
+          <span class="stat-subtitle">P0: 82 | P1: 85 | P2: 90 | P3: 90 | P4: 92 | P5: 95 | P6: 93 | P7: 97 | P8: 100</span>
         </div>
       </div>
 
@@ -717,49 +796,80 @@
         </ul>
       </div>
 
-      <div class="phase-card active-phase">
+      <div class="phase-card">
         <div class="phase-header">
           <div>
-            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="badge badge-green">COMPLETED</span>
             <span class="phase-title" style="margin-left: 0.5rem;">Phase 8 — Azure DevOps CI/CD Automation</span>
           </div>
-          <span class="status-tag status-in-progress">⏳ In Progress (10–12h)</span>
+          <span class="status-tag status-completed">✔ Gate Score: 100 / 100</span>
         </div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
-          Goal: Set up Self-Hosted Azure DevOps Agent / GitHub Actions, configure automated Best Practice Analyzer (BPA) linting in CI PR validation, and automate Fabric Deployment Pipeline / REST API deployments (Lab L19).
+          Goal: Set up Tabular Editor CLI v2.28.0 runner, configure automated Best Practice Analyzer (BPA) linting in CI PR validation build policy on <strong style="color: var(--accent-blue);">main</strong>, resolve PR breach Lab L19, and author automated Fabric Deployment Pipeline CD promotion via REST API &amp; SPN.
         </p>
         <ul class="task-list">
-          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
-            <input type="checkbox" class="task-checkbox" id="t81" />
-            <label for="t81"><strong>Task 8.1: CI/CD Architecture Blueprint & Pipeline Design</strong> — Design automated PR validation build and promotion triggers. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t81" checked />
+            <label for="t81"><strong>Task 8.1: CI/CD Architecture Blueprint &amp; Rulebook</strong> — Author enterprise BPA rulebook (<strong style="color: var(--accent-blue);">bpa-rules/BPARules.json</strong>) and CI pipeline configs. <span style="color: var(--accent-green); font-weight: 600;">(Done — Rules Authored)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t82" />
-            <label for="t82"><strong>Task 8.2: Automated Tabular Editor BPA Build Check</strong> — Enforce automated model quality & formatting rules on PR commits. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t82" checked />
+            <label for="t82"><strong>Task 8.2: Automated Tabular Editor BPA Build Check</strong> — Test local Tabular Editor CLI v2.28.0 runner with exit code enforcement. <span style="color: var(--accent-green); font-weight: 600;">(Done — CLI Runner Verified)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t83" />
-            <label for="t83"><strong>Task 8.3: Automated Fabric Deployment Pipeline Trigger (REST API / SPN)</strong> — Automate DEV -> TEST -> PROD promotion upon PR merge. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t83" checked />
+            <label for="t83"><strong>Task 8.3: Configure Azure DevOps CI &amp; Branch Policy</strong> — Wire <strong style="color: var(--accent-blue);">azure-pipelines-ci.yml</strong> and branch protection build policy on <strong style="color: var(--accent-blue);">main</strong>. <span style="color: var(--accent-green); font-weight: 600;">(Done — Build Policy Active)</span></label>
           </li>
           <li class="task-item">
-            <input type="checkbox" class="task-checkbox" id="t84" />
-            <label for="t84"><strong>Task 8.4: Execute Sabotage Lab L19 (BPA Violation in PR) & Phase 8 Gate Exam</strong> — Verify CI build fails and blocks merge when BPA rule is broken. <span style="color: var(--text-muted);">Pending</span></label>
+            <input type="checkbox" class="task-checkbox" id="t84" checked />
+            <label for="t84"><strong>Task 8.4: Automated Fabric CD Promotion</strong> — Author <strong style="color: var(--accent-blue);">azure-pipelines-cd.yml</strong> for REST API SPN promotion. <span style="color: var(--accent-green); font-weight: 600;">(Done — CD Spec Authored)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t85" checked />
+            <label for="t85"><strong>Task 8.5: Execute Sabotage Lab L19 (CI BPA PR Breach) &amp; Phase 8 Gate Exam</strong> — Injected sloppy measure blocked by branch policy; healed and passed Gate Exam (100/100). <span style="color: var(--accent-green); font-weight: 600;">(Done — Gate Score: 100/100)</span></label>
           </li>
         </ul>
       </div>
 
-      <div class="phase-card">
+      <div class="phase-card active-phase">
         <div class="phase-header">
-          <span class="phase-title">Phase 9 — Monitoring, Performance, The Gauntlet & Capstone</span>
-          <span class="status-tag status-locked">🔒 Locked (10h)</span>
+          <div>
+            <span class="badge badge-primary">ACTIVE PHASE</span>
+            <span class="phase-title" style="margin-left: 0.5rem;">Phase 9 — Monitoring, Performance, The Gauntlet &amp; Capstone</span>
+          </div>
+          <span class="status-tag status-in-progress">⏳ In Progress (10h)</span>
         </div>
-        <p style="color: var(--text-muted); font-size: 0.85rem;">Performance Analyzer + DAX Studio server timings, 8–10 symptom-only Gauntlet labs, final capstone presentation.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+          Goal: Microsoft Fabric Capacity Metrics app monitoring, DAX Studio XMLA server timings (VertiPaq Storage Engine vs Formula Engine xmSQL), Sabotage Lab L15 (DAX bottleneck tuning), The Final 6-Scenario Gauntlet, and Capstone Architecture Certification sign-off.
+        </p>
+        <ul class="task-list">
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t91" checked />
+            <label for="t91"><strong>Task 9.1: Semantic Model Refresh &amp; Capacity Metric App Monitoring</strong> — Fabric CU consumption, background vs interactive operations, refresh history, and throttling protection. <span style="color: var(--accent-green); font-weight: 600;">(Done — Metrics App Live Telemetry: 706.8 CU-s TEST / 543.7 CU-s PROD / 283.3 CU-s DEV)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t92" checked />
+            <label for="t92"><strong>Task 9.2: DAX Studio Performance Tuning (Server Timings)</strong> — Connect via XMLA / Desktop; evaluate VertiPaq Storage Engine (SE) multithreaded scans vs Formula Engine (FE) single-threaded iteration xmSQL. <span style="color: var(--accent-green); font-weight: 600;">(Done — Baseline: 13ms Total, 1 Unified xmSQL Scan, 0 Callbacks)</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t93" checked />
+            <label for="t93"><strong>Task 9.3: Sabotage Lab L15 (Severe DAX Bottleneck Injected &amp; Resolved)</strong> — Inject unvectorized iterator measure; benchmark FE delay; refactor to SE-folded vectorized DAX. <span style="color: var(--accent-green); font-weight: 600;">(Done — Lab L15 Mastered: Materialized rows dropped 376 &rarr; 8, SE queries collapsed 2 &rarr; 1, 13ms latency)</span></label>
+          </li>
+          <li class="task-item" style="border-color: var(--accent-blue); box-shadow: 0 0 8px var(--glow-blue);">
+            <input type="checkbox" class="task-checkbox" id="t94" />
+            <label for="t94"><strong>Task 9.4: The Final 6-Scenario Gauntlet (Enterprise Architecture Defense)</strong> — Defend end-to-end architecture across tenant, deployment pipelines, gateway, security, incremental refresh, and CI/CD. <span style="color: var(--accent-blue); font-weight: 600;">⬅ CURRENT</span></label>
+          </li>
+          <li class="task-item">
+            <input type="checkbox" class="task-checkbox" id="t95" />
+            <label for="t95"><strong>Task 9.5: Capstone Certification Presentation &amp; Final Architecture Sign-Off</strong> — Complete final presentation defense and award Brightline Enterprise Deployment Certification. <span style="color: var(--text-muted);">Pending</span></label>
+          </li>
+        </ul>
       </div>
     </div>
 
-            <!-- TAB 3: KNOWLEDGE & SCORES -->
+                    <!-- TAB 3: KNOWLEDGE & SCORES -->
     <div id="tab-knowledge" class="tab-pane">
-      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-30)</h2>
+      <h2 class="section-title">📚 Concepts Learned (CL-01 – CL-33)</h2>
       <table class="custom-table">
         <thead>
           <tr>
@@ -976,15 +1086,49 @@
           </tr>
           <tr>
             <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-30</strong></td>
-            <td><strong>Bi-Directional Cloud-to-Code Git Synchronization & Merge Conflict Resolution (Lab L18)</strong></td>
-            <td style="line-height: 1.6;"><code class="code-pill">Fabric</code> Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.</td>
+            <td><strong>Bi-Directional Cloud-to-Code Git Synchronization &amp; Merge Conflict Resolution (Lab L18)</strong></td>
+            <td style="line-height: 1.6;"><strong style="color: var(--accent-blue);">Fabric</strong> Git integration supports bi-directional synchronization: Changes tab commits cloud web edits to Git (Cloud->Code), while Updates tab pulls Git commits to workspace (Code->Cloud). Concurrent conflicts are resolved cleanly via text merge editors rather than throwing away entire models.</td>
             <td><span class="badge badge-primary">P7</span></td>
             <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-06</span></td>
+          </tr>
+          <tr>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-31</strong></td>
+            <td><strong><strong style="color: var(--accent-blue);">Fabric</strong> Capacity Smoothing: Interactive (5m) vs Background (24h)</strong></td>
+            <td style="line-height: 1.6;">Workload operations in <strong style="color: var(--accent-blue);">Microsoft Fabric</strong> consume CUs: Interactive (visual clicks, DAX queries) are smoothed over 5-minute windows; Background (scheduled refreshes, dataflows) are smoothed over 24-hour windows. When cumulative usage exceeds capacity limits, Fabric imposes throttling tiers: Interactive Delay -&gt; Interactive Rejection -&gt; Background Rejection.</td>
+            <td><span class="badge badge-primary">P9</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-08</span></td>
+          </tr>
+          <tr>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-32</strong></td>
+            <td><strong>3-Tier Triage Architecture for Automated CD Refresh Failures</strong></td>
+            <td style="line-height: 1.6;">When an automated REST API or CD pipeline refresh fails in production, triage across 3 layers: (1) Workspace Semantic Model Refresh History (inspect M mashup error &amp; duration breakdown), (2) Fabric Capacity Metrics App (detect CU exhaustion and background throttling), and (3) Gateway &amp; Data Source Connectivity (verify on-premises gateway online state, DB connection pool, and credentials).</td>
+            <td><span class="badge badge-primary">P9</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-08</span></td>
+          </tr>
+          <tr>
+            <td><strong class="font-mono text-cyan" style="font-size: 0.95rem;">CL-33</strong></td>
+            <td><strong>Materialized Rows in <strong style="color: var(--accent-blue);">VertiPaq</strong> &amp; <strong style="color: var(--accent-blue);">Formula Engine</strong> Saturation (Lab L15)</strong></td>
+            <td style="line-height: 1.6;">
+              <strong>Definition:</strong> When the Storage Engine (SE) runs an xmSQL query, &quot;materialization&quot; is the process of taking compressed column data from memory and physically constructing actual rows/tuples in RAM to pass to the Formula Engine (FE).<br />
+              <div style="margin-top: 0.5rem; padding: 0.75rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem;">
+                <strong style="color: var(--accent-amber);">📦 Warehouse Supervisor Analogy:</strong><br />
+                Imagine asking your warehouse supervisor: <em>&quot;What was our total revenue for each of our 5 product categories?&quot;</em><br />
+                • <strong style="color: var(--accent-green);">Method A (Clean DAX — 8 Materialized Rows):</strong> The supervisor looks at the category totals and hands you a tiny slip of paper with just 5 category totals (e.g. Beverages, Home Care, Packaged Foods, Personal Care, Snacks).<br />
+                &nbsp;&nbsp;&nbsp;<em>Result:</em> 8 rows in memory, takes <strong>4 ms</strong>, instant response.<br />
+                • <strong style="color: var(--accent-rose);">Method B (Lab L15 Bottleneck — 376 Materialized Rows):</strong> Because the measure forced an iterator over <code style="color: var(--accent-blue);">VALUES(product_id)</code>, the supervisor went down to every single individual product SKU (e.g. Colgate 100g, Pepsi 500ml, Lays Cream &amp; Onion, Tide 1kg... all 376 products!), wrote a massive 376-line manifest in RAM, and dumped it on your desk for you to add up manually line-by-line.<br />
+                &nbsp;&nbsp;&nbsp;<em>Result:</em> 376 intermediate rows constructed in RAM, SE CPU spiked to 16ms, and SE queries doubled from 1 to 2!<br />
+                <div style="margin-top: 0.4rem; font-size: 0.85rem; color: var(--text-muted);">
+                  <strong>Production Scale Risk:</strong> In a PROD model with 2.5M rows and 50,000 products/customers, Method B materializes 50,000+ rows into the single-threaded Formula Engine, exhausting RAM and causing 15–30s visual timeouts. Refactored using vectorized measure branching with <code style="color: var(--accent-blue);">CALCULATE([Net Revenue], KEEPFILTERS(...))</code> pushing filters directly to Storage Engine xmSQL.
+                </div>
+              </div>
+            </td>
+            <td><span class="badge badge-primary">P9</span></td>
+            <td><span class="font-mono text-muted" style="font-size: 0.8rem;">2026-09-08</span></td>
           </tr>
         </tbody>
       </table>
 
-      <h2 class="section-title" style="margin-top: 2.5rem;">🎯 Technical Questions & Answers (TQ-01 – TQ-25)</h2>
+      <h2 class="section-title" style="margin-top: 2.5rem;">🎯 Technical Questions &amp; Answers (TQ-01 – TQ-36)</h2>
       <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.25rem;">
         Complete record of all adaptive phase gate evaluations, scores, and authoritative enterprise standard answers.
       </p>
@@ -1615,6 +1759,156 @@
             </div>
           </div>
         </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-31</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">CI/CD</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            How does headless Tabular Editor CLI v2.28 execute automated Best Practice Analyzer (BPA) checks in an Azure DevOps CI build runner?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Executed in headless batch mode using TabularEditor.exe passing model TMDL path, -A BPARules.json, and -V validation flag. If severity 3 rule violations exist, the executable returns exit code 1 to fail the pipeline step; otherwise exit code 0 permits continuation.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-32</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">CI/CD</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why is a Branch Protection Build Policy on <strong style="color: var(--accent-blue);">main</strong> superior to post-merge CI triggers alone?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              PR Build Policy acts as a Prevention gate: it executes the CI pipeline on the candidate merge commit BEFORE merge is allowed. If BPA fails, PR merge is blocked and the main branch remains clean. Post-merge CI is only Detection: invalid code is already in main and Fabric DEV syncs corrupt model metadata.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-33</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">CI/CD</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            How does an Azure DevOps CD pipeline authenticate to Fabric and trigger deployment pipeline stage promotion?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Authenticates using Service Principal (SPN) credentials (appId, tenantId, clientSecret) via OAuth2 client_credentials grant to login.microsoftonline.com. Uses the bearer token to POST to the Fabric REST API /v1.0/myorg/pipelines/{pipelineId}/deploy with sourceStageOrder and targetStageOrder.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-34</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Fabric</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P8</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">10 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            Why does Fabric Git require the 'Updates' tab confirmation before hydrating Git commits into workspace items?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Fabric workspaces are live Analysis Services instances, not static file trees. Hydrating changes compiles TMDL and metadata in-place. The Updates tab gate prevents race conditions and overwriting in-flight web GUI edits without developer consent.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-35</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Fabric</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P9</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            If 5 large semantic models execute full refresh at 9:00 AM Monday, what risk is created and how do Fabric smoothing and stage isolation mitigate this?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              Refreshes are Background Operations evaluated over a 24-hour smoothing window. Heavy concurrent refreshes during peak business hours deplete available Capacity Units (CUs), triggering Interactive Delay and Interactive Rejection on user dashboards. Mitigated by: (1) Off-peak staggering (2:00 AM–5:00 AM), (2) Incremental refresh processing only delta partitions (23s), and (3) Dedicating separate capacities for DEV/TEST vs PROD.
+            </div>
+          </div>
+        </div>
+        <div class="phase-card" style="margin-bottom: 1.25rem; border-left: 4px solid var(--accent-blue);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span class="badge badge-primary font-mono" style="font-size: 0.85rem; padding: 0.35rem 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: rgba(56, 189, 248, 0.2); border: 1px solid var(--accent-blue);">TQ-36</span>
+              <span class="badge" style="background: rgba(99,102,241,0.15); color: var(--accent-indigo); border: 1px solid var(--accent-indigo); font-size: 0.75rem;">Troubleshooting</span>
+              <span class="badge badge-primary" style="font-size: 0.75rem;">P9</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <span class="status-tag status-completed" style="font-size: 0.75rem;">Correct</span>
+              <span class="font-mono" style="font-weight: 800; font-size: 1.05rem; color: var(--accent-green);">9.5 / 10</span>
+              <span class="font-mono text-muted" style="font-size: 0.75rem;">2026-09-08</span>
+            </div>
+          </div>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem; line-height: 1.5;">
+            If an automated CD pipeline refresh fails in PROD with a timeout, what are the first three places to inspect for root cause?
+          </div>
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-green); border-radius: 0.5rem; padding: 0.9rem 1.1rem;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--accent-green); letter-spacing: 0.05em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
+              <span>🎯</span> Architectural Standard / Correct Answer:
+            </div>
+            <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+              (1) Workspace Refresh History: Click 'Show' on the failed run to read the exact mashup error and duration. (2) Fabric Capacity Metrics App: Check whether background throttling or CU overconsumption rejected the job. (3) Gateway &amp; Data Source Connections: Verify the On-premises Gateway cluster status, PostgreSQL database connectivity/load limits, and credential expiration.
+            </div>
+          </div>
+        </div>
       </div>
 
       <h2 class="section-title" style="margin-top: 2.5rem;">⚠️ Knowledge Gaps & Resolution Status</h2>
@@ -1811,11 +2105,11 @@
           <tr><td><strong>L12</strong></td><td>Missing Deployment Rule on TEST Stage</td><td>P6</td><td>TEST model displays DEV data volume (250k rows)</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L13</strong></td><td>App Not Updated After PROD Deployment</td><td>P6</td><td>Workspace has new visuals, App consumers see stale version</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L14</strong></td><td>Dataset Takeover by Second Account</td><td>P2/P3</td><td>Gateway binding and credentials dropped; re-authentication verified</td><td><span class="status-tag status-completed">Passed / Rehearsed</span></td></tr>
-          <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L15</strong></td><td>Suboptimal DAX Measure Bottleneck</td><td>P9</td><td>Report page load takes 15+ seconds (FE saturation)</td><td><span class="status-tag status-in-progress">In Progress (P9)</span></td></tr>
           <tr><td><strong>L16</strong></td><td>SharePoint Source File Renamed</td><td>P3</td><td>Mixed-source refresh fails on cloud path only</td><td><span class="status-tag status-locked">Pending</span></td></tr>
           <tr><td><strong>L17</strong></td><td>Direct Hand-Editing in TEST Workspace</td><td>P6</td><td>Pipeline compare indicates drift; overwritten on deploy</td><td><span class="status-tag status-completed">Passed / Rehearsed (P6)</span></td></tr>
           <tr><td><strong>L18</strong></td><td>TMDL Git Merge Conflict</td><td>P7</td><td>PR blocked due to text conflict in table definition; surgically resolved in _Meaure.tmdl</td><td><span class="status-tag status-completed">Passed / Demonstrated (P7)</span></td></tr>
-          <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-locked">Pending</span></td></tr>
+          <tr><td><strong>L19</strong></td><td>BPA Violation Submitted in PR</td><td>P8</td><td>CI Azure Pipeline fails build check</td><td><span class="status-tag status-completed">Passed / Rehearsed (P8)</span></td></tr>
           <tr><td><strong>L20</strong></td><td>Full PBIX Republish Over Incremental Model</td><td>P5</td><td>All historical partitions wiped; full reload forced</td><td><span class="status-tag status-completed">Passed / Rehearsed (P5)</span></td></tr>
         </tbody>
       </table>
@@ -1936,10 +2230,1475 @@
           </div>
         </div>
 
+        <!-- CASE 6: DAX Performance Crisis — Materialized Rows & Formula Engine Saturation (Lab L15) -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-amber);" id="troubleshooting-case-dax">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-amber);">
+              <span>⚡</span> DAX Performance Crisis: Materialized Rows, Formula Engine Saturation &amp; Storage Engine Optimization (Lab L15)
+            </div>
+            <span class="status-tag status-completed">Lab L15 Mastered</span>
+          </div>
+
+          <div style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6;">
+            <p style="margin-bottom: 0.75rem;">
+              <strong style="color: var(--text-primary);">Production Incident Symptom:</strong> Users report executive dashboards taking <strong>15–30+ seconds</strong> to render. The Microsoft Fabric Capacity Metrics app flags high CPU consumption and triggers <em>Interactive Delay</em> throttling, while basic tables without this specific measure calculate in 0.2 seconds.
+            </p>
+            <p style="margin-bottom: 1rem;">
+              <strong style="color: var(--text-primary);">Technical Root Cause:</strong> A measure placed a row-by-row iterator over a high-cardinality dimension (<code style="color: var(--accent-blue);">VALUES(Dim_Products[product_id])</code>) wrapped in <code style="color: var(--accent-blue);">CALCULATE()</code>. This forced <strong>Context Transition</strong> on every row, preventing the multi-threaded Storage Engine (SE) from executing a parallel scan. Instead, VertiPaq had to <strong>materialize</strong> 376 individual product rows into RAM and pass them to the single-threaded <strong>Formula Engine (FE)</strong>, doubling SE queries and choking capacity.
+            </p>
+
+            <!-- ANALOGY BOX -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-cyan); border-radius: 0.6rem; padding: 1.25rem; margin-bottom: 1.5rem;">
+              <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--accent-cyan); letter-spacing: 0.05em; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>📦</span> A Simple Analogy: The Warehouse Supervisor &amp; The Barcode Manifest
+              </div>
+              <p style="margin-bottom: 0.75rem; color: var(--text-primary); font-style: italic;">
+                Imagine asking your warehouse supervisor: <strong>&quot;What was our total revenue for each of our 5 product categories?&quot;</strong>
+              </p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.75rem;">
+                <div style="background: rgba(34, 197, 94, 0.08); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 0.5rem; padding: 1rem;">
+                  <strong style="color: var(--accent-green); display: block; margin-bottom: 0.35rem;">🟢 Method A: Clean DAX (8 Materialized Rows)</strong>
+                  <p style="font-size: 0.88rem; margin: 0; color: var(--text-secondary); line-height: 1.5;">
+                    The supervisor looks at the category totals on their clipboard and hands you a tiny slip of paper with just <strong>5 category totals</strong> (Beverages, Home Care, Packaged Foods, Personal Care, Snacks).<br />
+                    <strong style="color: var(--accent-green);">Result:</strong> 8 rows in memory, takes <strong>4 ms</strong>, instant response!
+                  </p>
+                </div>
+                <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 0.5rem; padding: 1rem;">
+                  <strong style="color: var(--accent-rose); display: block; margin-bottom: 0.35rem;">🔴 Method B: Lab L15 Bottleneck (376 Materialized Rows)</strong>
+                  <p style="font-size: 0.88rem; margin: 0; color: var(--text-secondary); line-height: 1.5;">
+                    Because the measure forced an iterator over <code style="color: var(--accent-rose);">VALUES(product_id)</code>, the supervisor walked through the warehouse, touched every single product SKU (Colgate, Pepsi, Lays, Tide... all 376 items!), wrote a <strong>376-line manifest in RAM</strong>, and dumped it on your desk to sum line-by-line.<br />
+                    <strong style="color: var(--accent-rose);">Result:</strong> 376 intermediate rows in RAM, SE CPU spiked to 16ms, SE queries doubled to 2!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIDE-BY-SIDE BENCHMARK COMPARISON TABLE -->
+            <div style="margin-bottom: 1.5rem;">
+              <h4 style="color: var(--text-primary); font-size: 0.95rem; margin-bottom: 0.75rem;">📊 Exact Live Benchmark Comparison (DAX Studio Server Timings)</h4>
+              <table class="custom-table" style="font-size: 0.88rem;">
+                <thead>
+                  <tr>
+                    <th>Performance Metric</th>
+                    <th style="color: var(--accent-rose);">🔴 Unoptimized Bottleneck (Method B)</th>
+                    <th style="color: var(--accent-green);">🟢 Refactored Vectorized DAX (Method A)</th>
+                    <th>Architectural Variance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Storage Engine (SE) Queries</strong></td>
+                    <td style="color: var(--accent-rose); font-weight: 700;">2 SE Queries</td>
+                    <td style="color: var(--accent-green); font-weight: 700;">1 SE Query</td>
+                    <td>Unified single-pass bitmap scan (50% query reduction)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Materialized Rows in RAM</strong></td>
+                    <td style="color: var(--accent-rose); font-weight: 700;">376 rows</td>
+                    <td style="color: var(--accent-green); font-weight: 700;">8 rows</td>
+                    <td><strong>97.9% reduction</strong> in memory tuples handed to Formula Engine</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SE CPU Execution Time</strong></td>
+                    <td style="color: var(--accent-rose); font-weight: 700;">16 ms (x1.6 parallelism)</td>
+                    <td style="color: var(--accent-green); font-weight: 700;">0 ms (negligible)</td>
+                    <td>Eliminated multi-core CPU thread contention</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DEV Execution (250K rows)</strong></td>
+                    <td>18 ms</td>
+                    <td style="color: var(--accent-green); font-weight: 700;">13 ms</td>
+                    <td>28% latency reduction on lightweight development model</td>
+                  </tr>
+                  <tr>
+                    <td><strong>PROD Projected (2.5M rows / 50K SKUs)</strong></td>
+                    <td style="color: var(--accent-rose); font-weight: 700;">15.0 – 30.0+ seconds</td>
+                    <td style="color: var(--accent-green); font-weight: 700;">&lt; 0.12 seconds (120 ms)</td>
+                    <td><strong>200x speedup</strong>; prevents Fabric Capacity throttling and timeouts</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Internal xmSQL Generated</strong></td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;">SELECT Dim_Products[product_id], Dim_Products[category], SUM(@$Expr0) ...</td>
+                    <td style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;">SELECT Dim_Products[category], SUM(@$Expr0) ... WHERE Dim_Products[category] &lt;&gt; &#39;Personal Care&#39;</td>
+                    <td>Filter pushed directly into VertiPaq Storage Engine predicate</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- SIDE-BY-SIDE CODE COMPARISON -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-rose); margin-bottom: 0.4rem;">
+                  🔴 BAD DAX: Context Transition &amp; High-Grain Iterator
+                </div>
+                <pre style="background: var(--bg-primary); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 0.5rem; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.45;">
+EVALUATE
+SUMMARIZECOLUMNS(
+    Dim_Products[category],
+    &quot;Bottleneck Revenue&quot;,
+        SUMX(
+            -- ANTI-PATTERN: Iterating 376 individual SKUs
+            VALUES(Dim_Products[product_id]),
+            -- ANTI-PATTERN: Context transition forces FE loop
+            CALCULATE(
+                SUMX(
+                    FILTER(
+                        Fact_Sales,
+                        RELATED(Dim_Products[category]) &lt;&gt; &quot;Personal Care&quot;
+                    ),
+                    Fact_Sales[qty] * Fact_Sales[unit_price] * (1 - Fact_Sales[discount_pct])
+                )
+            )
+        )
+)</pre>
+              </div>
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-green); margin-bottom: 0.4rem;">
+                  🟢 GOOD DAX: Measure Branching &amp; Predicate Pushdown
+                </div>
+                <pre style="background: var(--bg-primary); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 0.5rem; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.45;">
+EVALUATE
+SUMMARIZECOLUMNS(
+    Dim_Products[category],
+    &quot;Optimized Revenue&quot;,
+        -- BEST PRACTICE: Reusing certified base measure
+        CALCULATE(
+            [Net Revenue],
+            -- PUSH-DOWN: Filter evaluated by Storage Engine in 1 scan
+            KEEPFILTERS(Dim_Products[category] &lt;&gt; &quot;Personal Care&quot;)
+        )
+)
+ORDER BY
+    Dim_Products[category] ASC</pre>
+              </div>
+            </div>
+
+            <!-- 3 GOLDEN ARCHITECTURAL RULES -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem;">
+              <strong style="color: var(--accent-amber); display: block; margin-bottom: 0.5rem;">⚡ 3 Golden Rules to Prevent Materialized Row Explosions:</strong>
+              <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.45rem; margin: 0; font-size: 0.88rem;">
+                <li><strong style="color: var(--text-primary);">Never place CALCULATE() or measures inside a row-by-row fact table iterator:</strong> Context transition turns an in-memory vector scan into millions of individual query loops.</li>
+                <li><strong style="color: var(--text-primary);">Use Measure Branching instead of manual math:</strong> Certified base measures (<code style="color: var(--accent-blue);">[Net Revenue]</code>) allow VertiPaq to collapse aggregations into a single xmSQL pass.</li>
+                <li><strong style="color: var(--text-primary);">Push dimension filters down using KEEPFILTERS():</strong> Avoid <code style="color: var(--accent-blue);">FILTER(Fact_Sales, RELATED(...))</code>; filter the dimension directly so VertiPaq injects a simple <code style="color: var(--accent-blue);">WHERE</code> clause into the Storage Engine scan.</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+
+
       </div>
     </div>
 
     <!-- TAB 6: 7 LENSES & SCORING -->
+    
+    <!-- TAB 7: CI/CD PIPELINE STEPS & PLAYBOOK -->
+    
+    <!-- TAB 7: CI/CD PIPELINE STEPS & PLAYBOOK -->
+    
+    <!-- TAB 7: CI/CD PIPELINE STEPS & PLAYBOOK (REDESIGNED GROUPWISE) -->
+    <div id="tab-cicd" class="tab-pane">
+      
+      <!-- HEADER CARD -->
+      <div class="phase-card" style="border-left: 4px solid var(--accent-cyan); margin-bottom: 1.5rem;">
+        <div class="phase-header">
+          <div class="phase-title" style="color: var(--accent-cyan);">
+            <span>⚡</span> Enterprise CI/CD Pipeline & Quality Gates Master Playbook
+          </div>
+          <span class="status-tag status-completed">✅ Phase 8 Mastered (100/100)</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-top: 0.5rem;">
+          Complete architectural reference for <strong>Shift-Left Quality Assurance</strong>, headless <strong>Tabular Editor &amp; BPA</strong>, <strong>Fabric Git Hydration</strong>, and <strong>Service Principal (SPN) CD Automation</strong>. Use the horizontal tabs below to navigate the conceptual groups without endless scrolling.
+        </p>
+      </div>
+
+      <!-- HORIZONTAL GROUP NAVIGATION BAR -->
+      <div class="cicd-subnav" style="display: flex; gap: 0.6rem; margin-bottom: 1.75rem; overflow-x: auto; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+        <button type="button" class="cicd-subnav-btn active" onclick="switchCicdGroup('group-ci')">🛡️ 1. CI Quality Gate &amp; Build Policy</button>
+        <button type="button" class="cicd-subnav-btn" onclick="switchCicdGroup('group-spn')">🔑 2. SPN, Entra ID &amp; CD Promotion</button>
+        <button type="button" class="cicd-subnav-btn" onclick="switchCicdGroup('group-fabric')">☁️ 3. Fabric Git &amp; Runtime Updates</button>
+        <button type="button" class="cicd-subnav-btn" onclick="switchCicdGroup('group-foundation')">📚 4. Foundation: Tabular Editor &amp; BPA</button>
+        <button type="button" class="cicd-subnav-btn" onclick="switchCicdGroup('group-files')">📂 5. Pipeline Manifests &amp; Code</button>
+        <button type="button" class="cicd-subnav-btn" onclick="switchCicdGroup('group-troubleshooting')">🚨 6. Error Encyclopedia &amp; SOP</button>
+      </div>
+
+      <!-- GROUP 1: CI QUALITY GATE & BUILD POLICY -->
+      <div id="group-ci" class="cicd-group-pane" style="display: block;">
+        <div class="phase-card" style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-amber);">
+          <h2 class="section-title" style="color: var(--accent-amber); margin-bottom: 0.75rem;">🛡️ Azure DevOps CI Quality Gate Execution Flow</h2>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
+            Here is the exact implementation flow executing on every Pull Request targeting <strong style="color: var(--accent-blue);">main</strong>:
+          </p>
+
+          <!-- ASCII Architecture Diagram -->
+          <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-primary); overflow-x: auto; line-height: 1.5;">
+                    Git PR
+                      │
+                      ↓
+              Azure DevOps CI
+                      │
+                      ↓
+             Checkout PR branch
+                      │
+                      ↓
+          Download Tabular Editor 2.28
+                      │
+                      ↓
+                Load TMDL model
+                      │
+                      ↓
+               -A BPARules.json
+                      │
+                      ↓
+                  Run BPA
+                      │
+            ┌─────────┴──────────┐
+            │                    │
+       No violations        Severity 3
+            │                 violation
+            ↓                    ↓
+      ExitCode = 0         ExitCode != 0
+            │                    │
+            │              Azure DevOps
+            │              logging via -V
+            │                    │
+            │                    ↓
+            │             $process.ExitCode
+            │                    │
+            │              `-ne 0` = TRUE
+            │                    │
+            │                    ↓
+            │                exit 1
+            │                    │
+            ↓                    ↓
+       <span style="color: var(--accent-green); font-weight: 700;">✅ CI passes</span>             <span style="color: var(--accent-rose); font-weight: 700;">❌ CI fails</span>
+          </pre>
+
+          <div style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Why Severity 3 was the Correct Choice</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+              Your business rule is effectively: <em>"These model-quality violations must prevent a PR from being accepted."</em>
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+              <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color);">
+                <strong style="color: var(--text-muted);">Severity 1 &rarr; Information</strong>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Diagnostic notes. Does not block CI.</div>
+              </div>
+              <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--border-color);">
+                <strong style="color: var(--accent-amber);">Severity 2 &rarr; Warning</strong>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Non-critical styling. Does not fail build.</div>
+              </div>
+              <div style="background: rgba(244, 63, 94, 0.1); padding: 1rem; border-radius: 0.5rem; border: 1px solid var(--accent-rose);">
+                <strong style="color: var(--accent-rose);">Severity 3 &rarr; Error</strong>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Enforces strict rule. Blocks PR merge!</div>
+              </div>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">
+              The official Tabular Editor 2 documentation confirms that <strong>Severity &ge; 3 is reported as an error when -V is used</strong>.
+            </p>
+          </div>
+
+          <!-- 5 Things to Remember -->
+          <div style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.75rem;">The 5 Things to Remember in the CI Pipeline</h3>
+            <table class="custom-table" style="margin-bottom: 1.25rem;">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Role in your Pipeline</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color: var(--accent-blue);">BPARules.json</strong></td>
+                  <td>Defines what is considered an architectural violation.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--accent-rose);">Severity: 3</strong></td>
+                  <td>Makes those violations errors that fail the linter.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--accent-cyan);">-A</strong></td>
+                  <td>Runs Tabular Editor BPA using your custom JSON rulebook.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--accent-indigo);">-V</strong></td>
+                  <td>Emits Azure DevOps/VSTS logging commands (<code style="color: var(--accent-blue);">##vso[task.logissue type=error]</code>).</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--accent-amber);">$process.ExitCode</strong></td>
+                  <td>PowerShell accurately reads Tabular Editor's process result without stream corruption.</td>
+                </tr>
+                <tr>
+                  <td><strong style="color: var(--accent-rose);">exit 1</strong></td>
+                  <td>Explicitly fails the Azure DevOps build task, locking the PR merge gate.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Why Branch Policy is Superior -->
+          <div style="margin-top: 1.5rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Why Branch Policy is Architecturally Superior (Prevention vs Detection)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+              Branch policies ensure that no broken code is merged into <strong style="color: var(--accent-blue);">main</strong>. A bad TMDL definition can reach the Fabric DEV workspace and break the shared development environment for the entire engineering team.
+            </p>
+            <!-- SIDE-BY-SIDE ARCHITECTURAL COMPARISON: WITHOUT VS WITH BRANCH POLICY -->
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.45; margin: 1rem 0 1.25rem;">
+<span style="color: var(--accent-rose); font-weight: 700;">╔══════════════════════════════════════════════╗</span>    <span style="color: var(--accent-green); font-weight: 700;">╔══════════════════════════════════════════════╗</span>
+<span style="color: var(--accent-rose); font-weight: 700;">║ 🔴 WITHOUT BRANCH POLICY                     ║</span>    <span style="color: var(--accent-green); font-weight: 700;">║ 🟢 WITH BRANCH POLICY                       ║</span>
+<span style="color: var(--accent-rose); font-weight: 700;">╚══════════════════════════════════════════════╝</span>    <span style="color: var(--accent-green); font-weight: 700;">╚══════════════════════════════════════════════╝</span>
+
+              Developer                                      Developer
+                  │                                               │
+                  ▼                                               ▼
+           Feature Branch                                  Feature Branch
+                  │                                               │
+                  ▼                                               ▼
+         Pull Request → main                            Pull Request → main
+                  │                                               │
+                  ▼                                               ▼
+       <span style="color: var(--accent-rose); font-weight: 700;">❗ No validation gate</span>                         <span style="color: var(--accent-green); font-weight: 700;">🔒 Branch Policy</span>
+                  │                                  <strong style="color: var(--accent-green);">Build Validation REQUIRED</strong>
+                  ▼                                               │
+               MERGE                                              ▼
+                  │                                         Azure DevOps CI
+                  ▼                                               │
+          <strong style="color: var(--accent-rose);">main ❌ contains</strong>                                         ▼
+            <strong style="color: var(--accent-rose);">bad TMDL</strong>                                      Tabular Editor + BPA
+                  │                                               │
+                  ▼                                               ▼
+              CI runs                                     Severity 3 violation
+                  │                                               │
+                  ▼                                               ▼
+       Tabular Editor + BPA                                <strong style="color: var(--accent-rose);">CI ❌ FAILS</strong>
+                  │                                               │
+                  ▼                                               ▼
+       Severity 3 violation                              <strong style="color: var(--accent-green);">PR MERGE BLOCKED 🔒</strong>
+                  │                                               │
+                  ▼                                               ▼
+             <strong style="color: var(--accent-rose);">CI ❌ FAILS</strong>                                     <strong style="color: var(--accent-green);">main CLEAN ✅</strong>
+                  │                                               │
+                  ▼                                               ▼
+     <span style="color: var(--accent-rose);">But bad code is already in</span>                        <span style="color: var(--accent-green);">Fabric protected from</span>
+              <strong style="color: var(--accent-rose);">main</strong>                                      <span style="color: var(--accent-green);">this bad change</span>
+                  │
+                  ▼
+    Git → Fabric Synchronization
+           / Updates
+                  │
+                  ▼
+      DEV Workspace potentially
+       receives bad definition
+                  │
+                  ▼
+      <strong style="color: var(--accent-rose);">❌ Shared Fabric DEV</strong>
+         <strong style="color: var(--accent-rose);">can be broken</strong>
+            </pre>
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Approach</th>
+                  <th>When is problem detected?</th>
+                  <th>Can bad code enter main?</th>
+                  <th>Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>CI after merge</strong></td>
+                  <td>After merge</td>
+                  <td><span style="color: var(--accent-rose); font-weight: 700;">✅ Yes</span></td>
+                  <td>Shared environment and workspace can be affected and broken.</td>
+                </tr>
+                <tr style="background: rgba(34, 197, 94, 0.08);">
+                  <td><strong style="color: var(--accent-green);">PR Build Validation (Branch Policy)</strong></td>
+                  <td>Before merge</td>
+                  <td><span style="color: var(--accent-green); font-weight: 700;">❌ No</span></td>
+                  <td>Problem remains completely isolated to the feature PR branch!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 2: SPN, ENTRA ID & CD REST API PROMOTION -->
+      <div id="group-spn" class="cicd-group-pane" style="display: none;">
+        <div class="phase-card" style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-indigo);">
+          <h2 class="section-title" style="color: var(--accent-indigo); margin-bottom: 0.75rem;">🔑 The 9-Step Enterprise SPN &amp; CD Automation Architecture</h2>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
+            How Azure DevOps triggers automated promotion in the Fabric Deployment Pipeline without personal user accounts or manual portal clicks:
+          </p>
+
+          <!-- 9-Step Architecture Diagram -->
+          <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.4;">
+┌──────────────────────────────────────────────────────────────────────┐
+│                         1. YOU — HUMAN                              │
+│                                                                      │
+│ Azure DevOps account:                                                │
+│ <span style="color: var(--accent-blue); font-weight: 700;">punitgir74@gmail.com</span>                                                 │
+│                                                                      │
+│ Fabric account:                                                      │
+│ <span style="color: var(--accent-cyan); font-weight: 700;">punitgiri@punitgiri921gmail.onmicrosoft.com</span>                         │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ You configure the environment
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                    2. MICROSOFT ENTRA ID (AAD)                       │
+│                                                                      │
+│ Identity platform                                                    │
+│                                                                      │
+│ You create an App Registration:                                      │
+│                                                                      │
+│        <strong style="color: var(--accent-indigo);">"Brightline-Deployment-SPN"</strong>                                   │
+│                                                                      │
+│ The application gets:                                                │
+│        • Tenant ID                                                   │
+│        • Client ID                                                   │
+│        • Client Secret                                               │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Creates / represents
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                 3. SERVICE PRINCIPAL (SPN)                           │
+│                                                                      │
+│              <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                               │
+│                                                                      │
+│ This is NOT you.                                                     │
+│ This is NOT your Gmail account.                                      │
+│ This is an application identity used by automation.                  │
+│                                                                      │
+│ Credentials:                                                         │
+│        Client ID                                                     │
+│        Client Secret                                                 │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Credentials stored securely
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                    4. AZURE DEVOPS                                   │
+│                                                                      │
+│ CI/CD Pipeline (<strong style="color: var(--accent-blue);">azure-pipelines-cd.yml</strong>)                              │
+│                                                                      │
+│ Azure DevOps now has access to the SPN credentials                   │
+│ through secure pipeline configuration.                               │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Deployment starts
+                               │ Client Credentials Flow
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                    5. MICROSOFT ENTRA ID                             │
+│                                                                      │
+│ Azure DevOps says:                                                   │
+│ "I am Brightline-Deployment-SPN."                                    │
+│ "Here is my Client ID."                                              │
+│ "Here is my Client Secret."                                          │
+│                                                                      │
+│ Entra ID validates the credentials.                                  │
+│                                                                      │
+│                 AUTHENTICATION                                       │
+│                "WHO ARE YOU?"                                        │
+│                         ↓                                            │
+│              Brightline-Deployment-SPN                               │
+│                         ↓                                            │
+│                       <span style="color: var(--accent-green); font-weight: 700;">VALID ✅</span>                                        │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Entra issues
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                       6. ACCESS TOKEN                                │
+│                                                                      │
+│ Entra ID returns an OAuth 2.0 Bearer Access Token.                   │
+│ The token represents the authenticated application:                  │
+│                                                                      │
+│        <strong style="color: var(--accent-cyan);">Brightline-Deployment-SPN</strong>                                     │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Authorization: Bearer &lt;token&gt;
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                     7. FABRIC REST API                               │
+│                                                                      │
+│ Azure DevOps sends the request to Fabric.                            │
+│ Fabric examines the access token:                                    │
+│                                                                      │
+│ "WHO IS CALLING ME?"                                                 │
+│ Answer: <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                                     │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                               │ Now authorization happens
+                               ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                       8. FABRIC                                      │
+│                                                                      │
+│ Fabric asks:                                                         │
+│ "Is this authenticated SPN allowed to perform                        │
+│  this particular operation?"                                         │
+│                                                                      │
+│ Checks include:                                                      │
+│   • Fabric tenant service-principal access enabled                   │
+│   • Deployment pipeline permissions                                  │
+│   • SPN's assigned role: Role = <strong style="color: var(--accent-green);">ADMIN</strong> on Deployment Pipeline          │
+└──────────────────────────────┬───────────────────────────────────────┘
+                               │
+                    ┌──────────┴──────────┐
+                    │                     │
+                    ↓                     ↓
+              <span style="color: var(--accent-green); font-weight: 700;">AUTHORIZED</span>              <span style="color: var(--accent-rose); font-weight: 700;">NOT AUTHORIZED</span>
+                    │                     │
+                    ↓                     ↓
+                 ALLOW                 DENY ❌
+                    │
+                    ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│                    9. FABRIC DEPLOYMENT PIPELINE                     │
+│                                                                      │
+│                       DEV → TEST                                     │
+│                                                                      │
+│                  <span style="color: var(--accent-green); font-weight: 700;">Deployment succeeds ✅</span>                              │
+└──────────────────────────────────────────────────────────────────────┘
+          </pre>
+
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem; margin-top: 1.5rem;">
+            <strong style="color: var(--text-primary); font-size: 1rem;">Authentication vs Authorization</strong>
+            <ul style="padding-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
+              <li><strong style="color: var(--accent-blue);">Authentication (Entra ID):</strong> Answers <em>"Who are you?"</em> &rarr; Proves identity using Client ID &amp; Secret, returns Bearer token.</li>
+              <li><strong style="color: var(--accent-green);">Authorization (Fabric):</strong> Answers <em>"What are you allowed to do?"</em> &rarr; Checks if the SPN is assigned <strong>Pipeline Admin</strong>.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 3: FABRIC GIT & RUNTIME UPDATES -->
+      <div id="group-fabric" class="cicd-group-pane" style="display: none;">
+        <div class="phase-card" style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-green);">
+          <h2 class="section-title" style="color: var(--accent-green); margin-bottom: 0.75rem;">☁️ Fabric Git Integration: Live Runtime vs Code Repository</h2>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
+            A Fabric workspace is not just a folder containing <code style="color: var(--accent-blue);">.pbix</code> files &mdash; it is a <strong>live semantic model &amp; report runtime</strong>. Git is the source representation.
+          </p>
+
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: var(--text-primary); margin-bottom: 1.25rem;">
+            Git Repository (Version A &rarr; Version B)<br />
+            &nbsp;│<br />
+            &nbsp;│ "I have new changes"<br />
+            &nbsp;&darr;<br />
+            Fabric Source Control &rarr; <strong>Updates Tab</strong><br />
+            &nbsp;│<br />
+            &nbsp;│ Developer inspects diff &amp; clicks "Update all"<br />
+            &nbsp;&darr;<br />
+            Fabric Workspace (Live Runtime becomes Version B)
+          </div>
+
+          <div style="margin-top: 1.25rem;">
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Why Race Conditions Matter</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+              Imagine two developers working concurrently:
+            </p>
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              • <strong>Developer A</strong>: Working directly in the Fabric web UI &rarr; Adds a visual or edits a measure.<br />
+              • <em>Meanwhile</em>, <strong>Developer B</strong>: Pushes TMDL commits to Git.<br /><br />
+              If synchronization happened automatically without approval, Developer B's Git push would <strong>silently overwrite Developer A's in-flight work</strong>!
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+              Therefore, <strong>Git is the source-controlled definition, while the workspace is the live runtime</strong>. The <strong>Updates</strong> tab gives developers deliberate control over when Git changes are compiled into the live cloud workspace.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- GROUP 4: FOUNDATION (FROM ZERO TO ENTERPRISE GUIDE) -->
+      <div id="group-foundation" class="cicd-group-pane" style="display: none;">
+        <!-- Insert White Background Masterclass Reader -->
+        
+      <!-- FROM ZERO TO ENTERPRISE: THE COMPLETE MASTERCLASS GUIDE (WHITE BACKGROUND READER FORMAT) -->
+      <div class="masterclass-reader" style="background: #ffffff; color: #1e293b; padding: 2.5rem 3rem; border-radius: 1rem; margin-bottom: 2.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.25); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.75;">
+        
+        <!-- Header Banner Flow -->
+        <div style="background: #f8fafc; border-left: 4px solid #0284c7; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.75rem; font-size: 0.95rem; color: #334155;">
+          Developer writes model &rarr; <strong>Tabular Editor</strong> validates it with <strong>BPA</strong> &rarr; <strong>PR policy</strong> blocks bad changes &rarr; approved <strong>TMDL</strong> reaches <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem; color: #0f172a;">main</code> &rarr; <strong>Fabric Git Updates</strong> deploys it to workspace &rarr; <strong>Azure DevOps</strong> can promote it through Fabric pipelines using an <strong>SPN</strong>.
+        </div>
+
+        <p style="font-size: 1.05rem; color: #475569; margin-bottom: 2rem;">
+          Your notes are focusing on the architecture, but if you don't know <strong>BPA</strong> and <strong>Tabular Editor</strong>, let's build from zero.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 1. What is Tabular Editor? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">1. First: What is Tabular Editor?</h2>
+        <p style="margin-bottom: 1rem;">Think of Power BI Desktop as the <strong>GUI</strong> for building a semantic model.</p>
+        <p style="margin-bottom: 0.5rem;">You normally create:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li>Tables</li>
+          <li>Relationships</li>
+          <li>Measures</li>
+          <li>Calculation groups</li>
+          <li>Columns</li>
+          <li>Perspectives</li>
+          <li>Display folders</li>
+          <li>Formatting</li>
+          <li>Model properties</li>
+        </ul>
+        <p style="margin-bottom: 1rem;">But Power BI Desktop isn't always the best tool for <strong>large-scale model development and automation</strong>.</p>
+        <p style="margin-bottom: 1.5rem;">That's where <strong>Tabular Editor</strong> comes in.</p>
+
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 1.25rem 0 0.5rem;">Simple analogy</h3>
+        <p style="margin-bottom: 1rem;">You already know VBA/Excel. Think:</p>
+
+        <table style="width: 100%; max-width: 650px; border-collapse: collapse; margin-bottom: 1.5rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; overflow: hidden;">
+          <thead>
+            <tr style="background: #f1f5f9; text-align: left;">
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Excel world</th>
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Power BI world</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155; font-size: 0.95rem;">
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Excel GUI</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Power BI Desktop</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">VBA</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Tabular Editor scripting</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Workbook structure</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Semantic model</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">VBA validation/checks</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">BPA</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Git</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Source control</td></tr>
+            <tr><td style="padding: 0.6rem 1rem;">Automated VBA checks</td><td style="padding: 0.6rem 1rem;">CI validation</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-bottom: 1.75rem;"><strong>Tabular Editor</strong> is a specialized tool for working with Tabular models, including Power BI semantic models.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 2. What can Tabular Editor do? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">2. What can Tabular Editor do?</h2>
+        <p style="margin-bottom: 1rem;">Suppose you have 500 measures.</p>
+        <p style="margin-bottom: 1rem;">In Power BI Desktop, manually changing properties on 500 measures would be painful.</p>
+        <p style="margin-bottom: 0.5rem;">Tabular Editor can automate things like:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0 1.25rem;">
+          Sales Amount<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Display Folder = Sales<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Format = $#,##0<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Description = "Total sales amount"<br /><br />
+          Gross Margin<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Display Folder = Profitability<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&rarr; Format = 0.0%
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">You can also use scripting to perform bulk operations.</p>
+        <p style="margin-bottom: 0.5rem;">For example:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 0.75rem 0 1.25rem;">
+          foreach (var measure in Model.AllMeasures)<br />
+          {<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;measure.FormatString = "#,##0";<br />
+          }
+        </div>
+        <p style="margin-bottom: 1.75rem;">So instead of manually modifying hundreds of objects, you can automate the model metadata.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 3. Now what is BPA? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">3. Now what is BPA?</h2>
+        <p style="margin-bottom: 1rem;">This is probably the most important missing concept in your notes.</p>
+        <p style="margin-bottom: 1rem;"><strong>BPA = Best Practice Analyzer</strong>.</p>
+        <p style="margin-bottom: 1rem;">It is essentially a rule engine that checks your semantic model against predefined best practices.</p>
+        <p style="margin-bottom: 0.5rem;">Imagine your Power BI model contains:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1rem; color: #334155;">
+          <li>FactSales</li>
+          <li>DimCustomer</li>
+          <li>DimProduct</li>
+          <li>DimDate</li>
+        </ul>
+        <p style="margin-bottom: 0.5rem;">Someone creates a measure:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin-bottom: 1rem;">
+          Total Sales = SUM(FactSales[SalesAmount])
+        </div>
+        <p style="margin-bottom: 0.5rem;">BPA can check things such as:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li>Does the measure have a description?</li>
+          <li>Are naming conventions followed?</li>
+          <li>Are unnecessary columns exposed?</li>
+          <li>Are relationships configured properly?</li>
+          <li>Are certain modeling patterns being violated?</li>
+          <li>Are there potentially problematic DAX patterns?</li>
+        </ul>
+        <div style="background: #f1f5f9; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.75rem; font-size: 0.95rem;">
+          <strong>Tabular Editor</strong> = tool that works with the model.<br />
+          <strong>BPA</strong> = rules that inspect the model.
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 4. BPA is basically a model quality gate -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">4. BPA is basically a model quality gate</h2>
+        <p style="margin-bottom: 0.75rem;">Imagine your company defines this rule:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          Every measure must have a description.
+        </blockquote>
+        <p style="margin-bottom: 0.5rem;">Developer creates:</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #0f172a; margin-bottom: 0.5rem;">Total Sales</div>
+        <p style="margin-bottom: 0.5rem;">but doesn't provide a description.</p>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">BPA detects: ❌ Measure "Total Sales" has no description</p>
+        <p style="margin-bottom: 0.5rem;">Another rule might say:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          Measures should not be named Measure 1, Measure 2, etc.
+        </blockquote>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">BPA could detect: ❌ Invalid measure naming convention</p>
+        <p style="margin-bottom: 1.75rem;">So <strong>BPA becomes an automated quality-control layer</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 5. What does Severity mean? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">5. What does Severity mean?</h2>
+        <p style="margin-bottom: 0.75rem;">This connects directly to your note:</p>
+        <div style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 1rem 0; font-weight: 700; color: #0f172a; font-size: 1.05rem;">
+          BPA Severity 3 = Error
+        </div>
+        <p style="margin-bottom: 0.75rem;">Think of BPA rules as having different levels. For example:</p>
+        
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Severity 1 &rarr; Information<br />
+          Severity 2 &rarr; Warning<br />
+          Severity 3 &rarr; Error
+        </div>
+
+        <p style="margin-bottom: 1rem;">The important thing is that <strong>Severity 3 can be configured to fail the automated validation process</strong>.</p>
+        <p style="margin-bottom: 0.5rem;">For example:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Developer creates model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Tabular Editor<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Run BPA<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          BPA finds Severity 3 violation<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Exit code = 1<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          CI pipeline sees failure<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #b91c1c; font-weight: 700;">❌ Build fails</span>
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">That's what your note means by:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          "Tabular Editor to output an error stream and set a non-zero exit code (1)"
+        </blockquote>
+        <p style="margin-bottom: 1.75rem;">The important concept is <strong>exit code</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 6. What is an exit code? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">6. What is an exit code?</h2>
+        <p style="margin-bottom: 1rem;">This is an important DevOps concept.</p>
+        <p style="margin-bottom: 0.5rem;">A command executed by a pipeline usually returns a status. Simplified:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          0 = Success<br />
+          1 = Failure
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">Suppose Azure DevOps executes:</p>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #0f172a; margin-bottom: 0.75rem;">TabularEditor.exe model.bim /BPA</div>
+        
+        <p style="margin-bottom: 0.5rem;">If everything passes:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 0.75rem;">
+          Process completed<br />
+          Exit code: 0
+        </div>
+        <p style="margin-bottom: 1rem; color: #15803d; font-weight: 600;">Azure DevOps says: Good &mdash; continue.</p>
+
+        <p style="margin-bottom: 0.5rem;">But if a Severity 3 BPA rule fails:</p>
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.5rem; padding: 0.75rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #991b1b; margin-bottom: 0.75rem;">
+          BPA Error<br />
+          Exit code: 1
+        </div>
+        <p style="margin-bottom: 1rem; color: #b91c1c; font-weight: 600;">Azure DevOps says: Something failed &rarr; fail this pipeline step.</p>
+        <p style="margin-bottom: 1.75rem;">So BPA isn't merely showing a red warning on someone's screen. <strong>It can become an automated CI gate</strong>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 7. Now the "Shift-Left" concept -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">7. Now the "Shift-Left" concept</h2>
+        <p style="margin-bottom: 1rem;">This is a very common DevOps architecture principle.</p>
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.25rem; font-weight: 600; color: #1e3a8a;">
+          Shift-left = detect problems earlier in the development lifecycle.
+        </div>
+
+        <p style="margin-bottom: 0.5rem;">Imagine this workflow:</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.25rem 0;">
+          <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #991b1b;">
+            <strong>Bad architecture</strong><br />
+            Developer<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Git<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            main<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Fabric DEV<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Everyone discovers broken model
+          </div>
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #166534;">
+            <strong>Better architecture (Shift-Left)</strong><br />
+            Developer<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Feature Branch<br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            BPA validation &rarr; <span style="color: #b91c1c;">❌ Error &rarr; STOP</span><br />
+            &nbsp;&nbsp;&nbsp;&darr; (or)<br />
+            BPA validation &rarr; <span style="color: #15803d;">✅ Pass</span><br />
+            &nbsp;&nbsp;&nbsp;&darr;<br />
+            Pull Request &rarr; main
+          </div>
+        </div>
+        <p style="margin-bottom: 1.75rem;">That's <strong>shift-left</strong>. You're catching the problem <em>before</em> it reaches <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">main</code>.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 8. Why is this particularly important with Power BI + Git? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">8. Why is this particularly important with Power BI + Git?</h2>
+        <p style="margin-bottom: 1rem;">This is where your note is very good.</p>
+        <p style="margin-bottom: 1rem;">A Fabric workspace is not just a folder containing <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">.pbix</code> files.</p>
+        <p style="margin-bottom: 1rem;">You have a <strong>live semantic model/report runtime</strong>.</p>
+        <p style="margin-bottom: 0.5rem;">Your Git repository contains the <strong>source representation</strong>. Conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Git Repository<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ source code / TMDL<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric Workspace<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ compiled/deployed model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Live Power BI environment
+        </div>
+
+        <p style="margin-bottom: 1rem;">Therefore, if bad model metadata gets merged into <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">main</code>, you can potentially push bad definitions toward the development workspace.</p>
+        <p style="margin-bottom: 0.5rem;">That's why:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 1.75rem;">
+          Feature branch &rarr; CI validation &rarr; BPA &rarr; PR policy &rarr; main
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 9. What exactly is TMDL? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">9. What exactly is TMDL?</h2>
+        <p style="margin-bottom: 1rem;">This is another important connection.</p>
+        <p style="margin-bottom: 1rem;"><strong>TMDL = Tabular Model Definition Language</strong>.</p>
+        <p style="margin-bottom: 1rem;">Instead of keeping your entire semantic model as one opaque file, the model can be represented as structured text.</p>
+        <p style="margin-bottom: 0.5rem;">For example, conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 1rem 0;">
+          model<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;name: SalesModel<br /><br />
+          table Sales<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;column SalesAmount<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;measure Total Sales = SUM(...)
+        </div>
+
+        <p style="margin-bottom: 1rem;">This is much more Git-friendly than treating the model as one large binary artifact.</p>
+        <p style="margin-bottom: 0.5rem;">So your architecture becomes:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #334155; margin-bottom: 1.75rem;">
+          Power BI semantic model &rarr; TMDL &rarr; Git &rarr; Pull Request &rarr; BPA / CI
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 10. Now the "Updates" tab -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">10. Now the "Updates" tab</h2>
+        <p style="margin-bottom: 1rem;">This is a completely different part of the architecture.</p>
+        <p style="margin-bottom: 1rem;">Your note says:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-weight: 600; color: #0f172a;">
+          Fabric workspaces are live runtimes. Git is a code repository.
+        </blockquote>
+        <p style="margin-bottom: 1rem;">This distinction is very important.</p>
+        <p style="margin-bottom: 1rem;">Suppose Git contains <strong>Version A</strong>, and your Fabric workspace currently contains <strong>Version A</strong>. A developer changes Git to <strong>Version B</strong>. Does the workspace automatically become Version B?</p>
+        <p style="margin-bottom: 1rem;">Not necessarily in the way you should conceptualize it.</p>
+        <p style="margin-bottom: 1rem;">There is a synchronization process between Git source and the workspace state. The <strong>Updates</strong> experience lets you control when Git changes are applied/synchronized into the workspace.</p>
+        <p style="margin-bottom: 0.5rem;">Think:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Git<br />
+          &nbsp;│<br />
+          &nbsp;│ "I have new changes"<br />
+          &nbsp;&darr;<br />
+          Updates<br />
+          &nbsp;│<br />
+          &nbsp;│ developer chooses to apply/sync<br />
+          &nbsp;&darr;<br />
+          Fabric Workspace
+        </div>
+
+        <p style="margin-bottom: 1.75rem;">This matters because workspace development can also happen directly through Fabric/Power BI authoring experiences. So you don't want to blindly overwrite someone's live changes.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 11. Why race conditions matter -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">11. Why race conditions matter</h2>
+        <p style="margin-bottom: 0.5rem;">Imagine:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-size: 0.95rem; color: #334155; margin: 1rem 0;">
+          <strong>Developer A</strong>: Working directly in the Fabric workspace &rarr; Adds new measure<br />
+          <em>Meanwhile</em><br />
+          <strong>Developer B</strong>: Pushes Git changes &rarr; Changes semantic model<br /><br />
+          Now you have:<br />
+          Developer A &rarr; Workspace<br />
+          Developer B &rarr; Git
+        </div>
+        <p style="margin-bottom: 1rem;">If synchronization is uncontrolled, you can potentially overwrite or conflict with work.</p>
+        <p style="margin-bottom: 1rem;">Therefore: <strong>Git is the source-controlled definition, while the workspace is the live working/runtime environment.</strong></p>
+        <p style="margin-bottom: 1.75rem;">The <strong>Updates</strong> mechanism gives you control over when Git changes are applied.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 12. Now SPN -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">12. Now SPN</h2>
+        <p style="margin-bottom: 1rem;">This is the next major concept.</p>
+        <p style="margin-bottom: 1rem;"><strong>SPN = Service Principal Name</strong>, commonly used to refer to an Entra ID service principal in this automation context.</p>
+        <p style="margin-bottom: 0.5rem;">Don't think of it as a human user. Think:</p>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 0.75rem 1.25rem; font-size: 0.95rem; margin: 0.75rem 0 1rem;">
+          Human: <strong>Punit</strong><br />
+          <em>versus</em><br />
+          Application identity: <strong>Azure DevOps automation</strong>
+        </div>
+        <p style="margin-bottom: 1.75rem;">The SPN is essentially an identity used by automation.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 13. Why do we need an SPN? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">13. Why do we need an SPN?</h2>
+        <p style="margin-bottom: 1rem;">Suppose Azure DevOps needs to tell Fabric:</p>
+        <blockquote style="border-left: 4px solid #cbd5e1; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; color: #475569;">
+          "Deploy this pipeline from DEV to TEST."
+        </blockquote>
+        <p style="margin-bottom: 1rem;">Should Azure DevOps log in using your personal Microsoft account? <strong>No.</strong> That's fragile and bad practice.</p>
+        <p style="margin-bottom: 0.5rem;">Instead:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Service Principal<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Entra ID<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Access token<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric REST API<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Deployment
+        </div>
+        <p style="margin-bottom: 1.75rem;">Now the deployment is performed using a controlled machine/application identity.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 14. Client credentials flow -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">14. Client credentials flow</h2>
+        <p style="margin-bottom: 1rem;">Your note says: <code style="font-family: 'JetBrains Mono', monospace; background: #e2e8f0; padding: 0.15rem 0.35rem; border-radius: 0.25rem;">client_id + client_secret</code></p>
+        <p style="margin-bottom: 1rem;">This is referring to the <strong>OAuth 2.0 client credentials flow</strong>. Very simplified:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1rem; color: #334155;">
+          <li>Azure DevOps has: <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">client_id</code> and <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">client_secret</code></li>
+          <li>It sends these credentials to Entra ID.</li>
+          <li>Entra ID verifies them.</li>
+          <li>Then Entra ID returns: <strong>Access Token</strong></li>
+          <li>Azure DevOps then sends: <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">Authorization: Bearer &lt;token&gt;</code> to the Fabric REST API.</li>
+        </ul>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0 1.75rem;">
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ client_id + client_secret<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Entra ID<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ Bearer token<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Azure DevOps<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;│ REST API request<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          Fabric
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 15. Why does the SPN need permissions? -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">15. Why does the SPN need permissions?</h2>
+        <p style="margin-bottom: 1rem;">Having an identity isn't enough. Fabric needs to know: <em>"Is this identity allowed to perform this operation?"</em></p>
+        <p style="margin-bottom: 1rem;">Your note says: <strong>The SPN must be an Admin on the pipeline.</strong></p>
+        <p style="margin-bottom: 0.5rem;">So conceptually:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #334155; margin: 1rem 0;">
+          SPN<br />
+          &nbsp;│<br />
+          &nbsp;├── Authentication &rarr; Entra ID<br />
+          &nbsp;│<br />
+          &nbsp;└── Authorization &rarr; Fabric<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pipeline Admin
+        </div>
+
+        <div style="background: #f1f5f9; padding: 1rem 1.25rem; border-radius: 0.5rem; margin: 1.25rem 0 1.75rem;">
+          <strong>Authentication answers:</strong> Who are you?<br />
+          <strong>Authorization answers:</strong> What are you allowed to do?<br />
+          <em>This distinction is extremely important.</em>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 16. Putting ALL four concepts together -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">16. Putting ALL four concepts together</h2>
+        <p style="margin-bottom: 1rem;">Now we can connect your entire table. Imagine a professional Power BI/Fabric development setup:</p>
+
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin: 1.25rem 0;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEVELOPER</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Git Feature Branch<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TMDL model changes<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Tabular Editor + BPA</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;┌───────┴────────┐<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #15803d; font-weight: 700;">Pass</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b91c1c; font-weight: 700;">Error</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Continue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #b91c1c; font-weight: 700;">❌ Stop</span><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Pull Request</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>main</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Fabric Git Integration</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Updates</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEV Workspace</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Fabric Deployment</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;<strong>Azure DevOps + SPN + REST API</strong><br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>TEST / PROD</strong>
+        </div>
+        <p style="margin-bottom: 1.75rem;">That is the bigger architecture your four notes are describing.</p>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 17. The key distinction you should remember -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">17. The key distinction you should remember</h2>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 0.5rem; overflow: hidden;">
+          <thead>
+            <tr style="background: #f1f5f9; text-align: left;">
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">Concept</th>
+              <th style="padding: 0.75rem 1rem; border-bottom: 1px solid #cbd5e1; color: #0f172a; font-weight: 700;">What it does</th>
+            </tr>
+          </thead>
+          <tbody style="color: #334155; font-size: 0.95rem;">
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Tabular Editor</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Develop/modify/automate tabular semantic models</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">BPA</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Checks semantic model against rules</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Severity 3</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Treats a BPA violation as an error that can fail CI</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Shift-left</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Find problems before they reach main/shared environments</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">TMDL</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Text-based representation of tabular model definitions</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Git</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Stores/version-controls the model source</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Updates</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Controls synchronization of Git changes into Fabric workspace</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">SPN</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Machine/application identity for automation</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Entra ID</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Authenticates the SPN and issues token</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Bearer token</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Credential used to call Fabric REST API</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Fabric pipeline</td><td style="padding: 0.6rem 1rem; border-bottom: 1px solid #e2e8f0;">Promotes/deploys content between environments</td></tr>
+            <tr><td style="padding: 0.6rem 1rem; font-weight: 600;">Azure DevOps</td><td style="padding: 0.6rem 1rem;">Automates CI/CD process</td></tr>
+          </tbody>
+        </table>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+
+        <!-- 18. One thing I want you to be careful about -->
+        <h2 style="font-size: 1.45rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 0.75rem;">18. One thing I want you to be careful about</h2>
+        <p style="margin-bottom: 0.75rem;">Don't mentally combine BPA and Tabular Editor as if they are the same thing. Think:</p>
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 1rem 1.25rem; border-radius: 0.5rem; margin-bottom: 1.25rem; font-size: 0.95rem; color: #1e3a8a;">
+          <strong>Tabular Editor is the tool.</strong> BPA is a capability/rule framework used to analyze the model.
+        </div>
+        <p style="margin-bottom: 0.5rem;">And don't confuse:</p>
+        <ul style="padding-left: 1.75rem; margin-bottom: 1.25rem; color: #334155;">
+          <li><strong>Git</strong> &rarr; source/control</li>
+          <li><em>with</em> <strong>Fabric workspace</strong> &rarr; live environment</li>
+          <li><em>and</em> <strong>Deployment pipeline</strong> &rarr; promotion between environments</li>
+        </ul>
+        <p style="margin-bottom: 1.25rem;">These are three different layers.</p>
+
+        <!-- Your Mental Model Box -->
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Your mental model</h3>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 0.75rem; padding: 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #0f172a; margin-bottom: 1.75rem;">
+          <span style="color: #0284c7; font-weight: 700;">SOURCE</span><br />
+          Git / TMDL<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">QUALITY</span><br />
+          Tabular Editor / BPA / CI<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">RUNTIME</span><br />
+          Fabric Workspace<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">PROMOTION</span><br />
+          Fabric Deployment Pipeline<br />
+          &nbsp;&nbsp;&nbsp;&darr;<br />
+          <span style="color: #0284c7; font-weight: 700;">AUTOMATION</span><br />
+          Azure DevOps + SPN + REST API
+        </div>
+
+        <p style="margin-bottom: 1rem; color: #475569;">
+          That mental model will make a lot of the advanced Fabric CI/CD topics much easier.
+        </p>
+
+        <div style="background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; margin-top: 1.5rem;">
+          <strong style="color: #0f172a; font-size: 1rem;">Next technical practice</strong>
+          <p style="margin-top: 0.5rem; color: #475569; font-size: 0.95rem;">
+            A good next step is to test whether you can distinguish <strong>Tabular Editor</strong>, <strong>BPA</strong>, <strong>Git</strong>, <strong>Fabric Updates</strong>, and <strong>Deployment Pipelines</strong> in a real CI/CD scenario.
+          </p>
+        </div>
+
+      </div>
+
+      </div>
+
+      <!-- GROUP 5: PIPELINE MANIFESTS & CODE -->
+      <div id="group-files" class="cicd-group-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h2 class="section-title" style="margin-bottom: 0;">📂 Pipeline Configuration Files & Code Manifest (Click to Expand / Collapse)</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">4 Files • Interactive Code View</span>
+        </div>
+
+        <!-- FILE 1: azure-pipelines-ci.yml -->
+        <details class="collapsible-file-card" open>
+          <summary class="collapsible-file-header">
+            <div class="collapsible-title-wrap">
+              <span class="collapsible-arrow">▶</span>
+              <div>
+                <span style="font-weight: 700; color: var(--accent-blue); font-size: 1rem;">📄 1. Azure DevOps CI Pipeline</span>
+                <code style="color: var(--accent-blue); font-weight: 700; margin-left: 0.5rem;">azure-pipelines-ci.yml</code>
+              </div>
+            </div>
+            <span class="badge badge-primary">Build Validation</span>
+          </summary>
+          <div class="collapsible-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
+              Downloads Tabular Editor 2.28.0 portable executable, executes headless BPA analysis against <strong style="color: var(--accent-blue);">src/Brightline_Sales.SemanticModel/definition</strong>, and sets exit code 1 on errors.
+            </p>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>trigger: none
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  TE_VERSION: '2.28.0'
+  MODEL_DIR: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
+  BPA_RULES_PATH: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
+
+steps:
+- checkout: self
+  displayName: 'Checkout Repository (PR Branch)'
+
+- task: PowerShell@2
+  displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "============================================================"
+      Write-Host " 🚀 BRIGHTLINE CI PIPELINE: TABULAR MODEL QUALITY VALIDATION"
+      Write-Host "============================================================"
+
+      $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
+      $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
+      $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
+
+      Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
+      Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
+      Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
+
+      $teExe = "$teExtractDir/TabularEditor.exe"
+      if (!(Test-Path $teExe)) {
+          Write-Error "TabularEditor.exe executable was not found at $teExe"
+          exit 1
+      }
+      Write-Host "Tabular Editor CLI ready at: $teExe"
+
+      Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
+      Write-Host "   Model Directory : $(MODEL_DIR)"
+      Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
+
+      # Execute Tabular Editor 2 CLI with array argument list:
+      # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
+      # -V: Verbose / Validate syntax & output rule violations
+      $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
+
+      if ($process.ExitCode -ne 0) {
+          Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
+          Write-Error "CI Gate Failed. Please review the BPA violations above and fix your DAX/TMDL code before merging."
+          exit 1
+      } else {
+          Write-Host "============================================================"
+          Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+          Write-Host "============================================================"
+      }</code></pre>
+          </div>
+        </details>
+
+        <!-- FILE 2: bpa-rules/BPARules.json -->
+        <details class="collapsible-file-card">
+          <summary class="collapsible-file-header">
+            <div class="collapsible-title-wrap">
+              <span class="collapsible-arrow">▶</span>
+              <div>
+                <span style="font-weight: 700; color: var(--accent-amber); font-size: 1rem;">📜 2. Enterprise BPA Rulebook</span>
+                <code style="color: var(--accent-amber); font-weight: 700; margin-left: 0.5rem;">bpa-rules/BPARules.json</code>
+              </div>
+            </div>
+            <span class="badge badge-amber">Severity: 3 (Error)</span>
+          </summary>
+          <div class="collapsible-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
+              Defines enterprise model quality rules. Severity 3 triggers build errors that fail CI gates immediately.
+            </p>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>[
+  {
+    "ID": "BRIGHTLINE_RULE_01",
+    "Name": "Provide Format String for Measures",
+    "Category": "Formatting",
+    "Description": "All visible DAX measures must declare an explicit format string to prevent raw unformatted numbers in client visuals.",
+    "Severity": 3,
+    "Scope": "Measure",
+    "Expression": "IsVisible and string.IsNullOrEmpty(FormatString)"
+  },
+  {
+    "ID": "BRIGHTLINE_RULE_02",
+    "Name": "Use DIVIDE Function Instead of Direct Slash Operator",
+    "Category": "DAX Expressions",
+    "Description": "Measures must use the DIVIDE() function instead of the raw '/' arithmetic operator to prevent division-by-zero runtime exceptions.",
+    "Severity": 3,
+    "Scope": "Measure",
+    "Expression": "Expression.Contains(\"/\") and not Expression.Contains(\"DIVIDE(\") and not Expression.Contains(\"//\")"
+  },
+  {
+    "ID": "BRIGHTLINE_RULE_03",
+    "Name": "Measures Should Have Display Folders",
+    "Category": "Maintenance",
+    "Description": "Visible measures in tables containing more than 5 measures must be organized into numbered display folders.",
+    "Severity": 3,
+    "Scope": "Measure",
+    "Expression": "IsVisible and string.IsNullOrEmpty(DisplayFolder) and Table.Measures.Count() > 5"
+  },
+  {
+    "ID": "BRIGHTLINE_RULE_04",
+    "Name": "Hide Foreign Key Columns",
+    "Category": "Model Structure",
+    "Description": "Foreign keys participating in Single/Many relationships must be hidden to prevent invalid cross-filtering from Fact tables.",
+    "Severity": 3,
+    "Scope": "Column",
+    "Expression": "IsVisible and Model.Relationships.Any(r => r.FromColumn == this or r.ToColumn == this)"
+  }
+]</code></pre>
+          </div>
+        </details>
+
+        <!-- FILE 3: azure-pipelines-cd.yml -->
+        <details class="collapsible-file-card">
+          <summary class="collapsible-file-header">
+            <div class="collapsible-title-wrap">
+              <span class="collapsible-arrow">▶</span>
+              <div>
+                <span style="font-weight: 700; color: var(--accent-green); font-size: 1rem;">🚀 3. Automated CD Deployment Pipeline Promotion</span>
+                <code style="color: var(--accent-green); font-weight: 700; margin-left: 0.5rem;">azure-pipelines-cd.yml</code>
+              </div>
+            </div>
+            <span class="badge badge-green">REST API &amp; SPN</span>
+          </summary>
+          <div class="collapsible-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
+              Runs on merge to <strong style="color: var(--accent-blue);">main</strong>. Obtains an Entra ID OAuth2 token for Service Principal <strong style="color: var(--accent-indigo);">Brightline-Fabric-Deployer</strong> and calls the Fabric Deployment Pipeline REST API.
+            </p>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  FABRIC_PIPELINE_ID: 'YOUR_PIPELINE_GUID_HERE'
+  TENANT_ID: 'YOUR_TENANT_ID_HERE'
+  CLIENT_ID: 'YOUR_SPN_CLIENT_ID_HERE'
+
+steps:
+- checkout: none
+
+- task: PowerShell@2
+  displayName: 'Trigger Fabric Deployment Pipeline Promotion (DEV -> TEST)'
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "1. Acquiring Entra ID OAuth2 Token for SPN..."
+      $body = @{
+          grant_type    = "client_credentials"
+          client_id     = "$(CLIENT_ID)"
+          client_secret = "$(SPN_CLIENT_SECRET)"
+          scope         = "https://analysis.windows.net/powerbi/api/.default"
+      }
+      $tokenResponse = Invoke-RestMethod -Uri "https://login.microsoftonline.com/$(TENANT_ID)/oauth2/v2.0/token" -Method POST -Body $body
+      $headers = @{
+          Authorization = "Bearer $($tokenResponse.access_token)"
+          "Content-Type" = "application/json"
+      }
+
+      Write-Host "2. Triggering Fabric Deployment Pipeline Promotion Stage 0 (DEV) -> Stage 1 (TEST)..."
+      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deploy"
+      $deployBody = @{
+          sourceStageOrder = 0 # DEV
+          options = @{
+              allowCreateArtifact = $true
+              allowOverwriteArtifact = $true
+          }
+      } | ConvertTo-Json -Depth 5
+
+      $deployResponse = Invoke-RestMethod -Uri $deployUrl -Method POST -Headers $headers -Body $deployBody
+      Write-Host "Promotion Initiated Successfully: $($deployResponse.id)"</code></pre>
+          </div>
+        </details>
+
+        <!-- FILE 4: scripts/run-bpa-check.ps1 -->
+        <details class="collapsible-file-card">
+          <summary class="collapsible-file-header">
+            <div class="collapsible-title-wrap">
+              <span class="collapsible-arrow">▶</span>
+              <div>
+                <span style="font-weight: 700; color: var(--accent-cyan); font-size: 1rem;">💻 4. Local Pre-Flight Developer Script</span>
+                <code style="color: var(--accent-cyan); font-weight: 700; margin-left: 0.5rem;">scripts/run-bpa-check.ps1</code>
+              </div>
+            </div>
+            <span class="badge badge-primary">Local CLI</span>
+          </summary>
+          <div class="collapsible-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
+              Allows developers to run instant local BPA checks before opening a pull request.
+            </p>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code># Local Tabular Editor 2 CLI Pre-Flight Quality Check
+$projectRoot = Split-Path -Parent $PSScriptRoot
+$modelDir    = Join-Path $projectRoot "src\Brightline_Sales.SemanticModel\definition"
+$bpaRules    = Join-Path $projectRoot "bpa-rules\BPARules.json"
+$teExe       = Join-Path $projectRoot "TabularEditor\TabularEditor.exe"
+
+$proc = Start-Process -FilePath $teExe -ArgumentList @($modelDir, "-A", $bpaRules, "-V") -NoNewWindow -PassThru -Wait
+if ($proc.ExitCode -ne 0) {
+    Write-Host "`n❌ BPA Validation Failed with exit code $($proc.ExitCode)! Violations detected." -ForegroundColor Red
+    exit 1
+} else {
+    Write-Host "`n✅ SUCCESS: All Best Practice Analyzer rules passed 100%!" -ForegroundColor Green
+    exit 0
+}</code></pre>
+          </div>
+        </details>
+      </div>
+
+      <!-- GROUP 6: ERROR ENCYCLOPEDIA & SOP -->
+      <div id="group-troubleshooting" class="cicd-group-pane" style="display: none;">
+        <h2 class="section-title">🚨 The Enterprise CI/CD Error Encyclopedia: Common Pitfalls &amp; Surgical Fixes</h2>
+        
+        <!-- ERROR 1 -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-rose); margin-bottom: 1.25rem;">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-rose);">
+              <span>🛑</span> 1. CI Gate Fails: "Best Practice Analyzer Violations Detected"
+            </div>
+            <span class="badge badge-amber">Severity: 3 (Error)</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p><strong style="color: var(--text-primary);">Why it happens:</strong> A measure in <strong style="color: var(--accent-blue);">_Meaure.tmdl</strong> has no format string (e.g. missing <code style="color: var(--accent-blue);">formatString: 0.00%</code>), uses raw slash arithmetic <code style="color: var(--accent-blue);">[A] / [B]</code> instead of <code style="color: var(--accent-blue);">DIVIDE([A], [B])</code>, or is not categorized into a numbered display folder.</p>
+            <p><strong style="color: var(--text-primary);">Diagnostic Command:</strong> Run <code style="color: var(--accent-cyan);">powershell -ExecutionPolicy Bypass -File scripts/run-bpa-check.ps1</code> locally.</p>
+            <p><strong style="color: var(--text-primary);">Surgical Fix:</strong> Open <strong style="color: var(--accent-blue);">_Meaure.tmdl</strong>, wrap calculation in <strong style="color: var(--accent-blue);">DIVIDE()</strong>, add formatString and displayFolder, commit, and push to feature branch.</p>
+          </div>
+        </div>
+
+        <!-- ERROR 2 -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-rose); margin-bottom: 1.25rem;">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-rose);">
+              <span>⚠️</span> 2. Tabular Editor CLI Rule Flag Syntax Mismatch (`-B` vs `-A`)
+            </div>
+            <span class="badge badge-amber">CLI Syntax</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p><strong style="color: var(--text-primary);">Why it happens:</strong> In Tabular Editor 2 CLI syntax, the <strong style="color: var(--accent-amber);">-B</strong> flag specifies an output report file path, not the custom rule input. Passing <code style="color: var(--accent-amber);">-B BPARules.json</code> causes Tabular Editor to skip evaluating custom rules.</p>
+            <p><strong style="color: var(--text-primary);">Surgical Fix:</strong> Use <strong style="color: var(--accent-green);">-A</strong> to specify custom rule JSON input and <strong style="color: var(--accent-green);">-V</strong> for verbose output: <code style="color: var(--accent-blue);">TabularEditor.exe "$MODEL_DIR" -A "$BPA_RULES_PATH" -V</code>.</p>
+          </div>
+        </div>
+
+        <!-- ERROR 3 -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-rose); margin-bottom: 1.25rem;">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-rose);">
+              <span>⚠️</span> 3. Azure DevOps PowerShell Runner External Exit Code Loss
+            </div>
+            <span class="badge badge-amber">Runner Subprocess</span>
+          </div>
+          <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+            <p><strong style="color: var(--text-primary);">Why it happens:</strong> Executing console binaries directly via <code style="color: var(--accent-rose);">&amp; $teExe</code> in PowerShell build tasks can overwrite <code style="color: var(--accent-rose);">$LASTEXITCODE</code> if downstream commands execute or if stderr output is misinterpreted.</p>
+            <p><strong style="color: var(--text-primary);">Surgical Fix:</strong> Use <strong style="color: var(--accent-green);">Start-Process</strong> with explicit array arguments: <code style="color: var(--accent-blue);">$proc = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait</code>, then check <strong style="color: var(--accent-green);">$proc.ExitCode</strong>.</p>
+          </div>
+        </div>
+
+        <!-- PRODUCTION SOP RUNBOOK -->
+        <div class="phase-card" style="border-left: 4px solid var(--accent-green); margin-top: 1.5rem;">
+          <div class="phase-header">
+            <div class="phase-title" style="color: var(--accent-green);">
+              <span>📋</span> Standard Operating Procedure (SOP) Checklist for Future Changes
+            </div>
+            <span class="status-tag status-completed">Runbook</span>
+          </div>
+          <ol style="padding-left: 1.5rem; color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; margin-top: 0.5rem;">
+            <li><strong>Create a clean branch:</strong> <code style="color: var(--accent-blue);">git checkout -b feat/your-feature-name</code></li>
+            <li><strong>Author changes:</strong> Modify TMDL files directly (e.g. <strong style="color: var(--accent-blue);">_Meaure.tmdl</strong>) or edit in Power BI Desktop.</li>
+            <li><strong>Execute local pre-flight linter:</strong>
+              <div style="font-size: 0.85rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan); background: var(--bg-secondary); padding: 0.35rem 0.6rem; border-radius: 0.25rem; margin: 0.35rem 0; border: 1px solid var(--border-color);">
+                powershell -ExecutionPolicy Bypass -File scripts/run-bpa-check.ps1
+              </div>
+              Confirm that the script outputs <span style="color: var(--accent-green); font-weight: 600;">"✅ SUCCESS: All Best Practice Analyzer rules passed 100%!"</span>
+            </li>
+            <li><strong>Commit &amp; Push:</strong> <code style="color: var(--accent-blue);">git add . &amp;&amp; git commit -m "feat(dax): add new KPI" &amp;&amp; git push origin feat/your-feature-name</code></li>
+            <li><strong>Open Pull Request:</strong> In Azure DevOps, open PR targeting <strong style="color: var(--accent-blue);">main</strong>.</li>
+            <li><strong>Observe Automated CI Validation:</strong> The <strong style="color: var(--accent-blue);">Brightline-Analytics (2)</strong> pipeline triggers automatically. Wait 25 seconds for the Green checkmark ✅.</li>
+            <li><strong>Merge PR:</strong> Click <strong>Complete</strong> &rarr; select <strong>Squash commit</strong> &rarr; Complete merge.</li>
+            <li><strong>Hydrate Cloud DEV:</strong> Open Fabric portal &rarr; Workspace <strong style="color: var(--accent-blue);">BL-Sales-DEV</strong> &rarr; <strong>Source control &rarr; Updates tab &rarr; Update all</strong>.</li>
+            <li><strong>Promote to TEST &amp; PROD:</strong> Either allow automated CD pipeline to trigger, or open Fabric Deployment Pipeline and click <strong>Deploy</strong>.</li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+
     <div id="tab-lenses" class="tab-pane">
       <h2 class="section-title">🧠 The Seven Lenses of Architectural Mastery</h2>
       <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
@@ -1992,9 +3751,45 @@
     function switchTab(tabId) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+      if (window.event && window.event.currentTarget && window.event.currentTarget.classList) {
+        window.event.currentTarget.classList.add('active');
+      } else {
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
+            btn.classList.add('active');
+          }
+        });
+      }
     }
+  
+    function switchCicdGroup(groupId) {
+      document.querySelectorAll('.cicd-group-pane').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.cicd-subnav-btn').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById(groupId);
+      if (target) target.style.display = 'block';
+      if (window.event && window.event.currentTarget && window.event.currentTarget.classList) {
+        window.event.currentTarget.classList.add('active');
+      }
+    }
+
+    function checkHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        if (document.getElementById('tab-' + hash)) {
+          switchTab(hash);
+        } else if (hash === 'troubleshooting-case-dax' || hash === 'troubleshooting') {
+          switchTab('troubleshooting');
+          const el = document.getElementById('troubleshooting-case-dax');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', checkHash);
+    window.addEventListener('hashchange', checkHash);
+
   </script>
 </body>
 </html>

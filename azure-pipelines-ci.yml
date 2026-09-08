@@ -1,9 +1,13 @@
 # ==============================================================================
-# BRIGHTLINE ANALYTICS — CONTINUOUS INTEGRATION (CI) PIPELINE
-# Automated Model Quality & Tabular Editor Best Practice Analyzer (BPA)
+# BRIGHTLINE ANALYTICS — CONTINUOUS INTEGRATION & DEPLOYMENT (CI/CD)
+# 1. Automated Model Quality & Tabular Editor BPA (PR Gate)
+# 2. Automated Fabric Deployment Pipeline Promotion (Merge to Main)
 # ==============================================================================
 
-trigger: none
+trigger:
+  branches:
+    include:
+      - main
 
 pr:
   branches:
@@ -13,15 +17,23 @@ pr:
 pool:
   vmImage: 'windows-latest'
 
+# Link the Variable Group created in Azure DevOps Library
 variables:
-  TE_VERSION: '2.28.0'
-  MODEL_DIR: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
-  BPA_RULES_PATH: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
+  - group: Brightline-pipeline-variables
+  - name: TE_VERSION
+    value: '2.28.0'
+  - name: MODEL_DIR
+    value: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
+  - name: BPA_RULES_PATH
+    value: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
 
 steps:
 - checkout: self
-  displayName: 'Checkout Repository (PR Branch)'
+  displayName: 'Checkout Repository Code'
 
+# ------------------------------------------------------------------------------
+# STAGE 1: BPA QUALITY VALIDATION (Runs on both PR and Merge)
+# ------------------------------------------------------------------------------
 - task: PowerShell@2
   displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
   inputs:
@@ -64,3 +76,67 @@ steps:
           Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
           Write-Host "============================================================"
       }
+
+# ------------------------------------------------------------------------------
+# STAGE 2: AUTOMATED DEPLOYMENT PIPELINE PROMOTION (DEV -> TEST)
+# Condition: Only runs when code is merged into 'main' and BPA checks succeeded
+# ------------------------------------------------------------------------------
+- task: PowerShell@2
+  displayName: 'Automate Fabric Deployment Pipeline Promotion (Dev -> Test)'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    targetType: 'inline'
+    script: |
+      Write-Host "============================================================"
+      Write-Host " 🚢 AUTOMATED PROMOTION: FABRIC DEPLOYMENT PIPELINE"
+      Write-Host "============================================================"
+
+      Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
+      $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
+      $body = @{
+          client_id     = "$(AZURE_CLIENT_ID)"
+          client_secret = "$(AZURE_CLIENT_SECRET)"
+          scope         = "https://analysis.windows.net/powerbi/api/.default"
+          grant_type    = "client_credentials"
+      }
+      
+      $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
+      $headers = @{
+          Authorization = "Bearer $($tokenResponse.access_token)"
+          "Content-Type" = "application/json"
+      }
+      Write-Host "Authentication successful. Access token acquired."
+
+      Write-Host "`n2. Triggering Deployment Pipeline Promotion (DEV -> TEST)..."
+      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deploy"
+      
+      # sourceStageOrder: 0 represents DEV -> TEST
+      $payload = @{
+          sourceStageOrder = 0
+          options = @{
+              allowCreateArtifact    = $true
+              allowOverwriteArtifact = $true
+          }
+          note = "Automated promotion via Azure DevOps Build $(Build.BuildNumber)"
+      } | ConvertTo-Json
+
+      $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+      Write-Host "Deployment operation initiated successfully."
+      Write-Host "Operation ID: $($deployJob.id)"
+
+      Write-Host "`n3. Monitoring deployment status until completion..."
+      $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
+      
+      do {
+          Start-Sleep -Seconds 5
+          $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
+          Write-Host "Current Status: $($status.status)"
+      } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+
+      if ($status.status -ne "Succeeded") {
+          Write-Error "❌ Deployment Pipeline failed with status: $($status.status)"
+          exit 1
+      }
+      Write-Host "============================================================"
+      Write-Host " 🎉 SUCCESS: Fabric Deployment Pipeline promoted to Test stage!"
+      Write-Host "============================================================"
