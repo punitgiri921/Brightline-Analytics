@@ -3182,150 +3182,247 @@ ORDER BY
       <!-- GROUP 2: SPN, ENTRA ID & CD REST API PROMOTION -->
       <div id="group-spn" class="cicd-group-pane" style="display: none;">
         <div class="phase-card" style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-indigo);">
-          <h2 class="section-title" style="color: var(--accent-indigo); margin-bottom: 0.75rem;">🔑 The 9-Step Enterprise SPN &amp; CD Automation Architecture</h2>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
-            How Azure DevOps triggers automated promotion in the Fabric Deployment Pipeline without personal user accounts or manual portal clicks:
-          </p>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <h2 class="section-title" style="color: var(--accent-indigo); margin-bottom: 0.35rem;">🔑 Enterprise SPN, Security Group &amp; Two-Stage Automated CD Architecture</h2>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Full live production architecture: Microsoft Entra ID (AAD) + Fabric Tenant Settings + Azure DevOps Multi-Stage CI/CD with Production Approval Gate.
+              </p>
+            </div>
+            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 9999px;">
+              ✅ Live Verified &amp; Deployed
+            </span>
+          </div>
 
-          <!-- 9-Step Architecture Diagram -->
-          <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.4;">
-┌──────────────────────────────────────────────────────────────────────┐
-│                         1. YOU — HUMAN                              │
-│                                                                      │
-│ Azure DevOps account:                                                │
-│ <span style="color: var(--accent-blue); font-weight: 700;">punitgir74@gmail.com</span>                                                 │
-│                                                                      │
-│ Fabric account:                                                      │
-│ <span style="color: var(--accent-cyan); font-weight: 700;">punitgiri@punitgiri921gmail.onmicrosoft.com</span>                         │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ You configure the environment
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    2. MICROSOFT ENTRA ID (AAD)                       │
-│                                                                      │
-│ Identity platform                                                    │
-│                                                                      │
-│ You create an App Registration:                                      │
-│                                                                      │
-│        <strong style="color: var(--accent-indigo);">"Brightline-Deployment-SPN"</strong>                                   │
-│                                                                      │
-│ The application gets:                                                │
-│        • Tenant ID                                                   │
-│        • Client ID                                                   │
-│        • Client Secret                                               │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Creates / represents
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                 3. SERVICE PRINCIPAL (SPN)                           │
-│                                                                      │
-│              <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                               │
-│                                                                      │
-│ This is NOT you.                                                     │
-│ This is NOT your Gmail account.                                      │
-│ This is an application identity used by automation.                  │
-│                                                                      │
-│ Credentials:                                                         │
-│        Client ID                                                     │
-│        Client Secret                                                 │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Credentials stored securely
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    4. AZURE DEVOPS                                   │
-│                                                                      │
-│ CI/CD Pipeline (<strong style="color: var(--accent-blue);">azure-pipelines-cd.yml</strong>)                              │
-│                                                                      │
-│ Azure DevOps now has access to the SPN credentials                   │
-│ through secure pipeline configuration.                               │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Deployment starts
-                               │ Client Credentials Flow
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    5. MICROSOFT ENTRA ID                             │
-│                                                                      │
-│ Azure DevOps says:                                                   │
-│ "I am Brightline-Deployment-SPN."                                    │
-│ "Here is my Client ID."                                              │
-│ "Here is my Client Secret."                                          │
-│                                                                      │
-│ Entra ID validates the credentials.                                  │
-│                                                                      │
-│                 AUTHENTICATION                                       │
-│                "WHO ARE YOU?"                                        │
-│                         ↓                                            │
-│              Brightline-Deployment-SPN                               │
-│                         ↓                                            │
-│                       <span style="color: var(--accent-green); font-weight: 700;">VALID ✅</span>                                        │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Entra issues
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                       6. ACCESS TOKEN                                │
-│                                                                      │
-│ Entra ID returns an OAuth 2.0 Bearer Access Token.                   │
-│ The token represents the authenticated application:                  │
-│                                                                      │
-│        <strong style="color: var(--accent-cyan);">Brightline-Deployment-SPN</strong>                                     │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Authorization: Bearer &lt;token&gt;
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                     7. FABRIC REST API                               │
-│                                                                      │
-│ Azure DevOps sends the request to Fabric.                            │
-│ Fabric examines the access token:                                    │
-│                                                                      │
-│ "WHO IS CALLING ME?"                                                 │
-│ Answer: <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                                     │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Now authorization happens
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                       8. FABRIC                                      │
-│                                                                      │
-│ Fabric asks:                                                         │
-│ "Is this authenticated SPN allowed to perform                        │
-│  this particular operation?"                                         │
-│                                                                      │
-│ Checks include:                                                      │
-│   • Fabric tenant service-principal access enabled                   │
-│   • Deployment pipeline permissions                                  │
-│   • SPN's assigned role: Role = <strong style="color: var(--accent-green);">ADMIN</strong> on Deployment Pipeline          │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                    ┌──────────┴──────────┐
-                    │                     │
-                    ↓                     ↓
-              <span style="color: var(--accent-green); font-weight: 700;">AUTHORIZED</span>              <span style="color: var(--accent-rose); font-weight: 700;">NOT AUTHORIZED</span>
-                    │                     │
-                    ↓                     ↓
-                 ALLOW                 DENY ❌
-                    │
-                    ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    9. FABRIC DEPLOYMENT PIPELINE                     │
-│                                                                      │
-│                       DEV → TEST                                     │
-│                                                                      │
-│                  <span style="color: var(--accent-green); font-weight: 700;">Deployment succeeds ✅</span>                              │
-└──────────────────────────────────────────────────────────────────────┘
-          </pre>
+          <!-- MASTER ARCHITECTURE DIAGRAM -->
+          <div style="margin-bottom: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">🏛️ Master Architectural Flow &amp; Security Boundary Diagram</strong>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-family: monospace;">Sanitized Enterprise Blueprint</span>
+            </div>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: Consolas, 'Cascadia Code', 'Courier New', monospace !important; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.35; white-space: pre !important; word-break: normal !important; letter-spacing: 0;">
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                       1. IDENTITY &amp; ACCOUNTS                                           │
+├─────────────────────────────────────────────────────────────────┬──────────────────────────────────────┤
+│  AZURE DEVOPS OWNER &amp; APPROVER                                  │  FABRIC TENANT GLOBAL &amp; FABRIC ADMIN │
+│  Account: <strong style="color: var(--accent-blue);">punitgir74@gmail.com</strong>                                  │  Account: <strong style="color: var(--accent-cyan);">punitgiri@punitgiri921...</strong>  │
+│  Org:     dev.azure.com/punitgiri74                             │           ...gmail.onmicrosoft.com   │
+│  Project: Brightline-Analytics                                  │  Roles:   Global Admin + Fabric Admin│
+└────────────────────────────────┬────────────────────────────────┴──────────────────┬───────────────────┘
+                                 │                                                   │
+                                 │ Configures CI/CD &amp; Approval Gate                  │ Elevates Roles &amp; Tenant
+                                 ▼                                                   ▼
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                      2. MICROSOFT ENTRA ID (AAD)                                       │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  TENANT ID: 4f040b4b-xxxx-xxxx-xxxx-xxxxxxxxxxxx                                                       │
+│                                                                                                        │
+│  ┌─────────────────────────────────────────────────┐      ┌─────────────────────────────────────────┐  │
+│  │ APP REGISTRATION (SERVICE PRINCIPAL)            │      │ SECURITY GROUP (UI BRIDGE)              │  │
+│  │ Name:      <strong style="color: var(--accent-indigo);">Brightline-Fabric-Deployer</strong>           │      │ Name:      <strong style="color: var(--accent-purple);">Fabric-Pipeline-Admins</strong>       │  │
+│  │ Client ID: 92c2b003-xxxx-xxxx-xxxx-xxxxxxxxxxxx │ ---&gt; │ Object ID: 134202bc-xxxx-xxxx-xxxx-...  │  │
+│  │ Secret:    ••••••••••••••••••••••••••••••••     │      │ Members:   Brightline-Fabric-Deployer   │  │
+│  └─────────────────────────────────────────────────┘      │ Owners:    punitgiri921... &amp; 74gmail    │  │
+│                                                           └────────────────────┬────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────┼───────────────────────┘
+                                                                                 │
+                                                    Grants Admin permissions     │
+                                                    across Fabric resources      ▼
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                      3. MICROSOFT FABRIC PLATFORM                                      │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  A. ADMIN PORTAL (TENANT SETTINGS -&gt; DEVELOPER SETTINGS)                                               │
+│     • Service principals can create workspaces, connections, and deployment pipelines: ENABLED         │
+│     • Service principals can call Fabric public APIs:                                  ENABLED         │
+│     • Target Audience: Fabric-Pipeline-Admins                                                          │
+│                                                                                                        │
+│  B. DEPLOYMENT PIPELINE ACCESS (Brightline-Sales-Pipeline: d116d0bb-xxxx-xxxx-xxxx-xxxxxxxxxxxx)       │
+│     • Pipeline Access: Fabric-Pipeline-Admins -&gt; ADMIN                                                 │
+│                                                                                                        │
+│  C. WORKSPACE ACCESS                                                                                   │
+│     • BL-Sales-DEV  -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+│     • BL-Sales-Test -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+│     • BL-Sales-Prod -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                 ▲
+                                 │ REST API Calls via OAuth 2.0 Bearer Token
+                                 │ (POST /v1.0/myorg/pipelines/{pipelineId}/deployAll)
+┌────────────────────────────────┴───────────────────────────────────────────────────────────────────────┐
+│                                 4. AZURE DEVOPS MULTI-STAGE CI/CD FLOW                                 │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  VARIABLE GROUP: Brightline-pipeline-variables                                                         │
+│  [ AZURE_TENANT_ID | AZURE_CLIENT_ID | AZURE_CLIENT_SECRET (Locked 🔒) | FABRIC_PIPELINE_ID ]          │
+│                                                                                                        │
+│  [ Developer Merges Pull Request to 'main' ]                                                           │
+│                │                                                                                       │
+│                ▼                                                                                       │
+│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │ STAGE 1: Brightline Build, Lint &amp; Deploy to Test                                                 │  │
+│  │   1. Tabular Editor 2 CLI executes BPARules.json model quality checks                            │  │
+│  │   2. Authenticates via Entra ID SPN token                                                        │  │
+│  │   3. SPN calls POST .../pipelines/{id}/deployAll (sourceStageOrder: 0)                           │  │
+│  │   4. RESULT: BL-Sales-DEV  ────────── Promoted Automatically ─────────&gt;  BL-Sales-Test          │  │
+│  └──────────────────────────────────────────────┬───────────────────────────────────────────────────┘  │
+│                                                 │                                                      │
+│                                                 ▼                                                      │
+│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │ STAGE 2: Brightline Production Release Gate (GOVERNANCE APPROVAL)                                │  │
+│  │   • Environment: Brightline-Production-Environment                                               │  │
+│  │   • Check:       Halts execution &amp; sends email notification to: punitgir74@gmail.com             │  │
+│  │   • Action:      Human reviews Test stage &amp; clicks [ Approve ] in Azure DevOps                   │  │
+│  │                                                                                                  │  │
+│  │   [ Upon Human Approval ]                                                                        │  │
+│  │   5. SPN calls POST .../pipelines/{id}/deployAll (sourceStageOrder: 1)                           │  │
+│  │   6. RESULT: BL-Sales-Test  ───────── Promoted to Production ────────&gt;  BL-Sales-Prod            │  │
+│  └──────────────────────────────────────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+            </pre>
+          </div>
 
-          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem; margin-top: 1.5rem;">
-            <strong style="color: var(--text-primary); font-size: 1rem;">Authentication vs Authorization</strong>
-            <ul style="padding-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
-              <li><strong style="color: var(--accent-blue);">Authentication (Entra ID):</strong> Answers <em>"Who are you?"</em> &rarr; Proves identity using Client ID &amp; Secret, returns Bearer token.</li>
-              <li><strong style="color: var(--accent-green);">Authorization (Fabric):</strong> Answers <em>"What are you allowed to do?"</em> &rarr; Checks if the SPN is assigned <strong>Pipeline Admin</strong>.</li>
-            </ul>
+          <!-- STEP-BY-STEP PRODUCTION IMPLEMENTATION CARDS -->
+          <h3 style="color: var(--text-primary); font-size: 1.05rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+            📋 The 6-Step Implementation Ledger &amp; Security Configuration
+          </h3>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+            
+            <!-- Step 1 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 1</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Entra ID Role Elevation</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                Elevated <code style="color: var(--accent-cyan);">punitgiri@punitgiri921gmail.onmicrosoft.com</code> to:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.75rem;">
+                <li><strong>Fabric Administrator:</strong> Full control over Fabric tenant settings and capacities.</li>
+                <li><strong>Global Administrator:</strong> Full administrative control over Microsoft Entra ID directory.</li>
+              </ul>
+              <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid var(--accent-blue); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Architectural Impact:</strong> Unlocked the hidden <em>Tenant settings</em> menu in the Fabric Admin Portal, enabling API delegation.
+              </div>
+            </div>
+
+            <!-- Step 2 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 2</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">App Registration (SPN) &amp; Secret</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Navigated to <em>Home &gt; Default Directory &gt; App registrations</em>:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>App Name:</strong> Brightline-Fabric-Deployer</div>
+                <div><strong>Client ID:</strong> 92c2b003-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Tenant ID:</strong> 4f040b4b-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Secret:</strong> ••••••••••••••••••••••••••••••••</div>
+              </div>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Security Standard:</strong> Generated new Client Secret with 365-day expiry. Secret Value copied immediately into Azure DevOps (masked permanently after navigation).
+              </div>
+            </div>
+
+            <!-- Step 3 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 3</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Security Group UI Bridge</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Created Cloud Security Group in Microsoft Entra ID:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>Group Name:</strong> Fabric-Pipeline-Admins</div>
+                <div><strong>Object ID:</strong> 134202bc-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Member (1):</strong> Brightline-Fabric-Deployer (SPN)</div>
+                <div><strong>Owners (2):</strong> punitgiri921... &amp; punitgir74@gmail.com</div>
+              </div>
+              <div style="background: rgba(234, 179, 8, 0.08); border-left: 3px solid var(--accent-yellow); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Why Required:</strong> The Fabric Deployment Pipeline UI enforces email syntax validation and rejects raw Application GUIDs. Adding the SPN to a Security Group bridges the UI validation gap.
+              </div>
+            </div>
+
+            <!-- Step 4 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 4</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Fabric Admin Portal Switches</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                In <em>Admin portal &gt; Tenant settings &gt; Developer settings</em>:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.75rem;">
+                <li><strong>Service principals can create workspaces, connections, &amp; deployment pipelines:</strong> Enabled -&gt; Target: <code style="color: var(--accent-purple);">Fabric-Pipeline-Admins</code></li>
+                <li><strong>Service principals can call Fabric public APIs:</strong> Enabled -&gt; Target: <code style="color: var(--accent-purple);">Fabric-Pipeline-Admins</code></li>
+              </ul>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Security Standard:</strong> Restricting API access to the designated Security Group satisfies the Principle of Least Privilege across the tenant.
+              </div>
+            </div>
+
+            <!-- Step 5 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 5</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Resource Permission Matrix</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Granted access across all deployment boundary layers:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>Pipeline (Brightline-Sales-Pipeline):</strong> Fabric-Pipeline-Admins -&gt; ADMIN</div>
+                <div><strong>DEV Workspace (BL-Sales-DEV):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+                <div><strong>TEST Workspace (BL-Sales-Test):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+                <div><strong>PROD Workspace (BL-Sales-Prod):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+              </div>
+              <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid var(--accent-blue); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Key Takeaway:</strong> Both the pipeline resource and the assigned workspace resources require explicit authorization for promotion to succeed.
+              </div>
+            </div>
+
+            <!-- Step 6 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 6</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Azure DevOps Multi-Stage CI/CD</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Configured Library Variable Group &amp; Production Environment:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.6rem;">
+                <li><strong>Variable Group:</strong> <code style="color: var(--accent-indigo);">Brightline-pipeline-variables</code> with masked secret 🔒</li>
+                <li><strong>Environment:</strong> <code style="color: var(--accent-green);">Brightline-Production-Environment</code> with Approver <code style="color: var(--accent-blue);">punitgir74@gmail.com</code></li>
+                <li><strong>API Endpoint:</strong> Uses <code style="color: var(--accent-cyan);">POST .../pipelines/{id}/deployAll</code> (replaces single-item /deploy)</li>
+              </ul>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Result:</strong> Stage 1 deploys to Test automatically on PR merge. Stage 2 halts, sends email to 74gmail, and promotes to Prod only upon review!
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TROUBLESHOOTING LESSONS LEARNED -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <span style="font-size: 1.1rem;">💡</span>
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">Key Engineering Lessons from Live Troubleshooting</strong>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 0.75rem;">
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-red);">Pitfall: (401) Unauthorized</strong><br />
+                Occurs when the SPN acquires an Entra ID token successfully, but Power BI rejects it because the SPN is missing from the <strong>Pipeline access</strong> list or the tenant-level switch is disabled.
+              </div>
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-yellow);">Pitfall: (400) Bad Request</strong><br />
+                Calling <code style="color: var(--accent-cyan);">/deploy</code> expects explicit arrays of report/dataset GUIDs. Calling <code style="color: var(--accent-green);">/deployAll</code> promotes all supported stage items without requiring item IDs.
+              </div>
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-blue);">Rule: Pipeline UI Email Validation</strong><br />
+                The Power BI Deployment Pipeline UI validates for email syntax, rejecting raw App IDs. Encapsulating the SPN inside a Security Group seamlessly bridges the UI requirement.
+              </div>
+            </div>
           </div>
 
         </div>
