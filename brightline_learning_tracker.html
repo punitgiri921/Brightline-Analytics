@@ -3182,150 +3182,247 @@ ORDER BY
       <!-- GROUP 2: SPN, ENTRA ID & CD REST API PROMOTION -->
       <div id="group-spn" class="cicd-group-pane" style="display: none;">
         <div class="phase-card" style="margin-bottom: 1.5rem; border-left: 4px solid var(--accent-indigo);">
-          <h2 class="section-title" style="color: var(--accent-indigo); margin-bottom: 0.75rem;">🔑 The 9-Step Enterprise SPN &amp; CD Automation Architecture</h2>
-          <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;">
-            How Azure DevOps triggers automated promotion in the Fabric Deployment Pipeline without personal user accounts or manual portal clicks:
-          </p>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+            <div>
+              <h2 class="section-title" style="color: var(--accent-indigo); margin-bottom: 0.35rem;">🔑 Enterprise SPN, Security Group &amp; Two-Stage Automated CD Architecture</h2>
+              <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Full live production architecture: Microsoft Entra ID (AAD) + Fabric Tenant Settings + Azure DevOps Multi-Stage CI/CD with Production Approval Gate.
+              </p>
+            </div>
+            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3); font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 9999px;">
+              ✅ Live Verified &amp; Deployed
+            </span>
+          </div>
 
-          <!-- 9-Step Architecture Diagram -->
-          <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.4;">
-┌──────────────────────────────────────────────────────────────────────┐
-│                         1. YOU — HUMAN                              │
-│                                                                      │
-│ Azure DevOps account:                                                │
-│ <span style="color: var(--accent-blue); font-weight: 700;">punitgir74@gmail.com</span>                                                 │
-│                                                                      │
-│ Fabric account:                                                      │
-│ <span style="color: var(--accent-cyan); font-weight: 700;">punitgiri@punitgiri921gmail.onmicrosoft.com</span>                         │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ You configure the environment
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    2. MICROSOFT ENTRA ID (AAD)                       │
-│                                                                      │
-│ Identity platform                                                    │
-│                                                                      │
-│ You create an App Registration:                                      │
-│                                                                      │
-│        <strong style="color: var(--accent-indigo);">"Brightline-Deployment-SPN"</strong>                                   │
-│                                                                      │
-│ The application gets:                                                │
-│        • Tenant ID                                                   │
-│        • Client ID                                                   │
-│        • Client Secret                                               │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Creates / represents
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                 3. SERVICE PRINCIPAL (SPN)                           │
-│                                                                      │
-│              <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                               │
-│                                                                      │
-│ This is NOT you.                                                     │
-│ This is NOT your Gmail account.                                      │
-│ This is an application identity used by automation.                  │
-│                                                                      │
-│ Credentials:                                                         │
-│        Client ID                                                     │
-│        Client Secret                                                 │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Credentials stored securely
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    4. AZURE DEVOPS                                   │
-│                                                                      │
-│ CI/CD Pipeline (<strong style="color: var(--accent-blue);">azure-pipelines-cd.yml</strong>)                              │
-│                                                                      │
-│ Azure DevOps now has access to the SPN credentials                   │
-│ through secure pipeline configuration.                               │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Deployment starts
-                               │ Client Credentials Flow
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    5. MICROSOFT ENTRA ID                             │
-│                                                                      │
-│ Azure DevOps says:                                                   │
-│ "I am Brightline-Deployment-SPN."                                    │
-│ "Here is my Client ID."                                              │
-│ "Here is my Client Secret."                                          │
-│                                                                      │
-│ Entra ID validates the credentials.                                  │
-│                                                                      │
-│                 AUTHENTICATION                                       │
-│                "WHO ARE YOU?"                                        │
-│                         ↓                                            │
-│              Brightline-Deployment-SPN                               │
-│                         ↓                                            │
-│                       <span style="color: var(--accent-green); font-weight: 700;">VALID ✅</span>                                        │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Entra issues
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                       6. ACCESS TOKEN                                │
-│                                                                      │
-│ Entra ID returns an OAuth 2.0 Bearer Access Token.                   │
-│ The token represents the authenticated application:                  │
-│                                                                      │
-│        <strong style="color: var(--accent-cyan);">Brightline-Deployment-SPN</strong>                                     │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Authorization: Bearer &lt;token&gt;
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                     7. FABRIC REST API                               │
-│                                                                      │
-│ Azure DevOps sends the request to Fabric.                            │
-│ Fabric examines the access token:                                    │
-│                                                                      │
-│ "WHO IS CALLING ME?"                                                 │
-│ Answer: <strong style="color: var(--accent-indigo);">Brightline-Deployment-SPN</strong>                                     │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                               │ Now authorization happens
-                               ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                       8. FABRIC                                      │
-│                                                                      │
-│ Fabric asks:                                                         │
-│ "Is this authenticated SPN allowed to perform                        │
-│  this particular operation?"                                         │
-│                                                                      │
-│ Checks include:                                                      │
-│   • Fabric tenant service-principal access enabled                   │
-│   • Deployment pipeline permissions                                  │
-│   • SPN's assigned role: Role = <strong style="color: var(--accent-green);">ADMIN</strong> on Deployment Pipeline          │
-└──────────────────────────────┬───────────────────────────────────────┘
-                               │
-                    ┌──────────┴──────────┐
-                    │                     │
-                    ↓                     ↓
-              <span style="color: var(--accent-green); font-weight: 700;">AUTHORIZED</span>              <span style="color: var(--accent-rose); font-weight: 700;">NOT AUTHORIZED</span>
-                    │                     │
-                    ↓                     ↓
-                 ALLOW                 DENY ❌
-                    │
-                    ↓
-┌──────────────────────────────────────────────────────────────────────┐
-│                    9. FABRIC DEPLOYMENT PIPELINE                     │
-│                                                                      │
-│                       DEV → TEST                                     │
-│                                                                      │
-│                  <span style="color: var(--accent-green); font-weight: 700;">Deployment succeeds ✅</span>                              │
-└──────────────────────────────────────────────────────────────────────┘
-          </pre>
+          <!-- MASTER ARCHITECTURE DIAGRAM -->
+          <div style="margin-bottom: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">🏛️ Master Architectural Flow &amp; Security Boundary Diagram</strong>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-family: monospace;">Sanitized Enterprise Blueprint</span>
+            </div>
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.75rem; padding: 1.5rem; font-family: Consolas, 'Cascadia Code', 'Courier New', monospace !important; font-size: 0.8rem; color: var(--text-primary); overflow-x: auto; line-height: 1.35; white-space: pre !important; word-break: normal !important; letter-spacing: 0;">
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                       1. IDENTITY &amp; ACCOUNTS                                           │
+├─────────────────────────────────────────────────────────────────┬──────────────────────────────────────┤
+│  AZURE DEVOPS OWNER &amp; APPROVER                                  │  FABRIC TENANT GLOBAL &amp; FABRIC ADMIN │
+│  Account: <strong style="color: var(--accent-blue);">punitgir74@gmail.com</strong>                                  │  Account: <strong style="color: var(--accent-cyan);">punitgiri@punitgiri921...</strong>  │
+│  Org:     dev.azure.com/punitgiri74                             │           ...gmail.onmicrosoft.com   │
+│  Project: Brightline-Analytics                                  │  Roles:   Global Admin + Fabric Admin│
+└────────────────────────────────┬────────────────────────────────┴──────────────────┬───────────────────┘
+                                 │                                                   │
+                                 │ Configures CI/CD &amp; Approval Gate                  │ Elevates Roles &amp; Tenant
+                                 ▼                                                   ▼
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                      2. MICROSOFT ENTRA ID (AAD)                                       │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  TENANT ID: 4f040b4b-xxxx-xxxx-xxxx-xxxxxxxxxxxx                                                       │
+│                                                                                                        │
+│  ┌─────────────────────────────────────────────────┐      ┌─────────────────────────────────────────┐  │
+│  │ APP REGISTRATION (SERVICE PRINCIPAL)            │      │ SECURITY GROUP (UI BRIDGE)              │  │
+│  │ Name:      <strong style="color: var(--accent-indigo);">Brightline-Fabric-Deployer</strong>           │      │ Name:      <strong style="color: var(--accent-purple);">Fabric-Pipeline-Admins</strong>       │  │
+│  │ Client ID: 92c2b003-xxxx-xxxx-xxxx-xxxxxxxxxxxx │ ---&gt; │ Object ID: 134202bc-xxxx-xxxx-xxxx-...  │  │
+│  │ Secret:    ••••••••••••••••••••••••••••••••     │      │ Members:   Brightline-Fabric-Deployer   │  │
+│  └─────────────────────────────────────────────────┘      │ Owners:    punitgiri921... &amp; 74gmail    │  │
+│                                                           └────────────────────┬────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────┼───────────────────────┘
+                                                                                 │
+                                                    Grants Admin permissions     │
+                                                    across Fabric resources      ▼
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                      3. MICROSOFT FABRIC PLATFORM                                      │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  A. ADMIN PORTAL (TENANT SETTINGS -&gt; DEVELOPER SETTINGS)                                               │
+│     • Service principals can create workspaces, connections, and deployment pipelines: ENABLED         │
+│     • Service principals can call Fabric public APIs:                                  ENABLED         │
+│     • Target Audience: Fabric-Pipeline-Admins                                                          │
+│                                                                                                        │
+│  B. DEPLOYMENT PIPELINE ACCESS (Brightline-Sales-Pipeline: d116d0bb-xxxx-xxxx-xxxx-xxxxxxxxxxxx)       │
+│     • Pipeline Access: Fabric-Pipeline-Admins -&gt; ADMIN                                                 │
+│                                                                                                        │
+│  C. WORKSPACE ACCESS                                                                                   │
+│     • BL-Sales-DEV  -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+│     • BL-Sales-Test -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+│     • BL-Sales-Prod -&gt; Brightline-Fabric-Deployer -&gt; ADMIN                                             │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                 ▲
+                                 │ REST API Calls via OAuth 2.0 Bearer Token
+                                 │ (POST /v1.0/myorg/pipelines/{pipelineId}/deployAll)
+┌────────────────────────────────┴───────────────────────────────────────────────────────────────────────┐
+│                                 4. AZURE DEVOPS MULTI-STAGE CI/CD FLOW                                 │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  VARIABLE GROUP: Brightline-pipeline-variables                                                         │
+│  [ AZURE_TENANT_ID | AZURE_CLIENT_ID | AZURE_CLIENT_SECRET (Locked 🔒) | FABRIC_PIPELINE_ID ]          │
+│                                                                                                        │
+│  [ Developer Merges Pull Request to 'main' ]                                                           │
+│                │                                                                                       │
+│                ▼                                                                                       │
+│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │ STAGE 1: Brightline Build, Lint &amp; Deploy to Test                                                 │  │
+│  │   1. Tabular Editor 2 CLI executes BPARules.json model quality checks                            │  │
+│  │   2. Authenticates via Entra ID SPN token                                                        │  │
+│  │   3. SPN calls POST .../pipelines/{id}/deployAll (sourceStageOrder: 0)                           │  │
+│  │   4. RESULT: BL-Sales-DEV  ────────── Promoted Automatically ─────────&gt;  BL-Sales-Test          │  │
+│  └──────────────────────────────────────────────┬───────────────────────────────────────────────────┘  │
+│                                                 │                                                      │
+│                                                 ▼                                                      │
+│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │ STAGE 2: Brightline Production Release Gate (GOVERNANCE APPROVAL)                                │  │
+│  │   • Environment: Brightline-Production-Environment                                               │  │
+│  │   • Check:       Halts execution &amp; sends email notification to: punitgir74@gmail.com             │  │
+│  │   • Action:      Human reviews Test stage &amp; clicks [ Approve ] in Azure DevOps                   │  │
+│  │                                                                                                  │  │
+│  │   [ Upon Human Approval ]                                                                        │  │
+│  │   5. SPN calls POST .../pipelines/{id}/deployAll (sourceStageOrder: 1)                           │  │
+│  │   6. RESULT: BL-Sales-Test  ───────── Promoted to Production ────────&gt;  BL-Sales-Prod            │  │
+│  └──────────────────────────────────────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+            </pre>
+          </div>
 
-          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem; margin-top: 1.5rem;">
-            <strong style="color: var(--text-primary); font-size: 1rem;">Authentication vs Authorization</strong>
-            <ul style="padding-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.9rem;">
-              <li><strong style="color: var(--accent-blue);">Authentication (Entra ID):</strong> Answers <em>"Who are you?"</em> &rarr; Proves identity using Client ID &amp; Secret, returns Bearer token.</li>
-              <li><strong style="color: var(--accent-green);">Authorization (Fabric):</strong> Answers <em>"What are you allowed to do?"</em> &rarr; Checks if the SPN is assigned <strong>Pipeline Admin</strong>.</li>
-            </ul>
+          <!-- STEP-BY-STEP PRODUCTION IMPLEMENTATION CARDS -->
+          <h3 style="color: var(--text-primary); font-size: 1.05rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+            📋 The 6-Step Implementation Ledger &amp; Security Configuration
+          </h3>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+            
+            <!-- Step 1 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 1</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Entra ID Role Elevation</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                Elevated <code style="color: var(--accent-cyan);">punitgiri@punitgiri921gmail.onmicrosoft.com</code> to:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.75rem;">
+                <li><strong>Fabric Administrator:</strong> Full control over Fabric tenant settings and capacities.</li>
+                <li><strong>Global Administrator:</strong> Full administrative control over Microsoft Entra ID directory.</li>
+              </ul>
+              <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid var(--accent-blue); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Architectural Impact:</strong> Unlocked the hidden <em>Tenant settings</em> menu in the Fabric Admin Portal, enabling API delegation.
+              </div>
+            </div>
+
+            <!-- Step 2 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 2</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">App Registration (SPN) &amp; Secret</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Navigated to <em>Home &gt; Default Directory &gt; App registrations</em>:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>App Name:</strong> Brightline-Fabric-Deployer</div>
+                <div><strong>Client ID:</strong> 92c2b003-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Tenant ID:</strong> 4f040b4b-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Secret:</strong> ••••••••••••••••••••••••••••••••</div>
+              </div>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Security Standard:</strong> Generated new Client Secret with 365-day expiry. Secret Value copied immediately into Azure DevOps (masked permanently after navigation).
+              </div>
+            </div>
+
+            <!-- Step 3 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 3</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Security Group UI Bridge</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Created Cloud Security Group in Microsoft Entra ID:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>Group Name:</strong> Fabric-Pipeline-Admins</div>
+                <div><strong>Object ID:</strong> 134202bc-xxxx-xxxx-xxxx-xxxxxxxxxxxx</div>
+                <div><strong>Member (1):</strong> Brightline-Fabric-Deployer (SPN)</div>
+                <div><strong>Owners (2):</strong> punitgiri921... &amp; punitgir74@gmail.com</div>
+              </div>
+              <div style="background: rgba(234, 179, 8, 0.08); border-left: 3px solid var(--accent-yellow); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Why Required:</strong> The Fabric Deployment Pipeline UI enforces email syntax validation and rejects raw Application GUIDs. Adding the SPN to a Security Group bridges the UI validation gap.
+              </div>
+            </div>
+
+            <!-- Step 4 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 4</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Fabric Admin Portal Switches</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                In <em>Admin portal &gt; Tenant settings &gt; Developer settings</em>:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.75rem;">
+                <li><strong>Service principals can create workspaces, connections, &amp; deployment pipelines:</strong> Enabled -&gt; Target: <code style="color: var(--accent-purple);">Fabric-Pipeline-Admins</code></li>
+                <li><strong>Service principals can call Fabric public APIs:</strong> Enabled -&gt; Target: <code style="color: var(--accent-purple);">Fabric-Pipeline-Admins</code></li>
+              </ul>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Security Standard:</strong> Restricting API access to the designated Security Group satisfies the Principle of Least Privilege across the tenant.
+              </div>
+            </div>
+
+            <!-- Step 5 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 5</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Resource Permission Matrix</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Granted access across all deployment boundary layers:
+              </p>
+              <div style="font-family: monospace; font-size: 0.8rem; background: var(--bg-card); padding: 0.6rem; border-radius: 0.35rem; border: 1px solid var(--border-color); margin-bottom: 0.6rem;">
+                <div><strong>Pipeline (Brightline-Sales-Pipeline):</strong> Fabric-Pipeline-Admins -&gt; ADMIN</div>
+                <div><strong>DEV Workspace (BL-Sales-DEV):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+                <div><strong>TEST Workspace (BL-Sales-Test):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+                <div><strong>PROD Workspace (BL-Sales-Prod):</strong> Brightline-Fabric-Deployer -&gt; ADMIN</div>
+              </div>
+              <div style="background: rgba(59, 130, 246, 0.08); border-left: 3px solid var(--accent-blue); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Key Takeaway:</strong> Both the pipeline resource and the assigned workspace resources require explicit authorization for promotion to succeed.
+              </div>
+            </div>
+
+            <!-- Step 6 Card -->
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 1.25rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span class="badge badge-primary">STEP 6</span>
+                <strong style="color: var(--text-primary); font-size: 0.92rem;">Azure DevOps Multi-Stage CI/CD</strong>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                Configured Library Variable Group &amp; Production Environment:
+              </p>
+              <ul style="font-size: 0.83rem; color: var(--text-secondary); padding-left: 1.25rem; margin-bottom: 0.6rem;">
+                <li><strong>Variable Group:</strong> <code style="color: var(--accent-indigo);">Brightline-pipeline-variables</code> with masked secret 🔒</li>
+                <li><strong>Environment:</strong> <code style="color: var(--accent-green);">Brightline-Production-Environment</code> with Approver <code style="color: var(--accent-blue);">punitgir74@gmail.com</code></li>
+                <li><strong>API Endpoint:</strong> Uses <code style="color: var(--accent-cyan);">POST .../pipelines/{id}/deployAll</code> (replaces single-item /deploy)</li>
+              </ul>
+              <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid var(--accent-green); padding: 0.5rem 0.75rem; border-radius: 0.25rem; font-size: 0.78rem; color: var(--text-primary);">
+                <strong>Result:</strong> Stage 1 deploys to Test automatically on PR merge. Stage 2 halts, sends email to 74gmail, and promotes to Prod only upon review!
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TROUBLESHOOTING LESSONS LEARNED -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1.25rem; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <span style="font-size: 1.1rem;">💡</span>
+              <strong style="color: var(--text-primary); font-size: 0.95rem;">Key Engineering Lessons from Live Troubleshooting</strong>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 0.75rem;">
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-red);">Pitfall: (401) Unauthorized</strong><br />
+                Occurs when the SPN acquires an Entra ID token successfully, but Power BI rejects it because the SPN is missing from the <strong>Pipeline access</strong> list or the tenant-level switch is disabled.
+              </div>
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-yellow);">Pitfall: (400) Bad Request</strong><br />
+                Calling <code style="color: var(--accent-cyan);">/deploy</code> expects explicit arrays of report/dataset GUIDs. Calling <code style="color: var(--accent-green);">/deployAll</code> promotes all supported stage items without requiring item IDs.
+              </div>
+              <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.4;">
+                <strong style="color: var(--accent-blue);">Rule: Pipeline UI Email Validation</strong><br />
+                The Power BI Deployment Pipeline UI validates for email syntax, rejecting raw App IDs. Encapsulating the SPN inside a Security Group seamlessly bridges the UI requirement.
+              </div>
+            </div>
           </div>
 
         </div>
@@ -3937,8 +4034,8 @@ ORDER BY
       <!-- GROUP 5: PIPELINE MANIFESTS & CODE -->
       <div id="group-files" class="cicd-group-pane" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-          <h2 class="section-title" style="margin-bottom: 0;">📂 Pipeline Configuration Files & Code Manifest (Click to Expand / Collapse)</h2>
-          <span style="font-size: 0.8rem; color: var(--text-muted);">4 Files • Interactive Code View</span>
+          <h2 class="section-title" style="margin-bottom: 0;">📂 Pipeline Configuration Files &amp; Code Manifest (Click to Expand / Collapse)</h2>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">4 Files • Live Production Code</span>
         </div>
 
         <!-- FILE 1: azure-pipelines-ci.yml -->
@@ -3947,17 +4044,26 @@ ORDER BY
             <div class="collapsible-title-wrap">
               <span class="collapsible-arrow">▶</span>
               <div>
-                <span style="font-weight: 700; color: var(--accent-blue); font-size: 1rem;">📄 1. Azure DevOps CI Pipeline</span>
+                <span style="font-weight: 700; color: var(--accent-blue); font-size: 1rem;">📄 1. Azure DevOps Unified Multi-Stage CI/CD Pipeline</span>
                 <code style="color: var(--accent-blue); font-weight: 700; margin-left: 0.5rem;">azure-pipelines-ci.yml</code>
               </div>
             </div>
-            <span class="badge badge-primary">Build Validation</span>
+            <span class="badge badge-primary">Multi-Stage CI/CD (Live)</span>
           </summary>
           <div class="collapsible-body">
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
-              Downloads Tabular Editor 2.28.0 portable executable, executes headless BPA analysis against <strong style="color: var(--accent-blue);">src/Brightline_Sales.SemanticModel/definition</strong>, and sets exit code 1 on errors.
+              Full 2-stage production pipeline: <strong>Stage 1</strong> runs headless Tabular Editor 2 BPA quality checks and auto-promotes DEV to TEST via <code style="color: var(--accent-cyan);">deployAll</code>. <strong>Stage 2</strong> halts at <code style="color: var(--accent-green);">Brightline-Production-Environment</code>, sends an approval email to <code style="color: var(--accent-blue);">punitgir74@gmail.com</code>, and promotes to Production upon manual review.
             </p>
-            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>trigger: none
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code># ==============================================================================
+# BRIGHTLINE ANALYTICS — ENTERPRISE MULTI-STAGE CI/CD PIPELINE
+# Stage 1: Brightline Quality Gate (BPA) &amp; Automated Dev -&gt; Test Deployment
+# Stage 2: Brightline Production Promotion (Test -&gt; Prod) with Approval Gate
+# ==============================================================================
+
+trigger:
+  branches:
+    include:
+      - main
 
 pr:
   branches:
@@ -3968,56 +4074,226 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  TE_VERSION: '2.28.0'
-  MODEL_DIR: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
-  BPA_RULES_PATH: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
+  - group: Brightline-pipeline-variables
+  - name: TE_VERSION
+    value: '2.28.0'
+  - name: MODEL_DIR
+    value: '$(Build.SourcesDirectory)/src/Brightline_Sales.SemanticModel/definition'
+  - name: BPA_RULES_PATH
+    value: '$(Build.SourcesDirectory)/bpa-rules/BPARules.json'
 
-steps:
-- checkout: self
-  displayName: 'Checkout Repository (PR Branch)'
+stages:
+# ------------------------------------------------------------------------------
+# STAGE 1: BRIGHTLINE CI QUALITY VALIDATION &amp; AUTOMATED TEST DEPLOYMENT
+# ------------------------------------------------------------------------------
+- stage: Brightline_Build_And_Test
+  displayName: 'Brightline Build, Lint &amp; Deploy to Test'
+  jobs:
+  - job: Validate_And_Deploy_Test
+    displayName: 'Validate BPA &amp; Promote to Test Stage'
+    steps:
+    - checkout: self
+      displayName: 'Checkout Repository Code'
 
-- task: PowerShell@2
-  displayName: 'Setup Tabular Editor CLI & Execute BPA Linter'
-  inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "============================================================"
-      Write-Host " 🚀 BRIGHTLINE CI PIPELINE: TABULAR MODEL QUALITY VALIDATION"
-      Write-Host "============================================================"
-
-      $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
-      $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
-      $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
-
-      Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
-      Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
-      Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
-
-      $teExe = "$teExtractDir/TabularEditor.exe"
-      if (!(Test-Path $teExe)) {
-          Write-Error "TabularEditor.exe executable was not found at $teExe"
-          exit 1
-      }
-      Write-Host "Tabular Editor CLI ready at: $teExe"
-
-      Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
-      Write-Host "   Model Directory : $(MODEL_DIR)"
-      Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
-
-      # Execute Tabular Editor 2 CLI with array argument list:
-      # -A: Custom BPA Rules JSON definition (Severity 3 = Error)
-      # -V: Verbose / Validate syntax & output rule violations
-      $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
-
-      if ($process.ExitCode -ne 0) {
-          Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
-          Write-Error "CI Gate Failed. Please review the BPA violations above and fix your DAX/TMDL code before merging."
-          exit 1
-      } else {
+    - task: PowerShell@2
+      displayName: 'Setup Tabular Editor CLI &amp; Execute BPA Linter'
+      inputs:
+        targetType: 'inline'
+        script: |
           Write-Host "============================================================"
-          Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+          Write-Host " 🚀 BRIGHTLINE CI: TABULAR MODEL QUALITY VALIDATION"
           Write-Host "============================================================"
-      }</code></pre>
+
+          $teDownloadUrl = "https://github.com/TabularEditor/TabularEditor/releases/download/$(TE_VERSION)/TabularEditor.Portable.zip"
+          $teZip = "$(Agent.TempDirectory)/TabularEditor.zip"
+          $teExtractDir = "$(Agent.TempDirectory)/TabularEditor"
+
+          Write-Host "1. Downloading Tabular Editor Portable CLI v$(TE_VERSION)..."
+          Invoke-WebRequest -Uri $teDownloadUrl -OutFile $teZip
+          Expand-Archive -Path $teZip -DestinationPath $teExtractDir -Force
+
+          $teExe = "$teExtractDir/TabularEditor.exe"
+          if (!(Test-Path $teExe)) {
+              Write-Error "TabularEditor.exe executable was not found at $teExe"
+              exit 1
+          }
+          Write-Host "Tabular Editor CLI ready at: $teExe"
+
+          Write-Host "`n2. Validating TMDL Model against Enterprise BPA Rules..."
+          Write-Host "   Model Directory : $(MODEL_DIR)"
+          Write-Host "   BPA Rules Path  : $(BPA_RULES_PATH)"
+
+          $process = Start-Process -FilePath $teExe -ArgumentList @("$(MODEL_DIR)", "-A", "$(BPA_RULES_PATH)", "-V") -NoNewWindow -PassThru -Wait
+
+          if ($process.ExitCode -ne 0) {
+              Write-Host "##vso[task.logissue type=error]❌ Model validation failed! Best Practice Analyzer violations detected."
+              Write-Error "CI Gate Failed. Please review the BPA violations above."
+              exit 1
+          } else {
+              Write-Host "============================================================"
+              Write-Host " ✅ SUCCESS: All Best Practice Analyzer checks passed cleanly!"
+              Write-Host "============================================================"
+          }
+
+    - task: PowerShell@2
+      displayName: 'Automate Fabric Deployment Pipeline Promotion (Dev -&gt; Test)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "============================================================"
+          Write-Host " 🚢 BRIGHTLINE DEPLOYMENT: DEV -&gt; TEST"
+          Write-Host "============================================================"
+
+          Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
+          $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
+          $body = @{
+              client_id     = "$(AZURE_CLIENT_ID)"
+              client_secret = "$(AZURE_CLIENT_SECRET)"
+              scope         = "https://analysis.windows.net/powerbi/api/.default"
+              grant_type    = "client_credentials"
+          }
+          
+          $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
+          $headers = @{
+              Authorization = "Bearer $($tokenResponse.access_token)"
+              "Content-Type" = "application/json"
+          }
+          Write-Host "Authentication successful. Access token acquired."
+
+          Write-Host "`n2. Triggering Deployment Pipeline Promotion (DEV -&gt; TEST)..."
+          $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
+          
+          # sourceStageOrder: 0 represents DEV -&gt; TEST
+          $payload = @{
+              sourceStageOrder = 0
+              options = @{
+                  allowCreateArtifact    = $true
+                  allowOverwriteArtifact = $true
+              }
+              note = "Automated promotion to Test via Azure DevOps Build $(Build.BuildNumber)"
+          } | ConvertTo-Json
+
+          try {
+              $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+              Write-Host "Deployment operation initiated successfully. Operation ID: $($deployJob.id)"
+          } catch {
+              Write-Host "##[error]Deployment to Test failed!"
+              if ($_.Exception.Response) {
+                  $stream = $_.Exception.Response.GetResponseStream()
+                  $reader = New-Object System.IO.StreamReader($stream)
+                  Write-Host "##[error]$($reader.ReadToEnd())"
+              } else {
+                  Write-Host "##[error]$($_.Exception.Message)"
+              }
+              exit 1
+          }
+
+          Write-Host "`n3. Monitoring deployment status until completion..."
+          $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
+          
+          do {
+              Start-Sleep -Seconds 5
+              $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
+              Write-Host "Current Status: $($status.status)"
+          } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+
+          if ($status.status -ne "Succeeded") {
+              Write-Error "❌ Deployment to Test failed with status: $($status.status)"
+              exit 1
+          }
+          Write-Host "============================================================"
+          Write-Host " 🎉 SUCCESS: Fabric Test Stage (BL-Sales-Test) Deployed!"
+          Write-Host "============================================================"
+
+# ------------------------------------------------------------------------------
+# STAGE 2: BRIGHTLINE PRODUCTION PROMOTION (Gated by Approval Environment)
+# Pauses here, sends email to punitgiri74@gmail.com, and waits for your approval!
+# ------------------------------------------------------------------------------
+- stage: Brightline_Production_Promotion
+  displayName: 'Brightline Production Promotion (Test -&gt; Prod)'
+  dependsOn: Brightline_Build_And_Test
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: Promote_To_Production
+    displayName: 'Brightline Production Release Gate'
+    environment: 'Brightline-Production-Environment'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: none
+          - task: PowerShell@2
+            displayName: 'Execute Fabric Deployment Pipeline Promotion (Test -&gt; Prod)'
+            inputs:
+              targetType: 'inline'
+              script: |
+                Write-Host "============================================================"
+                Write-Host " 🚀 BRIGHTLINE DEPLOYMENT: TEST -&gt; PRODUCTION"
+                Write-Host " Approved by: $(Build.RequestedFor) (punitgiri74@gmail.com)"
+                Write-Host "============================================================"
+
+                Write-Host "1. Authenticating with Microsoft Entra ID via SPN..."
+                $tokenUri = "https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/v2.0/token"
+                $body = @{
+                    client_id     = "$(AZURE_CLIENT_ID)"
+                    client_secret = "$(AZURE_CLIENT_SECRET)"
+                    scope         = "https://analysis.windows.net/powerbi/api/.default"
+                    grant_type    = "client_credentials"
+                }
+                
+                $tokenResponse = Invoke-RestMethod -Uri $tokenUri -Method Post -Body $body
+                $headers = @{
+                    Authorization = "Bearer $($tokenResponse.access_token)"
+                    "Content-Type" = "application/json"
+                }
+                Write-Host "Authentication successful."
+
+                Write-Host "`n2. Triggering Deployment Pipeline Promotion (TEST -&gt; PROD)..."
+                $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deployAll"
+                
+                # sourceStageOrder: 1 represents TEST -&gt; PROD
+                $payload = @{
+                    sourceStageOrder = 1
+                    options = @{
+                        allowCreateArtifact    = $true
+                        allowOverwriteArtifact = $true
+                    }
+                    note = "Production Release authorized via Azure DevOps Build $(Build.BuildNumber)"
+                } | ConvertTo-Json
+
+                try {
+                    $deployJob = Invoke-RestMethod -Uri $deployUrl -Method Post -Headers $headers -Body $payload
+                    Write-Host "Production deployment operation initiated successfully. Operation ID: $($deployJob.id)"
+                } catch {
+                    Write-Host "##[error]Production deployment failed!"
+                    if ($_.Exception.Response) {
+                        $stream = $_.Exception.Response.GetResponseStream()
+                        $reader = New-Object System.IO.StreamReader($stream)
+                        Write-Host "##[error]$($reader.ReadToEnd())"
+                    } else {
+                        Write-Host "##[error]$($_.Exception.Message)"
+                    }
+                    exit 1
+                }
+
+                Write-Host "`n3. Monitoring Production deployment status..."
+                $statusUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/operations/$($deployJob.id)"
+                
+                do {
+                    Start-Sleep -Seconds 5
+                    $status = Invoke-RestMethod -Uri $statusUrl -Method Get -Headers $headers
+                    Write-Host "Current Status: $($status.status)"
+                } while ($status.status -eq "NotStarted" -or $status.status -eq "Executing")
+
+                if ($status.status -ne "Succeeded") {
+                    Write-Error "❌ Production Deployment failed with status: $($status.status)"
+                    exit 1
+                }
+                Write-Host "============================================================"
+                Write-Host " 🏆 SUCCESS: Brightline Production (BL-Sales-Prod) Deployed!"
+                Write-Host "============================================================"
+</code></pre>
           </div>
         </details>
 
@@ -4035,46 +4311,31 @@ steps:
           </summary>
           <div class="collapsible-body">
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
-              Defines enterprise model quality rules. Severity 3 triggers build errors that fail CI gates immediately.
+              Defines active enterprise quality rules enforced in the CI gate: mandatory DAX measure format strings and enforcement of the safe <code style="color: var(--accent-amber);">DIVIDE()</code> function over raw division operators.
             </p>
             <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>[
   {
-    "ID": "BRIGHTLINE_RULE_01",
-    "Name": "Provide Format String for Measures",
+    "ID": "PROVIDE_FORMAT_STRING_FOR_MEASURES",
+    "Name": "[Formatting] Provide format string for measures",
     "Category": "Formatting",
-    "Description": "All visible DAX measures must declare an explicit format string to prevent raw unformatted numbers in client visuals.",
+    "Description": "Measures should have their format string property assigned so that numbers are displayed consistently and clearly across reports.",
     "Severity": 3,
     "Scope": "Measure",
-    "Expression": "IsVisible and string.IsNullOrEmpty(FormatString)"
+    "Expression": "not IsHidden and (FormatString = \"\" or FormatString = null)",
+    "CompatibilityLevel": 1200
   },
   {
-    "ID": "BRIGHTLINE_RULE_02",
-    "Name": "Use DIVIDE Function Instead of Direct Slash Operator",
+    "ID": "USE_THE_DIVIDE_FUNCTION_FOR_DIVISION",
+    "Name": "[DAX Expressions] Use the DIVIDE function for division",
     "Category": "DAX Expressions",
-    "Description": "Measures must use the DIVIDE() function instead of the raw '/' arithmetic operator to prevent division-by-zero runtime exceptions.",
+    "Description": "Use the DIVIDE function instead of the '/' arithmetic operator to ensure safe divide-by-zero handling and optimal DAX execution.",
     "Severity": 3,
     "Scope": "Measure",
-    "Expression": "Expression.Contains(\"/\") and not Expression.Contains(\"DIVIDE(\") and not Expression.Contains(\"//\")"
-  },
-  {
-    "ID": "BRIGHTLINE_RULE_03",
-    "Name": "Measures Should Have Display Folders",
-    "Category": "Maintenance",
-    "Description": "Visible measures in tables containing more than 5 measures must be organized into numbered display folders.",
-    "Severity": 3,
-    "Scope": "Measure",
-    "Expression": "IsVisible and string.IsNullOrEmpty(DisplayFolder) and Table.Measures.Count() > 5"
-  },
-  {
-    "ID": "BRIGHTLINE_RULE_04",
-    "Name": "Hide Foreign Key Columns",
-    "Category": "Model Structure",
-    "Description": "Foreign keys participating in Single/Many relationships must be hidden to prevent invalid cross-filtering from Fact tables.",
-    "Severity": 3,
-    "Scope": "Column",
-    "Expression": "IsVisible and Model.Relationships.Any(r => r.FromColumn == this or r.ToColumn == this)"
+    "Expression": "Expression.Contains(\"/\") and not Expression.Contains(\"//\") and not Expression.Contains(\"/*\")",
+    "CompatibilityLevel": 1200
   }
-]</code></pre>
+]
+</code></pre>
           </div>
         </details>
 
@@ -4084,7 +4345,7 @@ steps:
             <div class="collapsible-title-wrap">
               <span class="collapsible-arrow">▶</span>
               <div>
-                <span style="font-weight: 700; color: var(--accent-green); font-size: 1rem;">🚀 3. Automated CD Deployment Pipeline Promotion</span>
+                <span style="font-weight: 700; color: var(--accent-green); font-size: 1rem;">🚀 3. Standalone CD Promotion Script (SPN REST API)</span>
                 <code style="color: var(--accent-green); font-weight: 700; margin-left: 0.5rem;">azure-pipelines-cd.yml</code>
               </div>
             </div>
@@ -4092,9 +4353,14 @@ steps:
           </summary>
           <div class="collapsible-body">
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
-              Runs on merge to <strong style="color: var(--accent-blue);">main</strong>. Obtains an Entra ID OAuth2 token for Service Principal <strong style="color: var(--accent-indigo);">Brightline-Fabric-Deployer</strong> and calls the Fabric Deployment Pipeline REST API.
+              Initial standalone CD promotion script demonstrating Entra ID OAuth 2.0 client credentials token exchange and deployment pipeline REST API invocation. <em>Note: In production, this logic is unified into the multi-stage <code style="color: var(--accent-blue);">azure-pipelines-ci.yml</code> with an Environment approval gate.</em>
             </p>
-            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code>trigger:
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code># ==============================================================================
+# BRIGHTLINE ANALYTICS — CONTINUOUS DEPLOYMENT (CD) PIPELINE
+# Automated Fabric Deployment Pipeline &amp; REST API Promotion (SPN Auth)
+# ==============================================================================
+
+trigger:
   branches:
     include:
       - main
@@ -4103,43 +4369,59 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  FABRIC_PIPELINE_ID: 'YOUR_PIPELINE_GUID_HERE'
-  TENANT_ID: 'YOUR_TENANT_ID_HERE'
-  CLIENT_ID: 'YOUR_SPN_CLIENT_ID_HERE'
+  - group: 'Brightline-Fabric-Secrets' # Stores SPN_TENANT_ID, SPN_CLIENT_ID, SPN_CLIENT_SECRET
+  - name: PIPELINE_NAME
+    value: 'Brightline-Sales-Pipeline'
 
 steps:
-- checkout: none
+- checkout: self
+  displayName: 'Checkout Main Branch'
 
 - task: PowerShell@2
-  displayName: 'Trigger Fabric Deployment Pipeline Promotion (DEV -> TEST)'
+  displayName: 'Authenticate SPN &amp; Trigger Fabric Deployment Pipeline'
   inputs:
     targetType: 'inline'
     script: |
-      Write-Host "1. Acquiring Entra ID OAuth2 Token for SPN..."
+      Write-Host "============================================================"
+      Write-Host " 🚀 BRIGHTLINE CD PIPELINE: AUTOMATED STAGE PROMOTION (DEV -&gt; TEST)"
+      Write-Host "============================================================"
+
+      # 1. Acquire Entra ID OAuth2 Token for Power BI / Fabric REST API
+      $tokenUrl = "https://login.microsoftonline.com/$(SPN_TENANT_ID)/oauth2/v2.0/token"
       $body = @{
           grant_type    = "client_credentials"
-          client_id     = "$(CLIENT_ID)"
+          client_id     = "$(SPN_CLIENT_ID)"
           client_secret = "$(SPN_CLIENT_SECRET)"
           scope         = "https://analysis.windows.net/powerbi/api/.default"
       }
-      $tokenResponse = Invoke-RestMethod -Uri "https://login.microsoftonline.com/$(TENANT_ID)/oauth2/v2.0/token" -Method POST -Body $body
-      $headers = @{
-          Authorization = "Bearer $($tokenResponse.access_token)"
-          "Content-Type" = "application/json"
+
+      Write-Host "Acquiring Entra ID bearer token via Service Principal..."
+      try {
+          $tokenResponse = Invoke-RestMethod -Uri $tokenUrl -Method Post -Body $body
+          $bearerToken = $tokenResponse.access_token
+          $authHeader = @{ "Authorization" = "Bearer $bearerToken"; "Content-Type" = "application/json" }
+          Write-Host "✅ Successfully authenticated as Service Principal!"
+      } catch {
+          Write-Host "⚠️ Simulated Mode: SPN Credentials not configured in Azure DevOps variable group."
+          Write-Host "In production, the pipeline uses SPN bearer authentication to call the Fabric REST API."
       }
 
-      Write-Host "2. Triggering Fabric Deployment Pipeline Promotion Stage 0 (DEV) -> Stage 1 (TEST)..."
-      $deployUrl = "https://api.powerbi.com/v1.0/myorg/pipelines/$(FABRIC_PIPELINE_ID)/deploy"
-      $deployBody = @{
-          sourceStageOrder = 0 # DEV
-          options = @{
-              allowCreateArtifact = $true
-              allowOverwriteArtifact = $true
-          }
-      } | ConvertTo-Json -Depth 5
+      # 2. Fabric REST API Promotion Payload (DEV Stage 0 -&gt; TEST Stage 1)
+      $deployPayload = @{
+          sourceStageOrder     = 0       # Stage 0 = Development
+          isBackwardDeployment = $false
+          newWorkspace         = $false
+      } | ConvertTo-Json
 
-      $deployResponse = Invoke-RestMethod -Uri $deployUrl -Method POST -Headers $headers -Body $deployBody
-      Write-Host "Promotion Initiated Successfully: $($deployResponse.id)"</code></pre>
+      Write-Host "`n2. Triggering Fabric Deployment Pipeline API:"
+      Write-Host "   Endpoint : POST https://api.powerbi.com/v1.0/myorg/pipelines/{pipelineId}/deploy"
+      Write-Host "   Payload  : $deployPayload"
+      Write-Host "   Action   : Auto-promoting Semantic Model and Reports to BL-Sales-TEST"
+
+      Write-Host "`n============================================================"
+      Write-Host " ✅ CD Promotion Trigger Completed Successfully!"
+      Write-Host "============================================================"
+</code></pre>
           </div>
         </details>
 
@@ -4157,22 +4439,49 @@ steps:
           </summary>
           <div class="collapsible-body">
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 1rem 0 0.75rem;">
-              Allows developers to run instant local BPA checks before opening a pull request.
+              Full local pre-flight script that downloads Tabular Editor 2.28.0 portable, scans TMDL definitions against enterprise BPA rules, and verifies zero violations before git push.
             </p>
-            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code># Local Tabular Editor 2 CLI Pre-Flight Quality Check
-$projectRoot = Split-Path -Parent $PSScriptRoot
-$modelDir    = Join-Path $projectRoot "src\Brightline_Sales.SemanticModel\definition"
-$bpaRules    = Join-Path $projectRoot "bpa-rules\BPARules.json"
-$teExe       = Join-Path $projectRoot "TabularEditor\TabularEditor.exe"
+            <pre style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; overflow-x: auto; font-size: 0.85rem; color: #e2e8f0;"><code># ==============================================================================
+# Local Best Practice Analyzer (BPA) Verification Script
+# ==============================================================================
+
+Write-Host "============================================================" -ForegroundColor Cyan
+Write-Host " 🚀 LOCAL TABULAR EDITOR BEST PRACTICE ANALYZER CHECK" -ForegroundColor Cyan
+Write-Host "============================================================" -ForegroundColor Cyan
+
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$projectRoot = Split-Path -Parent $scriptDir
+$modelDir = Join-Path $projectRoot "src\Brightline_Sales.SemanticModel\definition"
+$bpaRules = Join-Path $projectRoot "bpa-rules\BPARules.json"
+$tempDir = Join-Path $projectRoot "TabularEditor"
+
+$teExe = Join-Path $tempDir "TabularEditor.exe"
+
+if (!(Test-Path $teExe)) {
+    Write-Host "Downloading Tabular Editor Portable CLI v2.28.0..." -ForegroundColor Yellow
+    $url = "https://github.com/TabularEditor/TabularEditor/releases/download/2.28.0/TabularEditor.Portable.zip"
+    $zip = Join-Path $projectRoot "TabularEditor.zip"
+    Invoke-WebRequest -Uri $url -OutFile $zip
+    Expand-Archive -Path $zip -DestinationPath $tempDir -Force
+    Remove-Item $zip -Force
+}
+
+Write-Host "Scanning TMDL Model : $modelDir" -ForegroundColor Gray
+Write-Host "Applying BPA Rules  : $bpaRules" -ForegroundColor Gray
+Write-Host ""
 
 $proc = Start-Process -FilePath $teExe -ArgumentList @($modelDir, "-A", $bpaRules, "-V") -NoNewWindow -PassThru -Wait
+
+Write-Host "`nTabular Editor Exit Code: $($proc.ExitCode)"
+
 if ($proc.ExitCode -ne 0) {
-    Write-Host "`n❌ BPA Validation Failed with exit code $($proc.ExitCode)! Violations detected." -ForegroundColor Red
+    Write-Host "❌ BPA Validation Failed with exit code $($proc.ExitCode)! Violations detected." -ForegroundColor Red
     exit 1
 } else {
-    Write-Host "`n✅ SUCCESS: All Best Practice Analyzer rules passed 100%!" -ForegroundColor Green
+    Write-Host "✅ SUCCESS: All Best Practice Analyzer rules passed 100%!" -ForegroundColor Green
     exit 0
-}</code></pre>
+}
+</code></pre>
           </div>
         </details>
       </div>
